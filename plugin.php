@@ -12,7 +12,10 @@ Author URI: http://scottduncombe.com/
 $base = WP_PLUGIN_URL . '/' . str_replace(basename( __FILE__), "" ,plugin_basename(__FILE__));
 define('base', $base);
 
-
+// Setting up the Admin Page and BusPress options
 require_once('admin/admin_menu.php');
+// Setting the defaults when activating the plugin
+register_activation_hook(__FILE__, 'buspress_defaults');
+
 
 ?>
