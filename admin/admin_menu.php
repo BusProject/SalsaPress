@@ -100,14 +100,15 @@ function buspress_salsa_base_url() {
 
 function buspress_salsa_chapter_filter() {
 	$options = get_option('buspress_options');
-	if( isset($options['buspress_salsa_chapter_filter']) && $options['buspress_salsa_activate'] ) { 
+	$filter =  isset($options['buspress_salsa_chapter_filter']) ? $options['buspress_salsa_chapter_filter'] : '';
+	if( $options['buspress_salsa_activate'] ) { 
 		$obj = new SalsaConnect;
 		if( $obj->status() == "Successful Login" ):
 			$chapters = $obj->post('gets-nofilter','object=chapter');
 			echo "<select id='buspress_salsa_chapter_filter' name='buspress_options[buspress_salsa_chapter_filter]' />";
 				echo "<option value=''>-- Show All Chapters</option>";
 			foreach( $chapters as $chapter):
-				$selected = $options['buspress_salsa_chapter_filter'] == $chapter->chapter_KEY ? 'selected="selected"' : '';
+				$selected = $filter == $chapter->chapter_KEY ? 'selected="selected"' : '';
 				echo '<option '.$selected.' value="'.$chapter->chapter_KEY.'">'.$chapter->Name.'</option>';
 			endforeach;
 			echo "</select>";
@@ -118,7 +119,7 @@ function buspress_salsa_chapter_filter() {
 
 function buspress_salsa_chapter_base() {
 	$options = get_option('buspress_options');
-	if( isset($options['buspress_salsa_chapter_base']) ) {
+	if( isset($options['buspress_salsa_chapter_base']) && !empty($options['buspress_salsa_chapter_base']) ) {
 		echo '<h2>#'.$options['buspress_salsa_chapter_base'].'</h2>';
 	}
 	else echo '---';
@@ -126,7 +127,7 @@ function buspress_salsa_chapter_base() {
 
 function buspress_salsa_org_base() {
 	$options = get_option('buspress_options');
-	if( isset($options['buspress_salsa_org_base']) ) {
+	if( isset($options['buspress_salsa_org_base']) && !empty($options['buspress_salsa_org_base']) ) {
 		echo '<h2>#'.$options['buspress_salsa_org_base'].'</h2>';
 	}
 	else echo '---';
@@ -139,15 +140,15 @@ function buspress_salsa_setup() {
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
 	$options = get_option('buspress_options');
-	if( isset($options['buspress_salsa_activate']) && $options['buspress_salsa_activate'] && empty($options['buspress_salsa_org_base']) ) {
+	if( isset($options['buspress_salsa_activate']) && $options['buspress_salsa_activate'] ) {
 		$obj = new SalsaConnect;
-		if( $obj->status() == "Successful Login" ) {
+		if( $obj->status() == "Successful Login" && empty($options['buspress_salsa_org_base']) ) {
 			$connect = $obj->post('gets','object=campaign_manager&include=chapter_KEY&include=organization_KEY&condition=Email='.$options['buspress_salsa_username'] );
 			$options['buspress_salsa_chapter_base'] = $connect[0]->chapter_KEY; 
 			$options['buspress_salsa_org_base'] = $connect[0]->organization_KEY;
 			update_option('buspress_options',$options);
 		}
-	}
+	} 
 	?>
 	<div class="wrap">
 		<div class="icon32" style="background: transparent url(<?php echo base.'/images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
