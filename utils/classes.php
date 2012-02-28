@@ -41,6 +41,7 @@ class SalsaConnect {
 	protected $ch = NULL;
 
 	function __construct() {
+
 		$crypt = new SalsaCrypt( salsapress_salsa_pass  );
 		$this->pass = $crypt->pass;
 		$this->url = "https://".preg_replace(array('/http:\/\//','/https:\/\//'),array('',''),$this->url);;

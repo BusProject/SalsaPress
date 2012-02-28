@@ -47,12 +47,12 @@ function salsapress_defaults() {
 
 // Setting up some constants from the BusPress options
 $salsapress = get_option('salsapress_options');
-if( isset($salsapress['salsapress_salsa_activate']) && $salsapress['salsapress_salsa_activate'] ) {
+$active = isset($salsapress['salsapress_salsa_activate']) && $salsapress['salsapress_salsa_activate'];
+define('salsapress_active', $active);
+
+if( $active ) {
 	define( 'salsapress_salsa_username', $salsapress['salsapress_salsa_username'] );
-
-	// Defining password as decrypted
 	define( 'salsapress_salsa_pass', $salsapress['salsapress_salsa_pass']  );
-
 	define( 'salsapress_salsa_base_url', $salsapress['salsapress_salsa_base_url']);
 	$chapter_filter = isset( $salsapress['salsapress_salsa_chapter_filter']) ? $salsapress['salsapress_salsa_chapter_filter'] : '';
 	define('salsapress_salsa_chapter_filter', $chapter_filter);

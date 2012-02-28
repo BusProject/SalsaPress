@@ -15,7 +15,12 @@ define('base', $base);
 // Setting up the Admin Page and SalsaPress options
 require_once('utils/crypt.php');
 require_once('utils/classes.php');
+require_once('utils/functions.php');
 require_once('admin/admin_menu.php');
+
+// Widgets
+require_once('widgets/coming_events.php');
+
 // Setting the defaults when activating the plugin
 register_activation_hook(__FILE__, 'buspress_defaults');
 
