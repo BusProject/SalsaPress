@@ -41,9 +41,9 @@ class SalsaConnect {
 	protected $ch = NULL;
 
 	function __construct() {
-
+		$crypt = new SalsaCrypt( buspress_salsa_pass  );
+		$this->pass = $crypt->pass;
 		$this->url = "https://".preg_replace(array('/http:\/\//','/https:\/\//'),array('',''),$this->url);;
-
 		$this->ch = curl_init();
 		curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($this->ch, CURLOPT_TIMEOUT, 100);

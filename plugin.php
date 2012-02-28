@@ -13,6 +13,7 @@ $base = WP_PLUGIN_URL . '/' . str_replace(basename( __FILE__), "" ,plugin_basena
 define('base', $base);
 
 // Setting up the Admin Page and BusPress options
+require_once('utils/crypt.php');
 require_once('utils/classes.php');
 require_once('admin/admin_menu.php');
 // Setting the defaults when activating the plugin

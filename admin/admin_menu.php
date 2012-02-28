@@ -1,6 +1,5 @@
 <?php
 
-
 // Adding the menu to the WordPress admin page
 add_action('admin_menu', 'buspress_menu');
 add_action('admin_menu','buspress_options_menu_init');
@@ -50,7 +49,10 @@ function buspress_defaults() {
 $buspress = get_option('buspress_options');
 if( isset($buspress['buspress_salsa_activate']) && $buspress['buspress_salsa_activate'] ) {
 	define( 'buspress_salsa_username', $buspress['buspress_salsa_username'] );
-	define( 'buspress_salsa_pass', $buspress['buspress_salsa_pass']);
+
+	// Defining password as decrypted
+	define( 'buspress_salsa_pass', $buspress['buspress_salsa_pass']  );
+
 	define( 'buspress_salsa_base_url', $buspress['buspress_salsa_base_url']);
 	$chapter_filter = isset( $buspress['buspress_salsa_chapter_filter']) ? $buspress['buspress_salsa_chapter_filter'] : '';
 	define('buspress_salsa_chapter_filter', $chapter_filter);
@@ -63,6 +65,10 @@ if( isset($buspress['buspress_salsa_activate']) && $buspress['buspress_salsa_act
 
 //BusPress settings validator / fixer 
 function buspress_validate_fix($input) {
+	if( isset($input['buspress_salsa_pass']) ) {
+		$crpt = new SalsaCrypt;
+		$input['buspress_salsa_pass'] = $crpt->store($input['buspress_salsa_pass']);
+	}
 	return $input;
 }
 
@@ -87,7 +93,9 @@ function buspress_salsa_username() {
 function buspress_salsa_pass() {
 	$options = get_option('buspress_options');
 	$readonly = !$options['buspress_salsa_activate'] ? ' readonly="true" ' : '';
-	echo "<input ".$readonly." id='buspress_salsa_pass' name='buspress_options[buspress_salsa_pass]' size='40' type='password' value='{$options['buspress_salsa_pass']}' />";
+	$crypt = new SalsaCrypt( buspress_salsa_pass  );
+	$pass = $crypt->pass;
+	echo "<input ".$readonly." id='buspress_salsa_pass' name='buspress_options[buspress_salsa_pass]' size='40' type='password' value='{$pass}' />";
 }
 
 
@@ -146,6 +154,8 @@ function buspress_salsa_setup() {
 			$connect = $obj->post('gets','object=campaign_manager&include=chapter_KEY&include=organization_KEY&condition=Email='.$options['buspress_salsa_username'] );
 			$options['buspress_salsa_chapter_base'] = $connect[0]->chapter_KEY; 
 			$options['buspress_salsa_org_base'] = $connect[0]->organization_KEY;
+			$crypt = new SalsaCrypt( buspress_salsa_pass  );
+			$options['buspress_salsa_pass'] = $crypt->pass;
 			update_option('buspress_options',$options);
 		}
 	} 
@@ -168,10 +178,10 @@ function buspress_salsa_setup() {
 				echo '<h3 >Login Status: <span '.$color.'>'.$obj->status().'</span></h3>';
 			} 
 		?>
-
 		</form>
 	</div>
 	<?php
 }
+
 
 ?>
