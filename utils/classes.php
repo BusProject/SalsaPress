@@ -73,13 +73,15 @@ class SalsaConnect {
 		$better_values = array();
 		if( !empty($values) ) foreach( $values as $fix):
 			$code = substr($fix, 0, strpos($fix,"("));
-			$fixme = substr($fix, strpos($fix,'(')+1, strlen($fix)-strpos($fix,'(')-2);
-			$better = array(
-				'DATE' => date('Y-m-d',strtotime($fixme)),
-				'GET' => $_GET[$fixme],
-				'POST' => $_POST[$fixme]
-			);
-			if( isset($better[$code]) ) $better_values[] = $better[$code];
+			if( isset($better[$code]) ) {
+				$fixme = substr($fix, strpos($fix,'(')+1, strlen($fix)-strpos($fix,'(')-2);
+				$better = array(
+					'DATE' => date('Y-m-d',strtotime($fixme)),
+					'GET' => $_GET[$fixme],
+					'POST' => $_POST[$fixme]
+				);
+				$better_values[] = $better[$code];
+			}
 			else $better_values[] = $fix;
 		endforeach;
 
@@ -118,8 +120,10 @@ class SalsaConnect {
 					$nicename = $nicename." ".$ii;
 					$ii++;
 				endwhile;
-				if( constant("PHP_OLD") ) $keyed[$nicename] = htmlspecialchars($temp[0][$i]);
-				else $keyed[$nicename] = htmlspecialchars($temp[$i]);
+				if(strlen($nicename) > 0 && (isset($temp[$i]) || isset($temp[0][$i]) && strlen($nicename) )) {
+					if( constant("PHP_OLD") ) $keyed[$nicename] = htmlspecialchars($temp[0][$i]);
+					else $keyed[$nicename] = htmlspecialchars($temp[$i]);
+				}
 				$i++;
 			}
 			$k = (object)$keyed;
