@@ -8,7 +8,7 @@ class salsapress_coming_events extends WP_Widget
   function salsapress_coming_events()
   {
     $widget_ops = array('description' => __('Coming events, pulled out of Salsa.'));
-    $this->WP_Widget('salsapress_coming_events', __('Salsa Events'), $widget_ops);
+    $this->WP_Widget('salsapress_coming_events_widget', __('Salsa Events'), $widget_ops);
   }
 
   function form($instance)

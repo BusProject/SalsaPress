@@ -24,6 +24,7 @@ require_once('admin/admin_menu.php');
 // Widgets
 require_once('widgets/coming_events.php');
 require_once('widgets/signup_page.php');
+require_once('widgets/event_form.php');
 
 // Setting the defaults when activating the plugin
 register_activation_hook(__FILE__, 'salsapress_defaults');

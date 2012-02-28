@@ -346,8 +346,8 @@ class SalsaForm {
 
 		$this->SalsaConnect = new SalsaConnect;
 		$myform = $this->SalsaConnect->post('get','object='.$data['type'].'&key='.$key);
-
-		if( strlen($myform->Request) < 1 && $this->obj == 'event' ) {
+		
+		if( (!isset($myform->Request) || strlen($myform->Request) < 1 ) && $this->obj == 'event' ) {
 			$myform->Request = "First_Name,Last_Name,Email,Phone";
 			$myform->Required = "First_Name,Last_Name,Email,Phone";
 		}
@@ -368,7 +368,8 @@ class SalsaForm {
 		);
 
 		if( $this->obj == 'event' ) {
-			$triggers = $this->SalsaConnect->post('gets','object=event_email_trigger&include=email_trigger_KEY&condition=event_KEY='.$this->options->salsa_key);
+			$triggers = $this->SalsaConnect->post('gets','object=event_email_trigger&include=email_trigger_KEY&condition=event_KEY='.$this->form->key);
+			$this->form->email_trigger_KEYS = '';
 			foreach ( $triggers as $trigger ) {
 				$this->form->email_trigger_KEYS .= $trigger->key.',';
 			 }
@@ -459,7 +460,7 @@ class SalsaForm {
 
 			//Setting up Tags
 			if( isset($this->form->PreInterest_Text) ) $form_return .= '<p>'.$this->form->PreInterest_Text.'</p>';
-			if( strlen($this->form->tag_KEYS) > 0 ) {
+			if( isset($this->form->tag_KEYS) && strlen($this->form->tag_KEYS) > 0 ) {
 				$tags_pull = explode(",",$this->form->tag_KEYS);
 				foreach ( $tags_pull as  $thing) {
 					$i = 0;

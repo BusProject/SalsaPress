@@ -8,7 +8,7 @@ class salsa_signup_widget extends WP_Widget
   function salsa_signup_widget()
   {
     $widget_ops = array('description' => __('Add a sign up form from Salsa'));
-    $this->WP_Widget('salsa_widget', __('Salsa Sign Up Form'), $widget_ops);
+    $this->WP_Widget('salsapress_signup_form_widget', __('Salsa Sign Up Form'), $widget_ops);
   }
 
   function form($instance)
@@ -17,14 +17,14 @@ class salsa_signup_widget extends WP_Widget
 
 	if( $obj && $obj->on() ) {
 
-		$form_key = esc_attr($instance['form_key']) || '';
-		$title = esc_attr($instance['title']);
-		$description = esc_attr($instance['description']); 
-		$after_save = esc_attr($instance['after_save']); 
+		$form_key = isset($instance['form_key']) ? esc_attr($instance['form_key']) : '';
+		$title = isset($instance['title']) ? esc_attr($instance['title']) : '';
+		$description = isset($instance['description']) ? esc_attr($instance['description']) : ''; 
+		$after_save = isset($instance['after_save']) ? esc_attr($instance['after_save']) : ''; 
 		?>
 		<h3 class="media-title">Embed a Salsa Contact Form</h3>
 		<p>Will create the sign up form based off the one you created in Salsa and will add directly into Salsa<br>
-		<em>Hint: Click to <a target="_blank" href="https://hq-<?php echo jolokia_salsa_base_url;?>/dia/hq/surf/edit.jsp?table=signup_page">Create</a> and <a target="_blank" href="https://hq-<?php echo jolokia_salsa_base_url;?>/salsa/hq/p/salsa/web/staging/list?table=signup_page">edit</a> your Contact Forms in Salsa</em></p>
+		<em>Hint: Click to <a target="_blank" href="https://hq-<?php echo salsapress_salsa_base_url;?>/dia/hq/surf/edit.jsp?table=signup_page">Create</a> and <a target="_blank" href="https://hq-<?php echo salsapress_salsa_base_url;?>/salsa/hq/p/salsa/web/staging/list?table=signup_page">edit</a> your Contact Forms in Salsa</em></p>
 		<input type="hidden" name="type" value="signup_page" id="type">
 		<label for="salsa_key"><?php _e('Salsa Form:'); ?></label>
 		<select class="salsa_key" style="width: 220px;"  id="<?php echo $this->get_field_id('form_key'); ?>" name="<?php echo $this->get_field_name('form_key'); ?>">
