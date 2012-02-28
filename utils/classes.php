@@ -17,10 +17,10 @@ define( "PHP_OLD", true);
 } else define( "PHP_OLD", false);
 
 class SalsaConnect {
-	public $user = buspress_salsa_username;
-	protected $pass = buspress_salsa_pass;
-	public $url = buspress_salsa_base_url;
-	public $chapter = buspress_salsa_chapter_filter;
+	public $user = salsapress_salsa_username;
+	protected $pass = salsapress_salsa_pass;
+	public $url = salsapress_salsa_base_url;
+	public $chapter = salsapress_salsa_chapter_filter;
 	public $result;
 
 	var $urls = Array ( 
@@ -41,7 +41,7 @@ class SalsaConnect {
 	protected $ch = NULL;
 
 	function __construct() {
-		$crypt = new SalsaCrypt( buspress_salsa_pass  );
+		$crypt = new SalsaCrypt( salsapress_salsa_pass  );
 		$this->pass = $crypt->pass;
 		$this->url = "https://".preg_replace(array('/http:\/\//','/https:\/\//'),array('',''),$this->url);;
 		$this->ch = curl_init();
@@ -352,9 +352,9 @@ class SalsaForm {
 
 
 	public function render() {
-		$options = get_option('buspress_options');
-		$chapter = isset($options['buspress_salsa_chapter_base']) ? '/c/'.$options['buspress_salsa_chapter_base'] : '';
-		$fallback_url = $options['buspress_salsa_base_url'].'/o/'.$options['buspress_salsa_org_base'].$chapter;
+		$options = get_option('salsapress_options');
+		$chapter = isset($options['salsapress_salsa_chapter_base']) ? '/c/'.$options['salsapress_salsa_chapter_base'] : '';
+		$fallback_url = $options['salsapress_salsa_base_url'].'/o/'.$options['salsapress_salsa_org_base'].$chapter;
 		
 		$inputs = explode(",",$this->form->Request);
 		$required = explode(",",$this->form->Required);
@@ -485,7 +485,7 @@ class SalsaForm {
 			if( isset($this->options['after_save']) ) $form_return .= '<div id="after_save" style="display: none;">'.rawurldecode($this->options['after_save']).'</div>';
 			$form_return .= $below;
 		} else {
-			$url = 'https://'.buspress_salsa_base_url.'/o/'.$this->form->organization_KEY;
+			$url = 'https://'.salsapress_salsa_base_url.'/o/'.$this->form->organization_KEY;
 			$url .= isset($this->form->chapter_KEY) ? '/c/'.$this->form->chapter_KEY : '';
 			$form_return .= '<button onclick="location.href = \''.$url.'/p/salsa/event/common/public/?event_KEY='.$this->form->key.'#register\';" >Click here to sign up</button>';
 		}

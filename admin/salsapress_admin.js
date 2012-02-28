@@ -2,8 +2,8 @@ wind = window.dialogArguments || opener || parent || top;
 
 jQuery(document).ready( function($) {
 
-	 $('#buspress_salsa_activate').click( function() {
-			if( $('#buspress_salsa_activate:checked').length < 1 ) $('input[type=password], input[type=text]').attr('readonly',true);
+	 $('#salsapress_salsa_activate').click( function() {
+			if( $('#salsapress_salsa_activate:checked').length < 1 ) $('input[type=password], input[type=text]').attr('readonly',true);
 			else $('input[type=password], input[type=text]').attr('readonly',false);
 		});
 
@@ -49,7 +49,7 @@ jQuery(document).ready( function($) {
 			$('input[type=submit]').hide();
 			$.get(
 				document.location.href.split('?')[0],
-				'action=buspress_salsa_report_render&key='+key+'&'+inputs,
+				'action=salsapress_salsa_report_render&key='+key+'&'+inputs,
 				function(response) {
 					if( response[4] > 0 ) $('input[type=submit]').show();
 					$('.preview').show().html(response).addClass('active');
@@ -74,7 +74,7 @@ jQuery(document).ready( function($) {
 		});
 		$.get(
 			document.location.href.split('?')[0],
-			'action=buspress_salsa_report_render&key='+$('#report .salsa_key').val()+'&'+input,
+			'action=salsapress_salsa_report_render&key='+$('#report .salsa_key').val()+'&'+input,
 			function(response) {
 				if( response[4] > 0 ) $('input[type=submit]').show();
 				$('div.preview').html(response).addClass('active');
@@ -108,7 +108,7 @@ jQuery(document).ready( function($) {
 			shortcode += '<img class="salsa mceItem" style="border: 1px dashed #888;" title="salsa data=\' ';
 			var serial = JSON.stringify($('.picked').serializeArray());
 			shortcode += serial.substring(1,serial.length-1).replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");;
-			shortcode += ' \' " src="'+MyAjax.stylesheet_directory+'/custom/buspress/salsaembed.png" alt="" data-mce-src="http://localhost/~dunc/wordpress/wp-content/themes/buspress/custom/buspress/salsaembed.png" data-mce-style="border: 1px dashed #888;">';
+			shortcode += ' \' " src="'+MyAjax.stylesheet_directory+'/custom/salsapress/salsaembed.png" alt="" data-mce-src="http://localhost/~dunc/wordpress/wp-content/themes/salsapress/custom/salsapress/salsaembed.png" data-mce-style="border: 1px dashed #888;">';
 			wind.send_to_editor(shortcode);
 		}
 		event.stopPropagation();

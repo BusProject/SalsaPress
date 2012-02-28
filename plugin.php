@@ -1,8 +1,8 @@
 <?php 
 /*
-Plugin Name: BusPress
+Plugin Name: SalsaPress
 Plugin URI: http://busproject.org/
-Description: BusPress connects WordPress to Salsa
+Description: SalsaPress connects WordPress to Salsa
 Author: Scott Duncombe
 Version: 1.0
 Author URI: http://scottduncombe.com/
@@ -12,7 +12,7 @@ Author URI: http://scottduncombe.com/
 $base = WP_PLUGIN_URL . '/' . str_replace(basename( __FILE__), "" ,plugin_basename(__FILE__));
 define('base', $base);
 
-// Setting up the Admin Page and BusPress options
+// Setting up the Admin Page and SalsaPress options
 require_once('utils/crypt.php');
 require_once('utils/classes.php');
 require_once('admin/admin_menu.php');
