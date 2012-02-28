@@ -383,6 +383,7 @@ class SalsaForm {
 		$description = "<p>".$this->form->$description."</p>";
 		$extra = '';
 		$below = '';
+		$form_return = '';
 
 
 		if ( isset($this->options['event_compact']) ) {
@@ -401,16 +402,15 @@ class SalsaForm {
 			$social .= '<br><em>Link: <input onClick="Javascript: jQuery(this).select()" readonly="readonly" type="text" value="'.$url.'"></em></div>';
 			$gcal = ' (<a href="https://www.google.com/calendar/b/0/render?action=TEMPLATE&text='.$this->form->Event_Name.'&dates='.date('Ymd\This',strtotime($this->form->Start)).'/'.date('Ymd\This',strtotime	($this->form->End)).'&details='.better_excerpt($html->plaintext,500).'&trp=true&sprop=website:'.$url.'&sprop=name:'.$this->form->Location_Common_Name.'&location='.$location_url.'&pli=1&sf=true&output=xml" target="_blank" >Add to GCal</a>) ';
 			$below = $social.'<ul id="deets">'.$location.'<li><strong>When:</strong> '.date_smoosh($this->form->Start,$this->form->End).$gcal.'</li></ul>';
-			$form_return = $title.'<div id="event_compact">'.$ftimage.$description.'</div>';
+			$form_return .= $title.'<div id="event_compact">'.$ftimage.$description.'</div>';
 			$extra = '<h2>Sign Up</h2>';
 		} else { 
 			if ( isset($this->options['salsa_title']) ) $form_return .= $title;
-			if ( isset($this->options['salsa_description']) ) $form_return .=$description;
+			if ( isset($this->options['salsa_description']) ) $form_return .= $description;
 		}
-
-		if( $this->form->No_Registration != 'true' && $this->form->This_Event_Costs_Money != 'true'   ) {
+		if( $this->form->object != 'event' || $this->form->No_Registration != 'true' && $this->form->This_Event_Costs_Money != 'true'   ) {
 			
-			$form_return .= '<form id="salsa-form" ';
+			$form_return .= '<form class="salsa-form" ';
 			$form_return .= 'action="http://'.$fallback_url.'" method="GET" target="_blank" ';
 			$form_return .= ' >';
 			$form_return .= $extra;
@@ -486,7 +486,7 @@ class SalsaForm {
 			$form_return .= '<input type="submit" id="salsa-submit" value="Sign Up!">';
 			$form_return .= '</form>';
 			
-			if( isset($this->options['after_save']) ) $form_return .= '<div id="after_save" style="display: none;">'.rawurldecode($this->options['after_save']).'</div>';
+			if( isset($this->options['after_save']) ) $form_return .= '<div class="after_save" style="display: none;">'.rawurldecode($this->options['after_save']).'</div>';
 			$form_return .= $below;
 		} else {
 			$url = 'https://'.salsapress_salsa_base_url.'/o/'.$this->form->organization_KEY;
