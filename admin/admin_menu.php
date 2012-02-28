@@ -151,7 +151,7 @@ function salsapress_salsa_setup() {
 	$options = get_option('salsapress_options');
 	if( isset($options['salsapress_salsa_activate']) && $options['salsapress_salsa_activate'] ) {
 		$obj = new SalsaConnect;
-		if( $obj->status() == "Successful Login" && empty($options['salsapress_salsa_org_base']) ) {
+		if( $obj->on() && empty($options['salsapress_salsa_org_base']) ) {
 			$connect = $obj->post('gets','object=campaign_manager&include=chapter_KEY&include=organization_KEY&condition=Email='.$options['salsapress_salsa_username'] );
 			$options['salsapress_salsa_chapter_base'] = $connect[0]->chapter_KEY; 
 			$options['salsapress_salsa_org_base'] = $connect[0]->organization_KEY;

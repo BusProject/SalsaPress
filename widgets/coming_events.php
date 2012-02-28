@@ -13,13 +13,9 @@ class salsapress_coming_events extends WP_Widget
 
   function form($instance)
   {
-	$active = salsapress_active;
+	$obj = new SalsaConnect;
 	
-	if( $active ) {
-		$obj = new SalsaConnect;
-		$active = $obj->status() == "Successful Login";
-	}
-	if( $active ) { 
+	if( $obj && $obj->on() ) {
 
     	$template = esc_attr($instance['template']);
 	    $event_number = esc_attr($instance['event_number']);
@@ -75,13 +71,9 @@ class salsapress_coming_events extends WP_Widget
 
   function widget($args, $instance)
   {
-	$active = salsapress_active;
+	$obj = new SalsaConnect;
+	if( $obj && $obj->on() ) {
 	
-	if( $active ) {
-		$obj = new SalsaConnect;
-		$active = $obj->status() == "Successful Login";
-	}
-	if( $active ) {
 		extract($args);
 		$template  = ( $instance['template'] != '' ) ? esc_attr($instance['template']) : '';
 		$event_number  = ( $instance['event_number'] != '' ) ? esc_attr($instance['event_number']) : 4;

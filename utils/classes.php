@@ -41,7 +41,7 @@ class SalsaConnect {
 	protected $ch = NULL;
 
 	function __construct() {
-
+		if( !salsapress_active ) return false;
 		$crypt = new SalsaCrypt( salsapress_salsa_pass  );
 		$this->pass = $crypt->pass;
 		$this->url = "https://".preg_replace(array('/http:\/\//','/https:\/\//'),array('',''),$this->url);;
@@ -59,6 +59,9 @@ class SalsaConnect {
 
 	function status() {
 		return $this->result;
+	}
+	function on() {
+		return $this->result == "Successful Login";
 	}
 
 	function reportgen($key,$values = array()){
