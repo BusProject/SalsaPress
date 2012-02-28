@@ -98,7 +98,7 @@ class salsapress_coming_events extends WP_Widget
 
 		$obj = new SalsaConnect();
 		$stuff = $obj->post('gets','object=event&condition=Status=Active&condition=Start>='.date("Y-m-d").$screen."&limit=".$event_number."&include=Event_Name&include=Start&include=End&include=This_Event_Costs_Money&include=Description&orderBy=Start");
-		//$stuff = $obj->post('gets','object=event&condition=Status=Active&condition=Start>=2010-10-01'.$screen."&limit=".$event_number."&include=Event_Name&include=Start&include=End&include=Description&orderBy=Start");
+
 		?>
 		<div class="salsapress_coming_events">
 			<h2>UPCOMING<a href="
@@ -115,13 +115,13 @@ class salsapress_coming_events extends WP_Widget
 					echo 'https://'.salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.$template.'/p/salsa/event/common/public/'; 
 				}
 			?>
-			" class="more" style="margin-top: -12px;">Full Calendar</a></h2>
-			<ul>
+			" style="margin-top: -12px; float: right;">Full Calendar</a></h2>
+			<ul style="margin-top: 10px;" class="event_list" >
 			<?php if( count($stuff) > 0 ) { foreach ($stuff as $thing ) { 
 			if( $link_to_cal && $thing->This_Event_Costs_Money == false ) $link = $cal_link.'#'.$thing->key;
 			else $link = 'https://'.salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.$template."/p/salsa/event/common/public/?event_KEY=".$thing->key;
 			?>
-				<li><strong><?php echo date_smoosh($thing->Start,$thing->End).': <em>'.$thing->Event_Name; ?></em></strong><br>
+				<li class="event" ><strong><?php echo date_smoosh($thing->Start,$thing->End).': <em>'.$thing->Event_Name; ?></em></strong><br>
 				<?php if( strlen($thing->Description) > 16 ) echo better_excerpt($thing->Description,100)."<br>";?>
 				<a target="_blank" href="<?php echo $link; ?>"><strong>Sign up and more details</strong></a></li>
 			<?php }; 
