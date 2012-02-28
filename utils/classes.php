@@ -364,7 +364,8 @@ class SalsaForm {
 		$required = explode(",",$this->form->Required);
 		$diff_fields = array( 
 			'Phone' => '<input type="text" name="Phone" id="Phone" fillin="Phone"><br><label><em>A text\'s as good as an email</em></label><input type="checkbox" name="tag" id="tag" value="Can Text" checked>',
-			'Zip' => '<input type="text" name="Zip" id="Zip" fillin="Zip" maxlength="5" size="6">'
+			'Zip' => '<input type="text" name="Zip" id="Zip" fillin="Zip" maxlength="5" size="6">',
+			'State' => '<select id="state" name="State" ><option value="">Select a state</option>  <option value="AL">Alabama</option>  <option value="AK">Alaska</option><option value="AS">American Samoa</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">D.C.</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="GU">Guam</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="MP">Northern Mariana Islands</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR" selected="">Oregon</option><option value="PA">Pennsylvania</option><option value="PR">Puerto Rico</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VI">Virgin Islands</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option><option value="AA">Armed Forces (the) Americas</option><option value="AE">Armed Forces Europe</option><option value="AP">Armed Forces Pacific</option><option value="AB">Alberta</option><option value="BC">British Columbia</option><option value="MB">Manitoba</option><option value="NF">Newfoundland</option><option value="NB">New Brunswick</option><option value="NS">Nova Scotia</option><option value="NT">Northwest Territories</option><option value="NU">Nunavut</option><option value="ON">Ontario</option><option value="PE">Prince Edward Island</option><option value="QC">Quebec</option><option value="SK">Saskatchewan</option><option value="YT">Yukon Territory</option><option value="ot">Other</option></select>'
 		);
 
 		if( $this->obj == 'event' ) {
@@ -421,12 +422,14 @@ class SalsaForm {
 			$form_return .= '<input type="hidden" value="'.$this->form->chapter_KEY.'" name="chapter_KEY" id="chapter_KEY">';
 			$form_return .= '<input type="hidden" value="'.$this->form->email_trigger_KEYS.'" name="email_trigger_KEYS" id="email_trigger_KEYS">';
 			foreach ($inputs as $thing) {
-				$form_return .= '<label for="'.$thing.'">'.str_replace('_',' ',$thing);
-				if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
-				$form_return .= "</label>";
-				if( !isset($diff_fields[$thing]) ) $form_return .= '<input type="text" name="'.$thing.'" id="'.$thing.'" fillin="'.strtolower($thing).'">';
-				else $form_return .= $diff_fields[$thing];
-				$form_return .= "<br>";
+				if( $thing != '0' ) {
+					$form_return .= '<label for="'.$thing.'">'.str_replace('_',' ',$thing);
+					if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
+					$form_return .= "</label>";
+					if( !isset($diff_fields[$thing]) ) $form_return .= '<input type="text" name="'.$thing.'" id="'.$thing.'" fillin="'.strtolower($thing).'">';
+					else $form_return .= $diff_fields[$thing];
+					$form_return .= "<br>";
+				}
 			}
 			if( count($required) > 0 ) $form_return .= "<label class='required'><em>* Required</em></label>";
 

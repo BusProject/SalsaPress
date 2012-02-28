@@ -108,7 +108,7 @@ jQuery(document).ready( function($) {
 			shortcode += '<img class="salsa mceItem" style="border: 1px dashed #888;" title="salsa data=\' ';
 			var serial = JSON.stringify($('.picked').serializeArray());
 			shortcode += serial.substring(1,serial.length-1).replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");;
-			shortcode += ' \' " src="'+MyAjax.stylesheet_directory+'/custom/salsapress/salsaembed.png" alt="" data-mce-src="http://localhost/~dunc/wordpress/wp-content/themes/salsapress/custom/salsapress/salsaembed.png" data-mce-style="border: 1px dashed #888;">';
+			shortcode += ' \' " src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" alt="" data-mce-src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" data-mce-style="border: 1px dashed #888;">';
 			wind.send_to_editor(shortcode);
 		}
 		event.stopPropagation();
