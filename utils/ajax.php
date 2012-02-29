@@ -74,7 +74,7 @@ function salsapress_salsa_form_pop() {
 	if ( ! wp_verify_nonce( $nonce, 'myajax-post-comment-nonce' ) ) die ( 'Busted!');
 
 	// get the submitted parameters
-		$info = json_decode(stripslashes($_POST['shortcode']), true);
+	$info = json_decode(stripslashes($_POST['shortcode']), true);
 	$render = new SalsaRender('event');
 	$done = $render->render($info);
 	echo $done;

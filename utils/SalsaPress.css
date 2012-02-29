@@ -6,8 +6,10 @@ span.notice.success { color: green; }
 form.salsa-form label.oops { color: red;  } 
 form.salsa-form { width: 300px; text-align: right;}
 form.salsa-form label { padding: 0px 12px; }
+form.salsa-form label.text_me {padding: 0;}
 /* Signup Widget */
 div.signup_widget { margin: 10px 0 100px; } 
 div.signup_widget h1 { white-space: normal !important; } 
 div.signup_widget form.salsa-form { width: auto; text-align: left; } 
-div.signup_widget form.salsa-form label { display: block; } 
+div.signup_widget form.salsa-form label { display: block; padding: 0; } 
+div.signup_widget form.salsa-form label.text_me {display: inline-block;}

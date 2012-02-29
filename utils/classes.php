@@ -21,6 +21,7 @@ class SalsaConnect {
 	protected $pass = salsapress_salsa_pass;
 	public $url = salsapress_salsa_base_url;
 	public $chapter = salsapress_salsa_chapter_filter;
+	public $cache = false;
 	public $result;
 
 	var $urls = Array ( 
@@ -40,7 +41,7 @@ class SalsaConnect {
 		
 	protected $ch = NULL;
 
-	function __construct() {
+	function __construct($cache = false) {
 		if( !salsapress_active ) return false;
 		$crypt = new SalsaCrypt( salsapress_salsa_pass  );
 		$this->pass = $crypt->pass;
@@ -52,9 +53,13 @@ class SalsaConnect {
 		curl_setopt($this->ch, CURLOPT_COOKIEFILE, '/tmp/cookies_file');
 		curl_setopt($this->ch, CURLOPT_COOKIEJAR, '/tmp/cookies_file');
 
-		$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
-		$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
-		
+		if( !$cache ) {
+			$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
+			$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
+		} else { 
+			$this->cache = true;
+		}
+
 	}
 
 	function status() {
@@ -134,12 +139,37 @@ class SalsaConnect {
 	}
 
 	function post($type, $params, $no_filter = false ) {
-		$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) && !$no_filter ? $this->chapter_fix[$type].$this->chapter : '';
-		curl_setopt($this->ch, CURLOPT_POST, 1);
-		curl_setopt($this->ch, CURLOPT_URL, $this->url.$this->urls[$type]);
-		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&json".$chapter);
+		$save = false;
+		
+		// If this call is being cached, check and see if there's cacehed data
+		if( $this->cache ) {
+			$results = get_transient( $params );
 
-		$go = urlencode(curl_exec($this->ch));
+			if( $results === false ) {
+				$this->cache = false;
+				$save = true;
+				$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
+				$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
+			} else {
+				$go = $results;
+			}
+		}
+
+		// If the query isn't cached 
+		if( !$this->cache ) {
+			$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) && !$no_filter ? $this->chapter_fix[$type].$this->chapter : '';
+			curl_setopt($this->ch, CURLOPT_POST, 1);
+			curl_setopt($this->ch, CURLOPT_URL, $this->url.$this->urls[$type]);
+			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&json".$chapter);
+
+			$go = urlencode(curl_exec($this->ch));
+		}
+
+		// Knows to cache the results if they've expired or aren't there
+		if( $save ) {
+			set_transient( $params , $go , 60*60*12 );
+		}
+
 		return json_decode(urldecode($go));
 	}
 
@@ -237,91 +267,6 @@ class SalsaRender {
 
 
 
-class FormBuilder {
-	public $fields = array();
-	public $defaults = array();
-	public $action;
-	public $submit;
-	public $class;
-	public $callback;
-	public $thisobj;
-
-	function __construct($input = '', $chapter ) {
-		if( !is_array($input) ):
-			$input = json_decode($input);
-		endif;
-
-		if( !isset($input['fields']) || !is_array($input['fields']) || $input == null ) die('Can\'t Build a Form without plan...');
-
-		if( isset($chapter) ) $obj = new SalsaConnect($chapter);
-		if( isset($input['key']) && isset($obj) ) $thisobj = $obj->post('get','key='.$input['key'].'&object='.$input['object']);
-
-		$this->action = isset($input['action']) ? $input['action'] : '';
-		$this->submit = isset($input['submit']) ? $input['submit'] : '';
-		$this->class = isset($input['class']) ? $input['class'] : '';
-		$this->callback = isset($input['callback']) ? $input['callback'] : '';
-		$this->thisobj = isset($thisobj) ? $thisobj : null;
-
-		$defaults = array();
-		$i = 0;
-		foreach( $input['fields'] as $f ):
-			if( isset( $thisobj->$f['name'] ) ) $defaults[$f['name']] = $thisobj->$f['name'];
-			else if( isset($f['default']) ) $defaults[$f['name']] = $f['default'];
-			if( strtotime(substr($defaults[$f['name']],0,-14) ) !== false && isset($chapter) ) $defaults[$f['name']] = date("Y-m-d",strtotime(substr($defaults[$f['name']],0,-14) ));
-
-			if( isset( $f['fetch_options'] ) && isset($obj) ):
-				$input['fields'][$i]['options'] = $obj->optionprep( $f['fetch_options'] );
-			endif;
-			$i += 1;
-		endforeach; 
-		$this->defaults = $defaults;
-		$this->fields = $input['fields'];	
-	}
-
-	function render() {
-		$action = $this->action != '' ? ' action="'.$this->action.'"' : '';
-		$class = $this->class != '' ? ' class="'.$this->class.'"' : '';
-		$callback = $this->callback != '' ? ' callback="'.$this->callback.'"' : '';
-		echo '<form '.$action.' '.$class.' '.$callback.' >'."\n";
-		foreach( $this->fields as $f):
-			if( isset($f['name']) ):
-				$required = isset( $f['required'] ) ? ' *' : '  ';
-				$label = isset( $f['label'] ) ? '<label for="'.$f['name'].'">'.$f['label'].$required.'</label>' : '';
-				$class = isset( $f['class'] ) ? ' class="'.$f['class'].'" ' : '';
-				$value = isset( $this->defaults[$f['name']] ) ? ' value="'.$this->defaults[$f['name']].'" ': '';
-				$type = isset($f['type']) ? $f['type'] : 'text';
-				$name = ' name="'.$f['name'].'" ';
-
-				echo $label."\n";
-				switch( $type ):
-					case 'select':
-						echo '<select '.$name.$class.'>';
-						foreach ($f['options'] as $o):
-							$value = is_array($o) ? $o['value'] : $o;
-							$name = is_array($o) ? $o['name'] : $o;
-							$selected = $value == $this->defaults[$f['name']] ? ' selected="selected" ' : '';
-							echo '<option value="'.$value.'" '.$selected.'>'.$name.'</option>'."\n";
-						endforeach;
-						echo '</select><br>'."\n";
-						break;
-					case 'textarea':
-						echo '<textarea>';
-						if( isset($this->default[$f['name']]) ) echo $this->default[$f['name']];
-						echo '</textarea><br>'."\n";
-						break;
-					default:
-						echo '<input '.$name.$class.$value.' type="'.$type.'" ><br>'."\n";
-						break;
-				endswitch;
-			endif;
-		endforeach;
-		$submit = $this->submit != '' ? ' value="'.$this->submit.'"' : '';
-		echo '<input type="submit" '.$submit.'><br>'."\n";
-		echo '</form>';
-
-	}
-}
-
 
 class SalsaForm {
 	public $form;
@@ -348,7 +293,7 @@ class SalsaForm {
 		
 		$this->options = $data;
 
-		$this->SalsaConnect = new SalsaConnect;
+		$this->SalsaConnect = new SalsaConnect(true);
 		$myform = $this->SalsaConnect->post('get','object='.$data['type'].'&key='.$key);
 		
 		if( (!isset($myform->Request) || strlen($myform->Request) < 1 ) && $this->obj == 'event' ) {
@@ -367,7 +312,7 @@ class SalsaForm {
 		$inputs = explode(",",$this->form->Request);
 		$required = explode(",",$this->form->Required);
 		$diff_fields = array( 
-			'Phone' => '<input type="text" name="Phone" id="Phone" fillin="Phone"><br><label><em>A text\'s as good as an email</em></label><input type="checkbox" name="tag" id="tag" value="Can Text" checked>',
+			//'Phone' => '<input type="text" name="Phone" id="Phone" fillin="Phone"><br><label class="text_me"><em>A text\'s as good as an email</em></label><input type="checkbox" name="tag" id="tag" value="Can Text" checked>',
 			'Zip' => '<input type="text" name="Zip" id="Zip" fillin="Zip" maxlength="5" size="6">',
 			'State' => '<select id="state" name="State" ><option value="">Select a state</option>  <option value="AL">Alabama</option>  <option value="AK">Alaska</option><option value="AS">American Samoa</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">D.C.</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="GU">Guam</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="MP">Northern Mariana Islands</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR" selected="">Oregon</option><option value="PA">Pennsylvania</option><option value="PR">Puerto Rico</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VI">Virgin Islands</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option><option value="AA">Armed Forces (the) Americas</option><option value="AE">Armed Forces Europe</option><option value="AP">Armed Forces Pacific</option><option value="AB">Alberta</option><option value="BC">British Columbia</option><option value="MB">Manitoba</option><option value="NF">Newfoundland</option><option value="NB">New Brunswick</option><option value="NS">Nova Scotia</option><option value="NT">Northwest Territories</option><option value="NU">Nunavut</option><option value="ON">Ontario</option><option value="PE">Prince Edward Island</option><option value="QC">Quebec</option><option value="SK">Saskatchewan</option><option value="YT">Yukon Territory</option><option value="ot">Other</option></select>'
 		);
@@ -512,7 +457,7 @@ class SalsaReport {
 	private $data = array();
 
 	function __construct($key, $inputs) {
-		$obj = new SalsaConnect;
+		$obj = new SalsaConnect(true);
 		$this->data = $obj->reportsplit($key, $inputs);		
 	}
 

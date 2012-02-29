@@ -17,9 +17,9 @@ class salsapress_coming_events extends WP_Widget
 	
 	if( $obj && $obj->on() ) {
 
-    	$template = esc_attr($instance['template']);
-	    $event_number = esc_attr($instance['event_number']);
-	    $link_to_cal = esc_attr($instance['link_to_cal']);
+    	$template = isset($instance['template']) ? esc_attr($instance['template']) : '';
+	    $event_number = isset($instance['event_number']) ? esc_attr($instance['event_number']) : '';
+	    $link_to_cal = isset($instance['link_to_cal']) ? esc_attr($instance['link_to_cal']) : '';
 
 		if( empty($event_number) ) $event_number = 4;
 		if( empty($link_to_cal) ) $link_to_cal = false;
@@ -88,7 +88,7 @@ class salsapress_coming_events extends WP_Widget
 		$screen = !empty($template) ? "&condition=Template=".$template : '';
 		$template = !empty($template) ? "/t/".$template : '';
 
-		$obj = new SalsaConnect();
+		$obj = new SalsaConnect(true);
 		$stuff = $obj->post('gets','object=event&condition=Status=Active&condition=Start>='.date("Y-m-d").$screen."&limit=".$event_number."&include=Event_Name&include=Start&include=End&include=This_Event_Costs_Money&include=Description&orderBy=Start");
 
 		?>
