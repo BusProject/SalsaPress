@@ -125,7 +125,7 @@ function salsapress_salsa_base_url() {
 	echo "<input ".$readonly." id='salsapress_salsa_base_url' name='salsapress_options[salsapress_salsa_base_url]' size='40' type='text' value='{$options['salsapress_salsa_base_url']}' />";
 }
 function salsapress_salsa_status() {
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	$color = $obj->status() == "Successful Login" ? $color = 'style="color: green;"' : 'style="color:red;"';
 	echo '<h3 >Login Status: <span '.$color.'>'.$obj->status().'</span></h3>';
 }
@@ -141,7 +141,7 @@ function salsapress_salsa_chapter_filter() {
 	$options = get_option('salsapress_options');
 	$filter =  isset($options['salsapress_salsa_chapter_filter']) ? $options['salsapress_salsa_chapter_filter'] : '';
 	if( isset($options['salsapress_salsa_activate']) ) { 
-		$obj = new SalsaConnect;
+		$obj = SalsaConnect::singleton();
 		if( $obj->status() == "Successful Login" ):
 			$chapters = $obj->post('gets-nofilter','object=chapter');
 			echo "<select id='salsapress_salsa_chapter_filter' name='salsapress_options[salsapress_salsa_chapter_filter]' />";
@@ -180,7 +180,7 @@ function salsapress_salsa_setup() {
 	}
 	$options = get_option('salsapress_options');
 	if( isset($options['salsapress_salsa_activate']) && $options['salsapress_salsa_activate'] ) {
-		$obj = new SalsaConnect;
+		$obj = SalsaConnect::singleton();
 		if( $obj->on() && empty($options['salsapress_salsa_org_base']) ) {
 			$connect = $obj->post('gets','object=campaign_manager&include=chapter_KEY&include=organization_KEY&condition=Email='.$options['salsapress_salsa_username'] );
 			$options['salsapress_salsa_chapter_base'] = $connect[0]->chapter_KEY; 

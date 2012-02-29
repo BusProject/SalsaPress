@@ -13,7 +13,7 @@ class salsapress_coming_events extends WP_Widget
 
   function form($instance)
   {
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	
 	if( $obj && $obj->on() ) {
 
@@ -71,7 +71,7 @@ class salsapress_coming_events extends WP_Widget
 
   function widget($args, $instance)
   {
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	if( $obj && $obj->on() ) {
 	
 		extract($args);
@@ -88,7 +88,7 @@ class salsapress_coming_events extends WP_Widget
 		$screen = !empty($template) ? "&condition=Template=".$template : '';
 		$template = !empty($template) ? "/t/".$template : '';
 
-		$obj = new SalsaConnect(true);
+		$obj = SalsaConnect::singleton(true);
 		$stuff = $obj->post('gets','object=event&condition=Status=Active&condition=Start>='.date("Y-m-d").$screen."&limit=".$event_number."&include=Event_Name&include=Start&include=End&include=This_Event_Costs_Money&include=Description&orderBy=Start");
 
 		?>

@@ -13,7 +13,7 @@ class salsa_signup_widget extends WP_Widget
 
   function form($instance)
   {
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 
 	if( $obj && $obj->on() ) {
 
@@ -29,7 +29,7 @@ class salsa_signup_widget extends WP_Widget
 		<label for="salsa_key"><?php _e('Salsa Form:'); ?></label>
 		<select class="salsa_key" style="width: 220px;"  id="<?php echo $this->get_field_id('form_key'); ?>" name="<?php echo $this->get_field_name('form_key'); ?>">
 			<option value="">- Select a Sign Up Form -</option>
-				<?php $obj = new SalsaConnect; ?>
+				<?php $obj = SalsaConnect::singleton(); ?>
 				<?php $stuff = $obj->post('gets','object=signup_page&include=title'); ?>
 				<?php foreach ($stuff as $things ) { ?>
 					<option value="<?php echo $things->key; ?>" <?php if( $things->key == $form_key ) { echo 'selected'; }?> ><?php echo $things->title; ?></option>
@@ -63,7 +63,7 @@ class salsa_signup_widget extends WP_Widget
 
 
  function widget($args, $instance) {
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	if( $obj && $obj->on() ) {
 		extract($args);
 		$form_key  = ( $instance['form_key'] != '' ) ? esc_attr($instance['form_key']) : '';

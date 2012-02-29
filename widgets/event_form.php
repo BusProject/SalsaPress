@@ -13,7 +13,7 @@ class salsa_event_widget extends WP_Widget
 
   function form($instance)
   {
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 
 	if( $obj && $obj->on() ) {
 
@@ -71,7 +71,7 @@ class salsa_event_widget extends WP_Widget
 
 
  function widget($args, $instance) {
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	if( $obj && $obj->on() ) {
 		extract($args);
 		$form_key  = ( $instance['form_key'] != '' ) ? esc_attr($instance['form_key']) : '';

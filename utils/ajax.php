@@ -17,7 +17,7 @@ function salsapress_salsa_supporter_submit() {
 
 	// get the submitted parameters
 	$request = $_POST['request'];
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	$go = $obj->rawjson($doing,$request);
 
 
@@ -46,7 +46,7 @@ function salsapress_salsa_event_lookup() {
 
 	// get the submitted parameters
 	$request = $_POST['request'];
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	$go = $obj->rawjson($doing,$request);
 
 

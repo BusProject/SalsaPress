@@ -25,7 +25,7 @@ function salsapress_salsa_report_render() {
 	if (!current_user_can('edit_posts'))  {
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
-	$obj = new SalsaConnect;
+	$obj = SalsaConnect::singleton();
 	
 	$user_input = $obj->post('gets','object=report_condition&condition=value_type=User%20variable&condition=report_KEY='.$_GET['key'], true);
 	
@@ -128,7 +128,7 @@ function salsapress_form_button_iframe_Content(){
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
 	?>
-	<?php $obj = new SalsaConnect; ?>
+	<?php $obj = SalsaConnect::singleton(); ?>
 	<?php $obj->post('gets','object=event&include=Event_Name&orderBy=-Start&limit=50&condition=Start>='.date("Y-m-d")); ?>
 	<div class="embeddable">
 		<h1 style="margin-bottom: 60px; ">Add some Salsa to your page!</h1>
@@ -140,7 +140,7 @@ function salsapress_form_button_iframe_Content(){
 			<label for="salsa_key"><?php _e('Salsa Form:'); ?></label>
 			<select class="salsa_key"  name="salsa_key">
 				<option value="">- Select a Sign Up Form -</option>
-					<?php $obj = new SalsaConnect; ?>
+					<?php $obj = SalsaConnect::singleton(); ?>
 					<?php $stuff = $obj->post('gets','object=signup_page&include=title'); ?>
 					<?php foreach ($stuff as $things ) { ?>
 						<option value="<?php echo $things->key; ?>"><?php echo $things->title; ?></option>
