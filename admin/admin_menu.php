@@ -20,14 +20,25 @@ function salsapress_options_menu_init(){
 	add_settings_field('salsapress_salsa_activate', 'Connect with Salsa?', 'salsapress_salsa_activate', __FILE__, 'salsapress_salsa_credentials');
 	add_settings_field('salsapress_salsa_username', 'Salsa Login (email)', 'salsapress_salsa_username', __FILE__, 'salsapress_salsa_credentials');
 	add_settings_field('salsapress_salsa_pass', 'Salsa Password', 'salsapress_salsa_pass', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_salsa_base_url', 'Salsa Base URL (salsa.democracyinaction.org, org2.democracyinaction.org, salsa.wiredforchange.com, etc) ', 'salsapress_salsa_base_url', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_salsa_chapter_filter', 'Chapter Filter (Only show data from a single chapter)', 'salsapress_salsa_chapter_filter', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_salsa_chapter_base', 'Base Chapter KEY', 'salsapress_salsa_chapter_base', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_salsa_org_base', 'Base Organization KEY', 'salsapress_salsa_org_base', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_stop_cache', '<strong>NEVER</strong> Cache SalsaPress', 'salsapress_cache', __FILE__, 'salsapress_cache_section');
-	add_settings_field('salsapress_cache_reset', 'Reset Current Cache', 'salsapress_cache_reset', __FILE__, 'salsapress_cache_section');
+	add_settings_field('salsapress_salsa_base_url', 'Salsa Base URL (salsa.democracyinaction.org, org2.democracyinaction.org, salsa.wiredforchange.com, etc) ', 'salsapress_salsa_base_url', __FILE__, 'salsapress_salsa_credentials');\
 	add_settings_section('salsapress_salsa_credentials', 'Salsa Credentials', 'salsapress_salsa_credentials', __FILE__);
-	add_settings_section('salsapress_cache_section', 'SalsaPress Caching', 'salsapress_cache_section', __FILE__);
+
+	if( salsapress_active ) {
+		add_settings_field('salsapress_salsa_status', 'Salsa Status ', 'salsapress_salsa_status', __FILE__, 'salsapress_salsa_credentials');
+
+		add_settings_field('salsapress_salsa_chapter_filter', 'Chapter Filter (Only show data from a single chapter)', 'salsapress_salsa_chapter_filter', __FILE__, 'salsapress_salsa_filters');
+		add_settings_field('salsapress_salsa_chapter_base', 'Base Chapter KEY', 'salsapress_salsa_chapter_base', __FILE__, 'salsapress_salsa_filters');
+		add_settings_field('salsapress_salsa_org_base', 'Base Organization KEY', 'salsapress_salsa_org_base', __FILE__, 'salsapress_salsa_filters');
+		add_settings_section('salsapress_salsa_filters', 'Salsa Settings', 'salsapress_salsa_filters', __FILE__);
+		
+
+		add_settings_field('salsapress_stop_cache', '<strong>NEVER</strong> Cache SalsaPress', 'salsapress_cache', __FILE__, 'salsapress_cache_section');
+		add_settings_field('salsapress_cache_reset', 'Reset Current Cache', 'salsapress_cache_reset', __FILE__, 'salsapress_cache_section');
+		add_settings_section('salsapress_cache_section', 'SalsaPress Caching', 'salsapress_cache_section', __FILE__);
+		
+	}
+
+
 	wp_enqueue_script( 'SalsaPress', base.'admin/salsapress_admin.js',array( 'jquery' ), '0.5', true );
 	wp_enqueue_style( 'SalsaPress', base.'admin/salsapress_admin.css','', '0.5', 'all' );
 	localize_scripts();
@@ -41,7 +52,6 @@ function salsapress_defaults() {
 			"salsapress_salsa_username" => "",
 			"salsapress_salsa_pass" => "", 
 			"salsapress_salsa_base_url" => "",
-			"salsapress_salsa_activate" => false,
 			'salsapress_salsa_org_base' => '',
 			'salsapress_salsa_chapter_base' => ''
 		);
@@ -75,6 +85,9 @@ function salsapress_validate_fix($input) {
 		$crpt = new SalsaCrypt;
 		$input['salsapress_salsa_pass'] = $crpt->store($input['salsapress_salsa_pass']);
 	}
+	if( isset($input['salsapress_stop_cache']) ) {
+		salsapress_reset_cache();
+	}
 	return $input;
 }
 
@@ -85,21 +98,21 @@ function  salsapress_salsa_credentials() {
 
 function salsapress_salsa_activate() {
 	$options = get_option('salsapress_options');
-	$checked = $options['salsapress_salsa_activate'] ? ' checked="checked" ' : '';
+	$checked = isset($options['salsapress_salsa_activate']) ? ' checked="checked" ' : '';
 	echo "<input ".$checked." id='salsapress_salsa_activate' name='salsapress_options[salsapress_salsa_activate]' type='checkbox' />";
 }
 
 
 function salsapress_salsa_username() {
 	$options = get_option('salsapress_options');
-	$readonly = !$options['salsapress_salsa_activate'] ? ' readonly="true" ' : '';
+	$readonly = !isset($options['salsapress_salsa_activate']) ? ' readonly="true" ' : '';
 	echo "<input ".$readonly." id='salsapress_salsa_username' name='salsapress_options[salsapress_salsa_username]' size='40' type='text' value='{$options['salsapress_salsa_username']}' />";
 }
 
 function salsapress_salsa_pass() {
 	$options = get_option('salsapress_options');
-	$readonly = !$options['salsapress_salsa_activate'] ? ' readonly="true" ' : '';
-	$pass = !$options['salsapress_salsa_activate'] ?  '' : salsapress_salsa_pass;
+	$readonly = !isset($options['salsapress_salsa_activate']) ? ' readonly="true" ' : '';
+	$pass = !isset($options['salsapress_salsa_activate']) ?  '' : salsapress_salsa_pass;
 	$crypt = new SalsaCrypt(  $pass );
 	$pass = $crypt->pass;
 	echo "<input ".$readonly." id='salsapress_salsa_pass' name='salsapress_options[salsapress_salsa_pass]' size='40' type='password' value='{$pass}' />";
@@ -108,15 +121,26 @@ function salsapress_salsa_pass() {
 
 function salsapress_salsa_base_url() {
 	$options = get_option('salsapress_options');
-	$readonly = !$options['salsapress_salsa_activate'] ? ' readonly="true" ' : '';
+	$readonly = !isset($options['salsapress_salsa_activate']) ? ' readonly="true" ' : '';
 	echo "<input ".$readonly." id='salsapress_salsa_base_url' name='salsapress_options[salsapress_salsa_base_url]' size='40' type='text' value='{$options['salsapress_salsa_base_url']}' />";
+}
+function salsapress_salsa_status() {
+	$obj = new SalsaConnect;
+	$color = $obj->status() == "Successful Login" ? $color = 'style="color: green;"' : 'style="color:red;"';
+	echo '<h3 >Login Status: <span '.$color.'>'.$obj->status().'</span></h3>';
+}
+
+/** Filters Seciton **/
+
+function  salsapress_salsa_filters() {
+	echo '<p>Extra settings to further help configure Salsa</p>';
 }
 
 
 function salsapress_salsa_chapter_filter() {
 	$options = get_option('salsapress_options');
 	$filter =  isset($options['salsapress_salsa_chapter_filter']) ? $options['salsapress_salsa_chapter_filter'] : '';
-	if( $options['salsapress_salsa_activate'] ) { 
+	if( isset($options['salsapress_salsa_activate']) ) { 
 		$obj = new SalsaConnect;
 		if( $obj->status() == "Successful Login" ):
 			$chapters = $obj->post('gets-nofilter','object=chapter');
@@ -179,12 +203,6 @@ function salsapress_salsa_setup() {
 		<p class="submit">
 			<input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes'); ?>" />
 		</p>
-		<?php
-			if( $options['salsapress_salsa_activate'] )  {
-				$color = $obj->status() == "Successful Login" ? $color = 'style="color: green;"' : 'style="color:red;"';
-				echo '<h3 >Login Status: <span '.$color.'>'.$obj->status().'</span></h3>';
-			} 
-		?>
 		</form>
 	</div>
 

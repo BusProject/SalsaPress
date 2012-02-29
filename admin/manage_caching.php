@@ -19,6 +19,10 @@ function salsapress_cache_reset() {
 }
 
 function salsapress_reset_caches() {
+	echo json_encode(array('success' =>  salsapress_reset_cache() ));
+	exit;
+}
+function salsapress_reset_cache() {
 	$options = get_option('salsapress_caches');
 	$success = true;
 	foreach ($options as $key => $value) {
@@ -31,8 +35,6 @@ function salsapress_reset_caches() {
 		}
 	}
 	update_option('salsapress_caches',$options);
-	echo json_encode(array('success' => $success));
-	exit;
+	return $succes;
 }
-
 ?>
