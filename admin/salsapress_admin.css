@@ -84,3 +84,13 @@ input.list_gap {
 #list_options {
 	display: none;
 }
+
+h3.reset_caches {
+	text-transform: uppercase;
+	cursor: pointer;
+	color: #333;
+}
+h3.reset_caches:hover {
+	color: red;
+	text-decoration: underline;
+}

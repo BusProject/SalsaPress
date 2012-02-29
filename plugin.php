@@ -19,8 +19,9 @@ require_once('utils/functions.php');
 require_once('utils/shortcode.php');
 require_once('utils/ajax.php');
 
-// Admin Menu
+// Admin Menus
 require_once('admin/admin_menu.php');
+require_once('admin/manage_caching.php');
 // Embedder
 require_once('admin/embed.php');
 
@@ -39,6 +40,8 @@ function salsapress_options_init(){
 	add_action('media_buttons', 'salsapress_form_button', 20);
     add_action('wp_ajax_salsapress_salsa_report_render', 'salsapress_salsa_report_render');
 	add_action('wp_ajax_salsapress_form_button_iframe', 'salsapress_form_button_iframe');
+	add_action('wp_ajax_salsapress_reset_caches', 'salsapress_reset_caches');
+	
 }
 
 function enque_salsapress() {

@@ -131,6 +131,14 @@ jQuery(document).ready( function($) {
 	$('#list:not(:checked)').live('click',function() { 
 		$('#list_options').hide(); 
 	});
+	$('h3.reset_caches').click( function() { 
+		$this = $(this);
+		$.getJSON(SalsaPressVars.ajaxurl,{
+			action : 'salsapress_reset_caches'
+		}, function( response ) {
+			if( response.success ) { $this.removeClass('reset_caches').text('Success!'); }
+		});
+	});
 });
 
 

@@ -6,7 +6,7 @@ add_action('admin_menu','salsapress_options_menu_init');
 
 function salsapress_menu() {
 	add_menu_page(
-		'BusPress',
+		'SalsaPress',
 		'Connect to Salsa',
 		'manage_options',
 		'salsa',
@@ -24,9 +24,13 @@ function salsapress_options_menu_init(){
 	add_settings_field('salsapress_salsa_chapter_filter', 'Chapter Filter (Only show data from a single chapter)', 'salsapress_salsa_chapter_filter', __FILE__, 'salsapress_salsa_credentials');
 	add_settings_field('salsapress_salsa_chapter_base', 'Base Chapter KEY', 'salsapress_salsa_chapter_base', __FILE__, 'salsapress_salsa_credentials');
 	add_settings_field('salsapress_salsa_org_base', 'Base Organization KEY', 'salsapress_salsa_org_base', __FILE__, 'salsapress_salsa_credentials');
+	add_settings_field('salsapress_stop_cache', '<strong>NEVER</strong> Cache SalsaPress', 'salsapress_cache', __FILE__, 'salsapress_cache_section');
+	add_settings_field('salsapress_cache_reset', 'Reset Current Cache', 'salsapress_cache_reset', __FILE__, 'salsapress_cache_section');
 	add_settings_section('salsapress_salsa_credentials', 'Salsa Credentials', 'salsapress_salsa_credentials', __FILE__);
-	wp_enqueue_script( 'salsapress_admin_script', base.'admin/salsapress_admin.js',array( 'jquery' ), '0.5', true );
-	wp_enqueue_style( 'jolokia', base.'admin/salsapress_admin.css','', '0.5', 'all' );	
+	add_settings_section('salsapress_cache_section', 'SalsaPress Caching', 'salsapress_cache_section', __FILE__);
+	wp_enqueue_script( 'SalsaPress', base.'admin/salsapress_admin.js',array( 'jquery' ), '0.5', true );
+	wp_enqueue_style( 'SalsaPress', base.'admin/salsapress_admin.css','', '0.5', 'all' );
+	localize_scripts();
 }
 
 // BusPress defaults
@@ -60,6 +64,8 @@ if( $active ) {
 	define('salsapress_salsa_chapter_base', $chapter_base);
 	$org_base = isset( $salsapress['salsapress_salsa_org_base']) ? $salsapress['salsapress_salsa_org_base'] : '';
 	define('salsapress_salsa_org_base', $org_base);
+	$cache = isset( $salsapress['salsapress_stop_cache']) ? false : true;
+	define('salsapress_cache', $cache);
 }
 
 
@@ -181,6 +187,7 @@ function salsapress_salsa_setup() {
 		?>
 		</form>
 	</div>
+
 	<?php
 }
 

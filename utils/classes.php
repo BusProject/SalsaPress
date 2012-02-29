@@ -53,11 +53,11 @@ class SalsaConnect {
 		curl_setopt($this->ch, CURLOPT_COOKIEFILE, '/tmp/cookies_file');
 		curl_setopt($this->ch, CURLOPT_COOKIEJAR, '/tmp/cookies_file');
 
-		if( !$cache ) {
+		if( $cache && function_exists('get_transient') && salsapress_cache ) {
+			$this->cache = true;
+		} else { 
 			$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
 			$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
-		} else { 
-			$this->cache = true;
 		}
 
 	}
@@ -167,6 +167,9 @@ class SalsaConnect {
 
 		// Knows to cache the results if they've expired or aren't there
 		if( $save ) {
+			$caches =  get_option('salsapress_caches');
+			$caches[$params] = $go;
+			update_option( 'salsapress_caches', $caches);
 			set_transient( $params , $go , 60*60*12 );
 		}
 
