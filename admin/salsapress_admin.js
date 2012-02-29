@@ -136,7 +136,7 @@ jQuery(document).ready( function($) {
 		$.getJSON(SalsaPressVars.ajaxurl,{
 			action : 'salsapress_reset_caches'
 		}, function( response ) {
-			if( response.success ) { $this.removeClass('reset_caches').text('Success!'); }
+			if( response.success ) { $this.parent('td').text('Success!'); }
 		});
 	});
 });

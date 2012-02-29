@@ -85,12 +85,25 @@ input.list_gap {
 	display: none;
 }
 
-h3.reset_caches {
-	text-transform: uppercase;
+h3.button {
 	cursor: pointer;
-	color: #333;
+	border-color:  #298CBA;
+	font-weight: bold;
+	color: white;
+	background:  #21759B url(../images/button-grad.png) repeat-x scroll left top;
+	text-shadow: rgba(0, 0, 0, 0.3) 0 -1px 0;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
+	width: 98px;
+	padding: 3px 8px;
+	display: inline;
+	margin: 0 20px;
 }
-h3.reset_caches:hover {
+h3.button:hover {
 	color: red;
-	text-decoration: underline;
 }

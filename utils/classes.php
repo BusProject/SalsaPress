@@ -168,7 +168,7 @@ class SalsaConnect {
 		// Knows to cache the results if they've expired or aren't there
 		if( $save ) {
 			$caches =  get_option('salsapress_caches');
-			$caches[$params] = $go;
+			$caches[$params] = array('expires' => date('r') );
 			update_option( 'salsapress_caches', $caches);
 			set_transient( $params , $go , 60*60*12 );
 		}
