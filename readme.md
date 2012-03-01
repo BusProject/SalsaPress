@@ -11,7 +11,7 @@ Installation
 3. You should see a Salsa Icon appear in your Admin Console. Enter your Salsa Email / Password to connect Salsa to WordPress.
 4. You should be able to add widgets and embed reports, events, and sign up forms. GO CRAZZY!!
 
-Should be installed and hosted on WordPress shortly.
+Or just download from [WordPress](http://wordpress.org/extend/plugins/salsa-press/)
 
 Contribute
 ------------
