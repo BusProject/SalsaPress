@@ -46,11 +46,14 @@ class salsapress_coming_events extends WP_Widget
 			</label>
 		</p>
 
+		<?php /* Not done yet
 		<p>
 			<label for="<?php echo $this->get_field_id('link_to_cal'); ?>"> <?php echo __('Link events to the built in calendar page, instead of Salsa') ?><br>
 				<input id="<?php echo $this->get_field_id('link_to_cal'); ?>" name="<?php echo $this->get_field_name('link_to_cal'); ?>" type="checkbox" <?php if( $link_to_cal ) echo 'checked="checked"';?>>
 			</label>
-		</p>
+		</p> 
+		*/ ?>
+		
 	   <?php
 	} else {
 		?>
