@@ -39,7 +39,7 @@ class salsa_signup_widget extends WP_Widget
 		<label id="form-description">Include Sign Up Form Description?</label>   <input <?php if( $description ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>"><br><br>
 		<label id="form-confirmation">After Saving the form:</label><br>
 		<textarea style="width: 200px;" id="<?php echo $this->get_field_id('after_save'); ?>" name="<?php echo $this->get_field_name('after_save'); ?>"><?php echo rawurldecode($after_save);?></textarea><br>
-		Accepts text and HTML. After the form saves, will replace the form with this content. If you left blank it'll thank em for signing up and reset the form.
+		Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form.
 		<br><br><strong>HINT:</strong> This is a great time to ask them for something else, like a facebook Like or tell a friend or something.
 		<?php
 	} else {

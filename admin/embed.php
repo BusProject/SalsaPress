@@ -150,7 +150,7 @@ function salsapress_form_button_iframe_Content(){
 			<label id="form-description">Include Sign Up Form Description?</label>   <input type="checkbox" name="salsa_description" id="salsa_description"><br><br>
 			<label id="form-confirmation">After Saving the form:</label><br>
 			<textarea style="width: 450px;" name="after-save"></textarea><br>
-			Accepts text and HTML. After the form saves, will replace the form with this content. If you left blank it'll thank em for signing up and reset the form.
+			Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form.
 			<br><br><strong>HINT:</strong> This is a great time to ask them for something else, like a facebook Like or tell a friend or something.
 		</form>
 
@@ -173,7 +173,7 @@ function salsapress_form_button_iframe_Content(){
 			<em>Compact view strips out the first Image from the Description and displays it along with the Event Name, Date, Time, Address, and Signup Form. The Full Description is placed in a hidden 'Read More' box</em><br><br>
 			<label id="form-confirmation">After Saving the form:</label><br>
 			<textarea style="width: 450px;" name="after-save"></textarea><br>
-			Accepts text and HTML. After the form saves, will replace the form with this content. If you left blank it'll thank em for signing up and reset the form.
+			Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form.
 			<br><br><strong>HINT:</strong> This is a great time to ask them for something else, like a facebook Like or tell a friend or something.
 		</form>
 	
