@@ -25,6 +25,7 @@ function salsapress_reset_caches() {
 function salsapress_reset_cache() {
 	$options = get_option('salsapress_caches');
 	$success = true;
+	if( !is_array($options) ) return false;
 	foreach ($options as $key => $value) {
 		$delete = delete_transient($key);
 		if( !$delete ) {

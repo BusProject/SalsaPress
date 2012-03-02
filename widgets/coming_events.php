@@ -32,7 +32,7 @@ class salsapress_coming_events extends WP_Widget
 				<option value="">--</option>
 				<?php 
 					foreach ($stuff as $thing) {
-						if( $thing->key == $template ) $selected = "selected";
+						$selected = $thing->key == $template ? "selected" : '';
 						if( strpos($thing->Name,"deleted") === false && strpos($thing->Name,"Default") === false ) echo '<option value="'.$thing->key.'"'.$selected.'>'.$thing->Name.'</option>';
 					}
 				?>

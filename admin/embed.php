@@ -48,7 +48,8 @@ function salsapress_salsa_report_render() {
 			<?php
 	} else {
 
-		$report = $obj->reportsplit($_GET['key'], $_GET['inputs']);
+		$inputs = isset($_GET['inputs']) ? $_GET['inputs'] : array();
+		$report = $obj->reportsplit($_GET['key'], $inputs);
 		if( count($report) > 0 ):
 			$titles = get_object_vars($report[0]);
 
