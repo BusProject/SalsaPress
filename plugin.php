@@ -4,7 +4,7 @@ Plugin Name: SalsaPress
 Plugin URI: https://github.com/BusProject/SalsaPress
 Description: SalsaPress connects WordPress to Salsa
 Author: Scott Duncombe
-Version: 1.2
+Version: 1.3
 Author URI: http://scottduncombe.com/
 */
 
@@ -46,8 +46,8 @@ function salsapress_options_init(){
 
 function enque_salsapress() {
 	//Enqueing external scripts and styles
-	wp_enqueue_script( 'SalsaPress', base.'/utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
-	wp_enqueue_style( 'SalsaPress', base.'/utils/SalsaPress.css','', '0.5', 'all' );	
+	wp_enqueue_script( 'SalsaPress', base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_style( 'SalsaPress', base.'utils/SalsaPress.css','', '0.5', 'all' );	
 	localize_scripts();
 }
 

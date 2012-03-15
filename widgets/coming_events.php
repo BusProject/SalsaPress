@@ -95,11 +95,11 @@ class salsapress_coming_events extends WP_Widget
 		$stuff = $obj->post('gets','object=event&condition=Status=Active&condition=Start>='.date("Y-m-d").$screen."&limit=".$event_number."&include=Event_Name&include=Start&include=End&include=This_Event_Costs_Money&include=Description&orderBy=Start");
 
 		if( empty($obj->chapter_filter ) ) {
-			$chapter_link = jolokia_salsa_chapter_base;
+			$chapter_link = salsapress_salsa_chapter_base;
 		} else {
 			$chapter_link = $obj->chapter_filter;
 		}
-		$chapter_link = jolokia_salsa_chapter_base == '' ? '' : '/c/'.$chapter_link;
+		$chapter_link = salsapress_salsa_chapter_base == '' ? '' : '/c/'.$chapter_link;
 
 		?>
 		<div class="salsapress_coming_events">
