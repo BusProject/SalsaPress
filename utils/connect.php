@@ -98,12 +98,39 @@ class SalsaConnect {
 		
 
 		$params = $this->reportgen($key,$values);
+		$save = false;
+		
+		// If this call is being cached, check and see if there's cacehed data
+		if( $this->cache ) {
+			$results = get_transient( $params );
 
-		curl_setopt($this->ch, CURLOPT_POST, 1);		
-		curl_setopt($this->ch, CURLOPT_URL, $this->url.$type);
-		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&type=csv");
-		$go = curl_exec($this->ch);
-		$go = explode("\r\n",$go);
+			if( $results === false ) {
+				$this->cache = false;
+				$save = true;
+				$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
+				$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
+			} else {
+				$go = $results;
+			}
+		}
+
+		// If the query isn't cached 
+		if( !$this->cache ) {
+
+			curl_setopt($this->ch, CURLOPT_POST, 1);		
+			curl_setopt($this->ch, CURLOPT_URL, $this->url.$type);
+			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&type=csv");
+			$go = curl_exec($this->ch);
+			$go = explode("\r\n",$go);
+		}
+
+		// Knows to cache the results if they've expired or aren't there
+		if( $save ) {
+			$caches =  get_option('salsapress_caches');
+			$caches[$params] = array('expires' => date('r') );
+			update_option( 'salsapress_caches', $caches);
+			set_transient( $params , $go , 60*60*12 );
+		}
 
 		$mapping = str_getcsv(array_shift($go),',','"','\\');
 		if( constant("PHP_OLD") ) $mapping = $mapping[0];
@@ -136,6 +163,8 @@ class SalsaConnect {
 
 	function post($type, $params, $no_filter = false ) {
 		$save = false;
+		// Check and make sure will never use a cache for a save
+		$this->cache = $type != 'save' && $this->cache;
 		
 		// If this call is being cached, check and see if there's cacehed data
 		if( $this->cache ) {
@@ -173,23 +202,83 @@ class SalsaConnect {
 	}
 
 	function raw($place, $params) {
-		curl_setopt($this->ch, CURLOPT_POST, 1);
-		curl_setopt($this->ch, CURLOPT_URL, $this->url.$place);
-		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params);
+		$save = false;
+		// Check and make sure will never use a cache for a save
+		$this->cache = $type != 'save' && $this->cache;
+		
+		// If this call is being cached, check and see if there's cacehed data
+		if( $this->cache ) {
+			$results = get_transient( $params );
 
-		return curl_exec($this->ch);
+			if( $results === false ) {
+				$this->cache = false;
+				$save = true;
+				$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
+				$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
+			} else {
+				$go = $results;
+			}
+		}
+
+		// If the query isn't cached 
+		if( !$this->cache ) {
+			$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) && !$no_filter ? $this->chapter_fix[$type].$this->chapter : '';
+			curl_setopt($this->ch, CURLOPT_POST, 1);
+			curl_setopt($this->ch, CURLOPT_URL, $this->url.$this->urls[$type]);
+			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&json".$chapter);
+
+			$go = $this->ch;
+		}
+
+		// Knows to cache the results if they've expired or aren't there
+		if( $save ) {
+			$caches =  get_option('salsapress_caches');
+			$caches[$params] = array('expires' => date('r') );
+			update_option( 'salsapress_caches', $caches);
+			set_transient( $params , $go , 60*60*12 );
+		}
+
+		return $go;
 	}
 
 	function rawjson($type, $params) {
-		$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) ? $this->chapter_fix[$type].$this->chapter : '';
-		curl_setopt($this->ch, CURLOPT_POST, 1);
-		curl_setopt($this->ch, CURLOPT_URL, $this->url.$this->urls[$type]);
-		curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&json".$chapter);
+		$save = false;
+		// Check and make sure will never use a cache for a save
+		$this->cache = $type != 'save' && $this->cache;
 		
+		// If this call is being cached, check and see if there's cacehed data
+		if( $this->cache ) {
+			$results = get_transient( $params );
 
-		$go = urlencode(curl_exec($this->ch));
+			if( $results === false ) {
+				$this->cache = false;
+				$save = true;
+				$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
+				$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
+			} else {
+				$go = $results;
+			}
+		}
+
+		// If the query isn't cached 
+		if( !$this->cache ) {
+			$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) && !$no_filter ? $this->chapter_fix[$type].$this->chapter : '';
+			curl_setopt($this->ch, CURLOPT_POST, 1);
+			curl_setopt($this->ch, CURLOPT_URL, $this->url.$this->urls[$type]);
+			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&json".$chapter);
+
+			$go = urlencode(curl_exec($this->ch));
+		}
+
+		// Knows to cache the results if they've expired or aren't there
+		if( $save ) {
+			$caches =  get_option('salsapress_caches');
+			$caches[$params] = array('expires' => date('r') );
+			update_option( 'salsapress_caches', $caches);
+			set_transient( $params , $go , 60*60*12 );
+		}
+
 		return urldecode($go);
-
 	}
 	
 	function optionprep( $input ) {

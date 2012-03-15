@@ -13,6 +13,13 @@ class SalsaReport {
 		$this->data = $obj->reportsplit($key, $inputs);		
 	}
 
+	function json_dump() {
+		return json_encode($this->data);
+	}
+	function data_dump() {
+		return $this->data;
+	}
+
 	function render($type = 'table',$columns = array(),$headers = array(), $gaps=array() ) {
 
 		$returned = '';

@@ -94,6 +94,13 @@ class salsapress_coming_events extends WP_Widget
 		$obj = SalsaConnect::singleton(true);
 		$stuff = $obj->post('gets','object=event&condition=Status=Active&condition=Start>='.date("Y-m-d").$screen."&limit=".$event_number."&include=Event_Name&include=Start&include=End&include=This_Event_Costs_Money&include=Description&orderBy=Start");
 
+		if( empty($obj->chapter_filter ) ) {
+			$chapter_link = jolokia_salsa_chapter_base;
+		} else {
+			$chapter_link = $obj->chapter_filter;
+		}
+		$chapter_link = jolokia_salsa_chapter_base == '' ? '' : '/c/'.$chapter_link;
+
 		?>
 		<div class="salsapress_coming_events">
 			<h2>UPCOMING<a href="
@@ -101,12 +108,6 @@ class salsapress_coming_events extends WP_Widget
 				if( $link_to_cal && $thing->This_Event_Costs_Money == false ) { 
 					echo $cal_link;
 				} else { 
-					if( empty($obj->chapter_filter ) ) {
-						$chapter_link = salsapress_salsa_chapter_base;
-					} else {
-						$chapter_link = $obj->chapter_filter;
-					}
-					$chapter_link = empty($chapter_link) ? '' : '/c/'.$chapter_link;
 					echo 'https://'.salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.$template.'/p/salsa/event/common/public/'; 
 				}
 			?>

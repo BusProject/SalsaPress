@@ -6,6 +6,7 @@ span.notice.success { color: green; }
 form.salsa-form label.oops { color: red;  } 
 form.salsa-form { width: 300px; text-align: right;}
 form.salsa-form label { padding: 0px 12px; }
+form.salsa-form input[type=text] { margin: 2px 0; }
 form.salsa-form label.text_me {padding: 0;}
 /* Signup Widget */
 div.signup_widget { margin: 10px 0 100px; } 
