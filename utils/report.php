@@ -13,9 +13,10 @@ class SalsaReport {
 		$this->data = $obj->reportsplit($key, $inputs);		
 	}
 
-	function json_dump() {
+	function json() {
 		return json_encode($this->data);
 	}
+
 	function data_dump() {
 		return $this->data;
 	}
