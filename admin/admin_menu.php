@@ -11,7 +11,7 @@ function salsapress_menu() {
 		'manage_options',
 		'salsa',
 		'salsapress_salsa_setup',
-		base.'/images/salsa.png');
+		base.'images/salsa.png');
 }
 
 // BusPress options
@@ -192,7 +192,7 @@ function salsapress_salsa_setup() {
 	} 
 	?>
 	<div class="wrap">
-		<div class="icon32" style="background: transparent url(<?php echo base.'/images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
+		<div class="icon32" style="background: transparent url(<?php echo base.'images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
 		<h2>Set Up Your Salsa Connection</h2>
 		Connect WordPress to <a href="http://salsalabs.com" target="_blank">Salsa</a> and and add synchronized reports, events, and sign-up forms.
 		<form autocomplete='off' action="options.php" method="post">

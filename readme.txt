@@ -45,12 +45,11 @@ Yes...
 
 == Screenshots ==
 
-1. Authenticating Salsa screenshot1.png
-1. Adding and customizing Salsa Widgets screenshot2.png
-1. Adding and customizing Salsa Widgets screenshot2.png
-1. Embedding Salsa to a Page or Post screenshot3.png
-1. Customizing Embedded Salsa screenshot4.png
-1. Embedded Salsa in the WordPress Editor screenshot5.png
+1. Authenticating Salsa
+2. Adding and customizing Salsa Widgets
+3. Embedding Salsa to a Page or Post
+4. Customizing Embedded Salsa
+5. Embedded Salsa in the WordPress Editor
 
 == Changelog ==
 
@@ -60,6 +59,10 @@ Yes...
 * Added two new methods to SalsaReport, json() which returns a json encoded object form the report and data_dump() which returns the object
 * Fixed a bug that wasn't loading the stylesheet and scripts correctly
 * Small style tweak
+* Got Screen shots working... I hope
+* Editor fix
+* Updating Event Compact
+* Clearing caching was working, just didn't acknowledge it when you hit the button
 
 = 1.2 =
 * Smaller bug that makes it think it's not authenticated

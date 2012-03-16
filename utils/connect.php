@@ -1,5 +1,7 @@
 <?php
 
+
+
 class SalsaConnect {
 	public $user = salsapress_salsa_username;
 	protected $pass = salsapress_salsa_pass;
@@ -133,7 +135,11 @@ class SalsaConnect {
 		}
 
 		$mapping = str_getcsv(array_shift($go),',','"','\\');
-		if( constant("PHP_OLD") ) $mapping = $mapping[0];
+		if( constant("PHP_OLD") ) {
+			$mapping = array_filter($mapping, "no_null");
+			$mapping = array_shift($mapping);
+		}
+
 
 
 		$parsed = array();
@@ -141,21 +147,23 @@ class SalsaConnect {
 			$temp = str_getcsv($thing,',','"','\\');
 			$i = 0;
 			$keyed = array();
-			while( $i<count($mapping) ) {
-				$nicename = preg_replace(array('/ /','/\(/','/\)/'),array('_','_',''),$mapping[$i]);
-				$ii = 1;
-				while( array_key_exists($nicename, $keyed) ):
-					$nicename = $nicename." ".$ii;
-					$ii++;
-				endwhile;
-				if(strlen($nicename) > 0 && (isset($temp[$i]) || isset($temp[0][$i]) && strlen($nicename) )) {
-					if( constant("PHP_OLD") ) $keyed[$nicename] = htmlspecialchars($temp[0][$i]);
-					else $keyed[$nicename] = htmlspecialchars($temp[$i]);
+			if( !is_null($temp[0][0] ) && !is_null($temp[0]) ) {
+				while( $i<count($mapping) ) {
+					$nicename = preg_replace(array('/ /','/\(/','/\)/'),array('_','_',''),$mapping[$i]);
+					$ii = 1;
+					while( array_key_exists($nicename, $keyed) ):
+						$nicename = $nicename." ".$ii;
+						$ii++;
+					endwhile;
+					if(strlen($nicename) > 0 && (isset($temp[$i]) || isset($temp[0][$i]) && strlen($nicename) )) {
+						if( constant("PHP_OLD") ) $keyed[$nicename] = htmlspecialchars($temp[0][$i]);
+						else $keyed[$nicename] = htmlspecialchars($temp[$i]);
+					}
+					$i++;
 				}
-				$i++;
+				$k = (object)$keyed;
+				$parsed = array_merge($parsed,array($k));
 			}
-			$k = (object)$keyed;
-			$parsed = array_merge($parsed,array($k));
 		}
 		return $parsed;
 

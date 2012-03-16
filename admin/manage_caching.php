@@ -36,6 +36,6 @@ function salsapress_reset_cache() {
 		}
 	}
 	update_option('salsapress_caches',$options);
-	return $succes;
+	return $success;
 }
 ?>

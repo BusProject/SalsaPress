@@ -10,9 +10,9 @@ function salsapress_form_button(){
 }
 
 function salsapress_form_button_iframe(){
-	wp_enqueue_script( 'SalsaPress', WP_PLUGIN_URL.'/SalsaPress/utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
-	wp_enqueue_style( 'SalsaPress_Admin', base.'/admin/salsapress_admin.css','', '0.5', 'all' );
-	wp_enqueue_script( 'SalsaPress_Admin', base.'/admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'SalsaPress', base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_style( 'SalsaPress_Admin', base.'admin/salsapress_admin.css','', '0.5', 'all' );
+	wp_enqueue_script( 'SalsaPress_Admin', base.'admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
 	localize_scripts();
 	wp_iframe('salsapress_form_button_iframe_Content');
 	exit();

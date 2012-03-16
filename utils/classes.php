@@ -18,6 +18,11 @@ define( "PHP_OLD", true);
 	}
 } else define( "PHP_OLD", false);
 
+function no_null($var){
+	$pass = is_array($var) && isset($var[0]) && $var[0] != NULL;
+	return $pass;
+}
+
 // Compiles the various classes
 
 require_once('connect.php');

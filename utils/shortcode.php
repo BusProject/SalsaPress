@@ -24,7 +24,7 @@ add_filter("mce_external_plugins", "add_salsapress_tinymce_plugin");
 
 function add_salsapress_tinymce_plugin($plugin_array) {
 	$plugin_array['salsa'] =  base.'admin/editor_plugin.js';
-	wp_enqueue_script( 'SalsaPress', base.'/admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'SalsaPress', base.'admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
 	
 	localize_scripts();
 	return $plugin_array;

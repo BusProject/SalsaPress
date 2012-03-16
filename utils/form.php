@@ -83,15 +83,26 @@ class SalsaForm {
 			$location_name = empty($this->form->Location_Common_Name) ? trim($this->form->Address.' '.$this->form->City) : $this->form->Location_Common_Name;
 			$location = empty($location_url) ? $location_name : $location_name.' (<a target="_blank" href="http://http://maps.google.com/maps?q='.$location_url.'" >Google Map It</a>)';
 			$location = empty($location) ? '' : '<li><strong>Where:</strong> '.$location.'</li> ';
-			$url = isset($this->options['event_url']) ? $this->options['event_url'] : 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].'#'.$this->form->event_KEY;
-			$social = '<div id="social"><iframe src="http://www.facebook.com/plugins/like.php?app_id=194627797268503&amp;href='.$url.'&amp;send=false&amp;layout=standard&amp;width=54&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:54px; height:21px;" allowTransparency="true"></iframe>';
+
+// used for calendar			$url = isset($this->options['event_url']) ? $this->options['event_url'] : 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"].'#'.$this->form->event_KEY;
+			if( empty($obj->chapter_filter ) ) {
+				$chapter_link = salsapress_salsa_chapter_base;
+			} else {
+				$chapter_link = $obj->chapter_filter;
+			}
+			$chapter_link = salsapress_salsa_chapter_base == '' ? '' : '/c/'.$chapter_link;
+
+			$url = 'https://'.salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.'/p/salsa/event/common/public/?event_KEY='.$this->form->event_KEY;
+			$social = '<div class="social"><iframe src="http://www.facebook.com/plugins/like.php?app_id=194627797268503&amp;href='.$url.'&amp;send=false&amp;layout=standard&amp;width=54&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21;" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:54px; height:25px;margin-bottom:-4px;" allowTransparency="true"></iframe>';
 			$social .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/share" class="twitter-share-button" data-url="'.$url.'" data-text="Just signed up for '.$this->form->Event_Name.', you should too..." data-count="none" data-via="busproject" data-related="busproject:Follow us on Twitter, we\'re pretty hilarious\">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
 			$social .= '&nbsp;&nbsp;&nbsp;&nbsp;<g:plusone size="medium" count="false" href="'.$url.'"></g:plusone><script type="text/javascript">(function() {var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;po.src = \'https://apis.google.com/js/plusone.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);})();</script>';
 			$social .= '<br><em>Link: <input onClick="Javascript: jQuery(this).select()" readonly="readonly" type="text" value="'.$url.'"></em></div>';
 			$gcal = ' (<a href="https://www.google.com/calendar/b/0/render?action=TEMPLATE&text='.$this->form->Event_Name.'&dates='.date('Ymd\This',strtotime($this->form->Start)).'/'.date('Ymd\This',strtotime	($this->form->End)).'&details='.better_excerpt($html->plaintext,500).'&trp=true&sprop=website:'.$url.'&sprop=name:'.$this->form->Location_Common_Name.'&location='.$location_url.'&pli=1&sf=true&output=xml" target="_blank" >Add to GCal</a>) ';
-			$below = $social.'<ul id="deets">'.$location.'<li><strong>When:</strong> '.date_smoosh($this->form->Start,$this->form->End).$gcal.'</li></ul>';
-			$form_return .= $title.'<div id="event_compact">'.$ftimage.$description.'</div>';
+			$below = $social.'<ul class="deets">'.$location.'<li><strong>When:</strong> '.date_smoosh($this->form->Start,$this->form->End).$gcal.'</li></ul>';
+			$form_return .= $title.'<div class="event_compact"><div class="description">'.$ftimage.$description.'</div>';
+			
 			$extra = '<h2>Sign Up</h2>';
+			$end = '</div>';
 		} else { 
 			if ( isset($this->options['salsa_title']) ) $form_return .= $title;
 			if ( isset($this->options['salsa_description']) ) $form_return .= $description;
@@ -183,6 +194,7 @@ class SalsaForm {
 			$url .= isset($this->form->chapter_KEY) ? '/c/'.$this->form->chapter_KEY : '';
 			$form_return .= '<button onclick="location.href = \''.$url.'/p/salsa/event/common/public/?event_KEY='.$this->form->key.'#register\';" >Click here to sign up</button>';
 		}
+		$form_return .= isset($end) ? $end : '';
 		if( $this->form->length != 0 ) return $form_return;
 	} 
 }
