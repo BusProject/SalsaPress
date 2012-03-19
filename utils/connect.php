@@ -133,7 +133,7 @@ class SalsaConnect {
 			update_option( 'salsapress_caches', $caches);
 			set_transient( $params , $go , 60*60*12 );
 		}
-
+		$go = trim($go);
 		$mapping = str_getcsv(array_shift($go),',','"','\\');
 		if( constant("PHP_OLD") ) {
 			$mapping = array_filter($mapping, "no_null");
