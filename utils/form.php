@@ -119,7 +119,7 @@ class SalsaForm {
 			$form_return .= '<input type="hidden" value="'.$this->form->chapter_KEY.'" name="chapter_KEY" id="chapter_KEY">';
 			$form_return .= '<input type="hidden" value="'.$this->form->email_trigger_KEYS.'" name="email_trigger_KEYS" id="email_trigger_KEYS">';
 			foreach ($inputs as $thing) {
-				if( $thing != '0' && !empty($thing) ) {
+				if(  $thing != '0' && $thing != '__v2__'  && !empty($thing) ) {
 					$form_return .= '<label for="'.$thing.'">'.str_replace('_',' ',$thing);
 					if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
 					$form_return .= "</label>";
@@ -195,7 +195,7 @@ class SalsaForm {
 			$form_return .= '<button onclick="location.href = \''.$url.'/p/salsa/event/common/public/?event_KEY='.$this->form->key.'#register\';" >Click here to sign up</button>';
 		}
 		$form_return .= isset($end) ? $end : '';
-		if( $this->form->length != 0 ) return $form_return;
+		return $form_return;
 	} 
 }
 
