@@ -118,7 +118,7 @@ class salsapress_coming_events extends WP_Widget
 			else $link = 'https://'.salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.$template."/p/salsa/event/common/public/?event_KEY=".$thing->key;
 			?>
 				<li class="event" ><strong><?php echo date_smoosh($thing->Start,$thing->End).': <em>'.$thing->Event_Name; ?></em></strong><br>
-				<?php if( strlen($thing->Description) > 16 ) echo better_excerpt($thing->Description,100)."<br>";?>
+				<?php if( strlen($thing->Description) > 16 ) echo better_excerpt($thing->Description,200)."<br>";?>
 				<a target="_blank" href="<?php echo $link; ?>"><strong>Sign up and more details</strong></a></li>
 			<?php }; 
 			} else echo '<li><em>Big stuff, coming soon!</em></li>';?>
