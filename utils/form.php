@@ -104,8 +104,8 @@ class SalsaForm {
 			$extra = '<h2>Sign Up</h2>';
 			$end = '</div>';
 		} else { 
-			if ( isset($this->options['salsa_title']) ) $form_return .= $title;
-			if ( isset($this->options['salsa_description']) ) $form_return .= $description;
+			if ( isset($this->options['salsa_title']) && $this->options['salsa_title']) $form_return .= $title;
+			if ( isset($this->options['salsa_description']) && $this->options['salsa_description'] ) $form_return .= $description;
 		}
 		if( $this->form->object != 'event' || $this->form->No_Registration != 'true' && $this->form->This_Event_Costs_Money != 'true'   ) {
 			
