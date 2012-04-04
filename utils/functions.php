@@ -26,7 +26,7 @@ function better_excerpt($string, $length) {
 	if( strlen($string) > $length) {
 		if( strpos($string,".",$length) === false ) {
 			if( strpos($string," ",$length) === false ) $returner = mb_strcut($string,0,strpos($string," ",$length));
-			else mb_strcut($string,0,$length);
+			else $returner = mb_strcut($string,0,$length);
 		} else {
 			$returner = mb_strcut($string,0,strpos($string,".",$length)+1);
 		}
