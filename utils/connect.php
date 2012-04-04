@@ -64,7 +64,7 @@ class SalsaConnect {
 		return $this->result;
 	}
 	function on() {
-		return $this->result == "Successful Login" || $this->result == "cached";
+		return $this->result == "Successful Login" || $this->cache;
 	}
 
 	function reportgen($key,$values = array()){
