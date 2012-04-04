@@ -53,6 +53,11 @@ Yes...
 
 == Changelog ==
 
+= 1.4 =
+* Bug that effected the title and description for sign up pages, was set to be always on
+* Wasn't caching sign up and event forms, fixed
+* Excerpt for coming events wasn't working
+
 = 1.3 =
 * Small bug that wouldn't correctly link events to their chaptered location
 * Added precaution that a 'save' call is never cached
