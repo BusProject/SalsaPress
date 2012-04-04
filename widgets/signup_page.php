@@ -63,12 +63,13 @@ class salsa_signup_widget extends WP_Widget
 
 
  function widget($args, $instance) {
-	$obj = SalsaConnect::singleton();
+	$obj = SalsaConnect::singleton(true);
+
 	if( $obj && $obj->on() ) {
 		extract($args);
 		$form_key  = ( $instance['form_key'] != '' ) ? esc_attr($instance['form_key']) : '';
-		$title  = ( $instance['title'] != '' ) ? esc_attr($instance['title']) : false;
-		$description  = ( $instance['description'] != '' ) ? esc_attr($instance['description']) : false;
+		$title  = ( $instance['title'] != ''  && isset($instance['title']) ) ? esc_attr($instance['title']) != '' : false;
+		$description  = ( $instance['description'] != '' && isset($instance['description']) ) ? esc_attr($instance['description']) != '' : false;
 		$after_save = ( $instance['after_save'] != '' ) ? esc_attr($instance['after_save']) : '';
 
 		if( $form_key == '' ) { die(); }
@@ -77,7 +78,7 @@ class salsa_signup_widget extends WP_Widget
 		$done = $render->render( array('type' => 'signup_page','salsa_key' => $form_key, 'salsa_title' => $title, 'salsa_description' => $description, 'after_save' => $after_save) );
 		echo '<div class="signup_widget">'.$done.'</div>';
   	} else {
-		echo "<!-- Active SalsPress to use -->";
+		echo "<!-- Activate SalsPress to use -->";
 	}
   }
 }
