@@ -74,7 +74,7 @@ class salsapress_coming_events extends WP_Widget
 
   function widget($args, $instance)
   {
-	$obj = SalsaConnect::singleton();
+	$obj = SalsaConnect::singleton(true);
 	if( $obj && $obj->on() ) {
 	
 		extract($args);
