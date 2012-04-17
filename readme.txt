@@ -53,6 +53,9 @@ Yes...
 
 == Changelog ==
 
+= 1.5 =
+* Bug that effected the after-save effect are now fixed
+
 = 1.4 =
 * Bug that effected the title and description for sign up pages, was set to be always on
 * Wasn't caching sign up and event forms, fixed
