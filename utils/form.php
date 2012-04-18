@@ -29,7 +29,7 @@ class SalsaForm {
 
 		$this->SalsaConnect = SalsaConnect::singleton(true);
 		$myform = $this->SalsaConnect->post('get','object='.$data['type'].'&key='.$key);
-		
+
 		if( (!isset($myform->Request) || strlen($myform->Request) < 1 ) && $this->obj == 'event' ) {
 			$myform->Request = "First_Name,Last_Name,Email,Phone";
 			$myform->Required = "First_Name,Last_Name,Email,Phone";

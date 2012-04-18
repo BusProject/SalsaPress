@@ -53,6 +53,9 @@ Yes...
 
 == Changelog ==
 
+= 1.6 =
+* Bug that prevented groups from being shown for some accounts is now fixed
+
 = 1.5 =
 * Bug that effected the after-save effect are now fixed
 
