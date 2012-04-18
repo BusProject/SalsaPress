@@ -140,12 +140,12 @@ class SalsaForm {
 			// Setting up groups 
 			if( isset($this->form->PreGroup_Text) ) $form_return .= '<p>'.$this->form->PreGroup_Text.'</p>';
 
-			if( $this->form->Automatically_add_to_Groups_BOOLVALUE == 'false' && strlen($this->form->groups_KEYS) > 0 ) {
+			if( $this->form->Automatically_add_to_Groups_BOOLVALUE == 'false' && strlen($this->form->groups_KEYS) > 0   ) {
 			//If groups are optional, grabbing the group names
 				$group_pull = explode(",",$this->form->groups_KEYS);
 				foreach ( $group_pull as  $thing) {
 					$i = 0;
-					if( strlen($thing) == 5 )  { 
+					if( strlen($thing) > 4 )  { 
 						$group = $this->SalsaConnect->post('gets','object=groups&condition=groups_KEY='.$thing.'&include=Group_Name');
 						$form_return .= '<label for="'.$group['0']->Group_Name.'">'.$group['0']->Group_Name.'</label>';
 						$form_return .= '<input type="hidden" name="link" id="link" value="groups">';
