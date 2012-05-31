@@ -53,6 +53,10 @@ Yes...
 
 == Changelog ==
 
+= 1.7 =
+* Bug that may have prevented automatic groups from being saved
+* May have also prevented tags from being saved
+
 = 1.6 =
 * Bug that prevented groups from being shown for some accounts is now fixed
 
