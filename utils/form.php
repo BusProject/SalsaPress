@@ -145,7 +145,7 @@ class SalsaForm {
 				$group_pull = explode(",",$this->form->groups_KEYS);
 				foreach ( $group_pull as  $thing) {
 					$i = 0;
-					if( strlen($thing) > 4 )  { 
+					if( strlen($thing) > 2 )  { 
 						$group = $this->SalsaConnect->post('gets','object=groups&condition=groups_KEY='.$thing.'&include=Group_Name');
 						$form_return .= '<label for="'.$group['0']->Group_Name.'">'.$group['0']->Group_Name.'</label>';
 						$form_return .= '<input type="hidden" name="link" id="link" value="groups">';
@@ -158,7 +158,7 @@ class SalsaForm {
 			// If groups are not optional, creating hidden links
 				$group_pull = explode(",",$this->form->groups_KEYS);
 				foreach ( $group_pull as  $thing) {
-					if( strlen($thing) == 5 )  { 
+					if( strlen($thing) > 2 )  { 
 						$form_return .= '<input type="hidden" name="link" id="link" value="groups">';
 						$form_return .= '<input type="hidden" name="linkKey" id="linkKey" value="'.$thing.'">';
 					}
@@ -171,7 +171,7 @@ class SalsaForm {
 				$tags_pull = explode(",",$this->form->tag_KEYS);
 				foreach ( $tags_pull as  $thing) {
 					$i = 0;
-					if( strlen($thing) == 6 )  { 
+					if( strlen($thing) > 4 )  { 
 						$tag = $this->SalsaConnect->post('gets','object=tag&condition=tag_KEY='.$thing.'&include=tag');
 						$form_return .= '<label for="'.$tag['0']->tag.'">'.$tag['0']->tag.'</label>';
 						$form_return .= '<input type="checkbox" name="tag" id="tag" value="'.$tag['0']->tag.'"><br>';
@@ -198,7 +198,7 @@ class SalsaForm {
 			$form_return .= $below;
 		} else {
 			$url = 'https://'.salsapress_salsa_base_url.'/o/'.$this->form->organization_KEY;
-			$url .= isset($this->form->chapter_KEY) ? '/c/'.$this->form->chapter_KEY : '';
+			$url .= isset($this->form->chapter_KEY) && strlen($this->form->chapter_KEY) > 1 ? '/c/'.$this->form->chapter_KEY : '';
 			$form_return .= '<button onclick="location.href = \''.$url.'/p/salsa/event/common/public/?event_KEY='.$this->form->key.'#register\';" >Click here to sign up</button>';
 		}
 		$form_return .= isset($end) ? $end : '';
