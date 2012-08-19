@@ -43,7 +43,7 @@ class SalsaForm {
 		if( !isset($this->form->key) ) { return '<!-- Invalid Salsa Query-->'; }
 
 		$options = get_option('salsapress_options');
-		$chapter = isset($options['salsapress_salsa_chapter_base']) ? '/c/'.$options['salsapress_salsa_chapter_base'] : '';
+		$chapter = isset($options['salsapress_salsa_chapter_base']) && strlen($options['salsapress_salsa_chapter_base']) > 1 ? '/c/'.$options['salsapress_salsa_chapter_base'] : '';
 		$fallback_url = $options['salsapress_salsa_base_url'].'/o/'.$options['salsapress_salsa_org_base'].$chapter;
 		
 		$inputs = explode(",",$this->form->Request);
@@ -79,6 +79,10 @@ class SalsaForm {
 
 		if ( isset($this->options['event_compact']) ) {
 			require_once('simple_html_dom.php');
+
+			$this->form->Start = fixDate($this->form->Start);
+			$this->form->End = fixDate($this->form->End);
+
 			$html = str_get_html($description);
 			$ftimage = $html->find('img',0) != null ? $html->find('img',0) : '';
 			$description = better_excerpt($html->plaintext,500);
@@ -100,7 +104,7 @@ class SalsaForm {
 			$social .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/share" class="twitter-share-button" data-url="'.$url.'" data-text="Just signed up for '.$this->form->Event_Name.', you should too..." data-count="none" data-via="busproject" data-related="busproject:Follow us on Twitter, we\'re pretty hilarious\">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
 			$social .= '&nbsp;&nbsp;&nbsp;&nbsp;<g:plusone size="medium" count="false" href="'.$url.'"></g:plusone><script type="text/javascript">(function() {var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;po.src = \'https://apis.google.com/js/plusone.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);})();</script>';
 			$social .= '<br><em>Link: <input onClick="Javascript: jQuery(this).select()" readonly="readonly" type="text" value="'.$url.'"></em></div>';
-			$gcal = ' (<a href="https://www.google.com/calendar/b/0/render?action=TEMPLATE&text='.$this->form->Event_Name.'&dates='.date('Ymd\This',strtotime($this->form->Start)).'/'.date('Ymd\This',strtotime	($this->form->End)).'&details='.better_excerpt($html->plaintext,500).'&trp=true&sprop=website:'.$url.'&sprop=name:'.$this->form->Location_Common_Name.'&location='.$location_url.'&pli=1&sf=true&output=xml" target="_blank" >Add to GCal</a>) ';
+			$gcal = ' (<a href="https://www.google.com/calendar/b/0/render?action=TEMPLATE&text='.$this->form->Event_Name.'&dates='.date('Ymd\THis',strtotime($this->form->Start)).'/'.date('Ymd\THis',strtotime	($this->form->End)).'&details='.better_excerpt($html->plaintext,500).'&trp=true&sprop=website:'.$url.'&sprop=name:'.$this->form->Location_Common_Name.'&location='.$location_url.'&pli=1&sf=true&output=xml" target="_blank" >Add to GCal</a>) ';
 			$below = $social.'<ul class="deets">'.$location.'<li><strong>When:</strong> '.date_smoosh($this->form->Start,$this->form->End).$gcal.'</li></ul>';
 			$form_return .= $title.'<div class="event_compact"><div class="description">'.$ftimage.$description.'</div>';
 			
@@ -148,8 +152,8 @@ class SalsaForm {
 					if( strlen($thing) > 2 )  { 
 						$group = $this->SalsaConnect->post('gets','object=groups&condition=groups_KEY='.$thing.'&include=Group_Name');
 						$form_return .= '<label for="'.$group['0']->Group_Name.'">'.$group['0']->Group_Name.'</label>';
-						$form_return .= '<input type="hidden" name="link" id="link" value="groups">';
-						$form_return .= '<input type="checkbox" name="linkKey" id="linkKey" value="'.$group['0']->key.'"><br>';
+						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'" id="link" value="true">';
+						$form_return .= '<input type="checkbox" name="groups_KEY'.$group['0']->key.'_checkbox" ><br>';
 						$i++;
 					}
 				}
@@ -159,8 +163,8 @@ class SalsaForm {
 				$group_pull = explode(",",$this->form->groups_KEYS);
 				foreach ( $group_pull as  $thing) {
 					if( strlen($thing) > 2 )  { 
-						$form_return .= '<input type="hidden" name="link" id="link" value="groups">';
-						$form_return .= '<input type="hidden" name="linkKey" id="linkKey" value="'.$thing.'">';
+						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'" id="link" value="true">';
+						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'_checkbox" value="on"><br>';
 					}
 				}
 			}

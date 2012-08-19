@@ -84,4 +84,6 @@ function date_smoosh($start, $end) {
 	return $month1.' '.$day1.$month2.$day2;
 }
 
+function fixDate($date) { return substr($date, 0, strpos($date," GMT")); }
+
 ?>

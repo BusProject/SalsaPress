@@ -84,7 +84,7 @@ class salsa_event_widget extends WP_Widget
 
 		$render = new SalsaRender('event');
 		$done = $render->render( array('type' => 'event','salsa_key' => $form_key, 'salsa_title' => $title, 'salsa_description' => $description, 'after_save' => $after_save, 'compact' => $compact) );
-		echo '<div class="signup_widget">'.$done.'</div>';
+		echo '<div class="signup_widget event-form-'.$form_key.'">">'.$done.'</div>';
   	} else {
 		echo "<!-- Active SalsPress to use -->";
 	}
