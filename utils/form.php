@@ -163,8 +163,8 @@ class SalsaForm {
 				$group_pull = explode(",",$this->form->groups_KEYS);
 				foreach ( $group_pull as  $thing) {
 					if( strlen($thing) > 2 )  { 
-						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'" id="link" value="true">';
-						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'_checkbox" value="on"><br>';
+						$form_return .= '<input type="hidden" name="groups_KEY'.$thing.'" id="link" value="true">';
+						$form_return .= '<input type="hidden" name="groups_KEY'.$thing.'_checkbox" value="on"><br>';
 					}
 				}
 			}
