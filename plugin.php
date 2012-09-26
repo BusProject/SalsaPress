@@ -4,7 +4,7 @@ Plugin Name: SalsaPress
 Plugin URI: https://github.com/BusProject/SalsaPress
 Description: SalsaPress connects WordPress to Salsa
 Author: Scott Duncombe
-Version: 1.8
+Version: 1.9
 Author URI: http://scottduncombe.com/
 */
 

@@ -53,9 +53,11 @@ Yes...
 
 == Changelog ==
 
+= 1.9 =
+* Fixing bug displaying reports
+
 = 1.8 =
 * Major bug which prevented RSVPing to events with optional or required groups
-
 
 = 1.7 =
 * Bug that may have prevented automatic groups from being saved
