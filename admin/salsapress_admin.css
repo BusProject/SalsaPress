@@ -1,0 +1,96 @@
+.option{
+	margin-bottom: 30px;
+}
+div#submit {
+	margin: 70px 24px 8px;
+	text-align: right;
+	clear: both;
+}
+
+div.embeddable { 
+	width: 620px; 
+	padding: 0px 16px 10px;
+}
+
+div.widgetized { 
+	width: 248px; 
+	padding: 0px 4px 10px;
+}
+
+
+input#insert {
+	float:left;
+	display:none;
+}
+
+span.oops {
+	color: red;
+}
+
+.notice {
+	padding: 10px 2px;
+}
+
+#resubmit {
+	float: right;
+	margin: 10px 4px;
+}
+.preview {
+	float: none;
+	margin: 10px 0 30px;
+}
+.preview.active {
+	border-top: 2px dotted #777;
+}
+
+.preview ul { margin-top: 30px; }
+.preview ul li {margin: 10px;}
+
+.preview label { 
+	margin: 0px 8px; 
+	font-weight: bold; 
+}
+
+span.hide {
+	font-weight: normal;
+	font-size: 9px;
+	cursor: pointer;
+	text-decoration: none;
+}
+span.hide:hover {
+	text-decoration: underline;
+}
+
+table tr th input[type=text] {
+	font-weight: bold;
+	text-align: center;
+	text-decoration: underline;
+}
+	
+
+ul li.user_variables {
+	font-size: 18px;
+}
+
+ul li.user_variables input[type=text] {
+	border: 2px solid #777;
+	background-color: #DDD;
+}
+
+input.list_gap {
+	width: 30px;
+}
+
+#list_options {
+	display: none;
+}
+
+h3.button {
+	cursor: pointer;
+	color: #333;
+	display: inline;
+	margin: 0 20px 0 0;
+}
+h3.button:hover {
+	color: red;
+}
