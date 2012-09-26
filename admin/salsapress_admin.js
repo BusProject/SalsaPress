@@ -43,7 +43,7 @@ jQuery(document).ready( function($) {
 				inputs += line[0][0] == 'u' ? 'inputs[]='+line[1] : inputs;
 			} else key = this.length == 5 ? this.toString() : key;
 		});
-		if( key.length == 5 ) {
+		if( key.length > 4 ) {
 			$(this).val(key);
 			$(this).notice('Grabbing a preview, holdtightok?');
 			$('input[type=submit]').hide();
