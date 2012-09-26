@@ -133,12 +133,12 @@ class SalsaConnect {
 			update_option( 'salsapress_caches', $caches);
 			set_transient( $params , $go , 60*60*12 );
 		}
-		$go = trim($go);
+		// $go = trim($go);
 		$mapping = str_getcsv(array_shift($go),',','"','\\');
-		if( constant("PHP_OLD") ) {
-			$mapping = array_filter($mapping, "no_null");
-			$mapping = array_shift($mapping);
-		}
+		// if( constant("PHP_OLD") ) {
+		// 	$mapping = array_filter($mapping, "no_null");
+		// 	$mapping = array_shift($mapping);
+		// }
 
 
 
@@ -147,7 +147,7 @@ class SalsaConnect {
 			$temp = str_getcsv($thing,',','"','\\');
 			$i = 0;
 			$keyed = array();
-			if( !is_null($temp[0][0] ) && !is_null($temp[0]) ) {
+			if( !is_null($temp[0]) ) {
 				while( $i<count($mapping) ) {
 					$nicename = preg_replace(array('/ /','/\(/','/\)/'),array('_','_',''),$mapping[$i]);
 					$ii = 1;
