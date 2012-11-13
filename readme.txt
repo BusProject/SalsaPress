@@ -53,6 +53,9 @@ Yes...
 
 == Changelog ==
 
+= 1.95 = 
+* Fixing group add issues
+
 = 1.9 =
 * Fixing bug displaying reports
 
