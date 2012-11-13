@@ -144,9 +144,9 @@ class SalsaForm {
 			// Setting up groups 
 			if( isset($this->form->PreGroup_Text) ) $form_return .= '<p>'.$this->form->PreGroup_Text.'</p>';
 
-			if( $this->form->Automatically_add_to_Groups_BOOLVALUE == 'false' && strlen($this->form->groups_KEYS) > 0   ) {
+			if( strlen($this->form->optionally_add_to_groups_KEYS) > 0   ) {
 			//If groups are optional, grabbing the group names
-				$group_pull = explode(",",$this->form->groups_KEYS);
+				$group_pull = explode(",",$this->form->optionally_add_to_groups_KEYS);
 				foreach ( $group_pull as  $thing) {
 					$i = 0;
 					if( strlen($thing) > 2 )  { 
@@ -157,10 +157,10 @@ class SalsaForm {
 						$i++;
 					}
 				}
-			} else if ( $this->form->Automatically_add_to_Groups_BOOLVALUE == 'true' ) {
-
+			}
+			if( strlen($this->form->add_to_groups_KEYS) > 0   ) {
 			// If groups are not optional, creating hidden links
-				$group_pull = explode(",",$this->form->groups_KEYS);
+				$group_pull = explode(",",$this->form->add_to_groups_KEYS);
 				foreach ( $group_pull as  $thing) {
 					if( strlen($thing) > 2 )  { 
 						$form_return .= '<input type="hidden" name="groups_KEY'.$thing.'" id="link" value="true">';
