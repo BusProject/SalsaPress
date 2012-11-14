@@ -53,7 +53,11 @@ Yes...
 
 == Changelog ==
 
+<<<<<<< HEAD
 = 1.95 = 
+=======
+= 2.0 = 
+>>>>>>> bumping version
 * Fixing group add issues
 
 = 1.9 =
