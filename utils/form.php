@@ -123,6 +123,8 @@ class SalsaForm {
 			$form_return .= '<input type="hidden" value="save" name="operation" id="operation">';
 			$form_return .= '<input type="hidden" value="supporter" name="object" id="object">';
 			$form_return .= '<input type="hidden" value="Web" name="Source" >';
+			if( isset($this->form->Default_Tracking_Code) ) $form_return .= '<input type="hidden" value="'.$this->form->Default_Tracking_Code.'" name="Source_Tracking_Code" >';
+			else $form_return .= '<input type="hidden" value="(Added via SalsaPress form - no tracking code set)" name="Source_Tracking_Code" >';
 			$form_return .= '<input type="hidden" value="'.( strpos($_SERVER['SERVER_PROTOCOL'],'HTTP') === false ? 'https://' : 'http://' ).$_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] .'" name="Source_Details" >';
 			$form_return .= '<input type="hidden" value="'.$this->form->organization_KEY.'" name="organization_KEY" id="organization_KEY">';
 			$form_return .= '<input type="hidden" value="'.$this->form->chapter_KEY.'" name="chapter_KEY" id="chapter_KEY">';
