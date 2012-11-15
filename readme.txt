@@ -53,11 +53,13 @@ Yes...
 
 == Changelog ==
 
-<<<<<<< HEAD
-= 1.95 = 
-=======
+= 2.1 = 
+* Passing source information to Salsa
+* Works with Custom Fields OMG...
+* Works with redirects
+* Inconsistent event and signup_page data models for groups - set up fallback to fix bug introduced in 2.0
+
 = 2.0 = 
->>>>>>> bumping version
 * Fixing group add issues
 
 = 1.9 =
