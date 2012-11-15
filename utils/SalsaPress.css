@@ -8,6 +8,7 @@ form.salsa-form { width: 300px; text-align: right;}
 form.salsa-form input[type=text] { margin: 4px 0; }
 form.salsa-form label { padding: 0px 12px; }
 form.salsa-form label.text_me {padding: 0;}
+form.salsa-form textarea { height: 80px; }
 /* Signup Widget */
 div.signup_widget { margin: 10px 0 100px; } 
 div.signup_widget h1 { white-space: normal !important; } 

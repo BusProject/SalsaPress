@@ -130,14 +130,42 @@ class SalsaForm {
 			foreach ($inputs as $thing) {
 				if(  $thing != '0' && $thing != '__v2__'  && !empty($thing) ) {
 					if( !isset($diff_labels[$thing]) ) {
-						$form_return .= '<label for="'.$thing.'">'.str_replace('_',' ',$thing);
-						if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
-						$form_return .= "</label>";
+						if( $thing[0] != strtolower($thing[0]) )  { // If a custom field - use Custom Fields to display label
+							$form_return .= '<label for="'.$thing.'">'.str_replace('_',' ',$thing);
+							if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
+							$form_return .= "</label>";
+						}
 					} else {
 						$form_return .= '<label for="'.$thing.'">'.$diff_labels[$thing]."</label>";
 					}
-					if( !isset($diff_fields[$thing]) ) $form_return .= '<input type="text" name="'.$thing.'" id="'.$thing.'" fillin="'.strtolower($thing).'">';
-					else $form_return .= $diff_fields[$thing];
+					if( !isset($diff_fields[$thing]) ) {
+						if( $thing[0] == strtolower($thing[0]) ) { // Detects if is a custom field
+							require_once('simple_html_dom.php');
+							if( !isset($form_html) ) $form_html = file_get_html('http://'.$fallback_url);
+							$el = $form_html->find('textarea[name='.$thing.'], input[name='.$thing.'], select[name='.$thing.'],
+								textarea[name='.$thing.strtoupper($thing).'], input[name='.$thing.strtoupper($thing).'], select[name='.$thing.strtoupper($thing).']'); // Added to accomodate weirdness I was seeing with TIME
+							if( isset($el[0]) ) { // Can find
+								$parent = $el[0]->parent();
+								while( $parent->class != 'formRow' ) { // Makes sure selecting the .form row from the div - nothing earlier
+									$parent = $parent->parent();
+								}
+								$html = $parent->innertext;
+								// Capitalizing first letter of label
+								$label = str_replace('_',' ',$thing);
+								$uplabel = strtoupper($label[0]).substr($label,1);
+								$html = str_replace('>'.$label,'>'.$uplabel,$html);
+								// Adding a small space next to "required" * span
+								$html = str_replace("<span class='required"," <span class='required",$html);
+								$form_return .= $html;
+							} else { // Couldn't find the custom field in the HTML - falling back to normal form
+								$form_return .= '<!-- could not parse '.str_replace('_',' ',$thing).'-->';
+								$form_return .= '<label for="'.$thing.'">'.str_replace('_',' ',$thing);
+								if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
+								$form_return .= "</label>";
+								$form_return .= '<input type="text" name="'.$thing.'" id="'.$thing.'" fillin="'.strtolower($thing).'">';
+							}
+						} else $form_return .= '<input type="text" name="'.$thing.'" id="'.$thing.'" fillin="'.strtolower($thing).'">'; // Just a normal field - displaying normally
+					} else $form_return .= $diff_fields[$thing];
 					$form_return .= "<br>";
 				}
 			}
