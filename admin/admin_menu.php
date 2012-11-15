@@ -204,6 +204,31 @@ function salsapress_salsa_setup() {
 			<input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes'); ?>" />
 		</p>
 		</form>
+		
+		<h2>About SalsaPress / The Bus Federation</h2>
+		<p>SalsaPress is provided - for free - by the <a href="http://busfederation.com/">Bus Federation</a> and built by <a href="http://twitter.com/mojowen">Scott</a>. It is <a href="https://github.com/BusProject/SalsaPress">totally open source</a>.</p>
+		<p>We get young people involved in Democracy through field organizing and leadership development across the country<br />- and are increasingly building cool shit (we also built <a href="http://theballot.org">TheBallot.org</a> along with the League of Young Voters).</p>
+		<h3>Want to keep up on SalsaPress? Sign up for news</h3>
+		<form name="data" action="http://salsa.wiredforchange.com/save" method="POST" target="_blank" style="width: 300px; text-align: right">
+			<input type="hidden" name="chapter_KEY" value="9262">
+			<input type="hidden" name="redirect" value="https://github.com/BusProject/SalsaPress">
+			<input type="hidden" name="table" value="supporter">
+			<input type="hidden" name="key" value="0">
+			<label for="f1">First Name</label>
+			<input title="First Name" type="text" id="f1" name="First_Name" class="blockInput salsa_first_name" value="" size="25"><br />
+			<label for="f2">Last Name</label>
+			<input title="Last Name" type="text" id="f2" name="Last_Name" class="blockInput salsa_last_name" value="" size="25"><br />
+			<label for="f3">Email</label>
+			<input title="Email" type="text" id="f3" name="Email" class="blockInput salsa_email" value="" size="25"><br />
+			<input type="hidden" name="required" value="Email,">
+			<input type="hidden" name="organization_KEY" value="6121">
+			<input type="hidden" name="Receive_Email" value="3">
+			<input type="hidden" name="email_trigger_KEYS" value="13012">
+			<input type="hidden" name="link" value="groups">
+			<input type="hidden" name="linkKey" value="63716">
+			<input type="hidden" name="tag" id="tag" value="signup:page6502">
+			<input type="submit" value="Sign Up">
+		</form>
 	</div>
 
 	<?php
