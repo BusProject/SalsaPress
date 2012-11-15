@@ -118,6 +118,7 @@ class SalsaForm {
 			
 			$form_return .= '<form class="salsa-form" ';
 			$form_return .= 'action="http://'.$fallback_url.'" method="GET" target="_blank" ';
+			if( isset($this->form->redirect_path) ) $form_return .= 'redirect_path="'.$this->form->redirect_path.'"';
 			$form_return .= ' >';
 			$form_return .= $extra;
 			$form_return .= '<input type="hidden" value="save" name="operation" id="operation">';

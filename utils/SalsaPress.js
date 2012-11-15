@@ -274,6 +274,9 @@ var count = 0;
 						data = response[0];
 						if( data.result == 'success' ) {
 							self.notice('Success!','success');
+
+							if( typeof self.attr('redirect_path') != 'undefined' ) document.location = self.attr('redirect_path');
+
 							if( self.nextAll('.after_save').length > 0 ) {
 								self.nextAll('.after_save').show();
 								self.remove();
