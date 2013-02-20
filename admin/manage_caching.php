@@ -14,7 +14,7 @@ function salsapress_cache() {
 }
 
 function salsapress_cache_reset() {
-	echo '<h3 class="button reset_caches">Click to Reset</h3>'.
+	echo '<h3 class="button reset_caches">Click to Reset</h3><br />'.
 	'<em>Site may slow down while cache is rebuilt</em>';
 }
 
