@@ -53,6 +53,11 @@ Yes...
 
 == Changelog ==
 
+= 2.2 = 
+* More group shenangins that aren't working
+* Some fixes for Calendar
+* By the way - want a calendar? [Demo here](http://busproject.org/cal)
+
 = 2.1 = 
 * Passing source information to Salsa
 * Works with Custom Fields OMG...
