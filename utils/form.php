@@ -178,8 +178,8 @@ class SalsaForm {
 			if( isset($this->form->PreGroup_Text) ) $form_return .= '<p>'.$this->form->PreGroup_Text.'</p>';
 
 			if( isset($this->form->optionally_add_to_groups_KEYS) ) $optional_groups = $this->form->optionally_add_to_groups_KEYS;
-			if( isset($this->form->groups_KEYS) ) $optional_groups = $this->form->groups_KEYS;
-			
+			if( isset($this->form->groups_KEYS) && !$this->form->Automatically_add_to_Groups ) $optional_groups = $this->form->groups_KEYS;
+
 			if( isset($optional_groups) && strlen($optional_groups) > 0  ) {
 			//If groups are optional, grabbing the group names
 				$group_pull = explode(",",$optional_groups);
@@ -197,7 +197,8 @@ class SalsaForm {
 
 			if( isset($this->form->{'required$groups_KEYS'}) ) $required_groups = $this->form->{'required$groups_KEYS'};
 			if( isset($this->form->add_to_groups_KEYS) ) $required_groups = $this->form->add_to_groups_KEYS;
-			
+			if( isset($this->form->groups_KEYS) && $this->form->Automatically_add_to_Groups ) $required_groups = $this->form->groups_KEYS;
+
 			if( isset($required_groups) && strlen($required_groups) > 0  ) {
 			// If groups are not optional, creating hidden links
 				$group_pull = explode(",",$required_groups);
