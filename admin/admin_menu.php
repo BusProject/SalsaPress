@@ -205,6 +205,10 @@ function salsapress_salsa_setup() {
 		</p>
 		</form>
 		
+		<h2>Add-on Calendar Plugin</h2>
+		<p>Want your Salsa events in a calendar? We might be able to help. <a href="mailto:srduncombe@gmail.com">Contact Scott</a> about adding a salsa-powered-calendar.</p>
+		<h3><a target="_blank" href="http://busproject.org/cal/">See it in action here</a></h3>
+
 		<h2>About SalsaPress / The Bus Federation</h2>
 		<p>SalsaPress is provided - for free - by the <a href="http://busfederation.com/">Bus Federation</a> and built by <a href="http://twitter.com/mojowen">Scott</a>. It is <a href="https://github.com/BusProject/SalsaPress">totally open source</a>.</p>
 		<p>We get young people involved in Democracy through field organizing and leadership development across the country<br />- and are increasingly building cool shit (we also built <a href="http://theballot.org">TheBallot.org</a> along with the League of Young Voters).</p>
