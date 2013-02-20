@@ -24,7 +24,7 @@ var count = 0;
 				object : 'event',
 				doing : 'gets'
 			},function( response ) { 
-				if( response[0].result == 'error' ) {
+				if( typeof response[0] != 'undefined' && response[0].result == 'error' ) {
 					running = true;
 					$().grabevents();
 					if( count > 2 ) $('#loading').append('<p>This is getting kind of old aint it? Guess something\'s broke, send an email to <a href="mailto:support@busproject.org">support@busproject.org</a> tell us it\'s broken</p>')
@@ -112,7 +112,7 @@ var count = 0;
 		else if( document.location.hash.length == 7 && !isNaN(parseInt(document.location.hash.slice(1)))) this_day = new Date(document.location.hash.slice(1,5),document.location.hash.slice(5,7)-1,1);
 		else this_day = new Date;
 
-		if( events[0].result == "error" ) {
+		if( typeof events[0] != 'undefined' &&  events[0].result == "error"  ) {
 			$().nowloading();
 			today = new Date;
 			max_high_date = new Date();
