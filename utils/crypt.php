@@ -11,7 +11,7 @@ class SalsaCrypt {
 		if( strlen($stored) > 0 ) {
 			$pass = '';
 			$salt = str_split(wp_salt());
-			$split = split(' ', $stored);
+			$split = preg_split('/ /', $stored);
 			for ($i=0; $i < count($split); $i++) { 
 				$pass .= chr($split[$i] / ord($salt[$i]) );
 			}
