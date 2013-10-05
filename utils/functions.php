@@ -70,18 +70,21 @@ function date_smoosh($start, $end) {
 		} else {
 			$month1 = date("F",$start );
 			$month2 = date("F",$end );
+
+			$day1 = date("j",$start );
+			$day2 = date("j",$end );
 		}
 
 		if(!empty($month2)) $month2 = ' - '.$month2;
-		else if(!empty($day2)) $day2 = '-'.$day2; 
+		else if(!empty($day2)) $day2 = '-'.$day2;
 	} else {
 		$month1 = date("F",$start );
 		$month2 ='';
-		$day1 = date("jS",$start );
+		$day1 = date("jS", $start );
 		$day2 = '';
 	}
 
-	return $month1.' '.$day1.$month2.$day2;
+	return $month1.' '.$day1.$month2.' '.$day2;
 }
 
 function fixDate($date) { return substr($date, 0, strpos($date," GMT")); }
