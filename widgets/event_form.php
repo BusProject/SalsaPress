@@ -79,11 +79,12 @@ class salsa_event_widget extends WP_Widget
 		$after_save = ( $instance['after_save'] != '' ) ? esc_attr($instance['after_save']) : '';
 		$compact = ( $instance['compact'] != '' ) ? esc_attr($instance['compact']) : false;
 
-		if( $form_key == '' ) { die(); }
+		if( $form_key != '' ) {
 
-		$render = new SalsaRender('event');
-		$done = $render->render( array('type' => 'event','salsa_key' => $form_key, 'salsa_title' => $title, 'salsa_description' => $description, 'after_save' => $after_save, 'compact' => $compact) );
-		echo '<div class="signup_widget event-form-'.$form_key.'">">'.$done.'</div>';
+			$render = new SalsaRender('event');
+			$done = $render->render( array('type' => 'event','salsa_key' => $form_key, 'salsa_title' => $title, 'salsa_description' => $description, 'after_save' => $after_save, 'compact' => $compact) );
+			echo '<div class="signup_widget event-form-'.$form_key.'">">'.$done.'</div>';
+		}
   	} else {
 		echo "<!-- Active SalsPress to use -->";
 	}

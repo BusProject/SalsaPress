@@ -72,11 +72,12 @@ class salsa_signup_widget extends WP_Widget
 		$description  = ( $instance['description'] != '' && isset($instance['description']) ) ? esc_attr($instance['description']) != '' : false;
 		$after_save = ( $instance['after_save'] != '' ) ? esc_attr($instance['after_save']) : '';
 
-		if( $form_key == '' ) { die(); }
+		if( $form_key != '' ) {
 
-		$render = new SalsaRender('signup_page');
-		$done = $render->render( array('type' => 'signup_page','salsa_key' => $form_key, 'salsa_title' => $title, 'salsa_description' => $description, 'after_save' => $after_save) );
-		echo '<div class="signup_widget signup-form-'.$form_key.'">'.$done.'</div>';
+			$render = new SalsaRender('signup_page');
+			$done = $render->render( array('type' => 'signup_page','salsa_key' => $form_key, 'salsa_title' => $title, 'salsa_description' => $description, 'after_save' => $after_save) );
+			echo '<div class="signup_widget signup-form-'.$form_key.'">'.$done.'</div>';
+		}
   	} else {
 		echo "<!-- Activate SalsPress to use -->";
 	}
