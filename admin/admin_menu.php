@@ -69,7 +69,10 @@ define('salsapress_active', $active);
 if( $active ) {
 	define( 'salsapress_salsa_username', $salsapress['salsapress_salsa_username'] );
 	define( 'salsapress_salsa_pass', $salsapress['salsapress_salsa_pass']  );
+
+	if( strpos($salsapress['salsapress_salsa_base_url'], "http") === false ) $salsapress['salsapress_salsa_base_url'] = 'http://'.$salsapress['salsapress_salsa_base_url'];
 	define( 'salsapress_salsa_base_url', $salsapress['salsapress_salsa_base_url']);
+
 	$chapter_filter = isset( $salsapress['salsapress_salsa_chapter_filter']) ? $salsapress['salsapress_salsa_chapter_filter'] : '';
 	define('salsapress_salsa_chapter_filter', $chapter_filter);
 	$chapter_base = isset( $salsapress['salsapress_salsa_chapter_base']) ? $salsapress['salsapress_salsa_chapter_base'] : '';
