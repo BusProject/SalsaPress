@@ -9,7 +9,7 @@ class SalsaForm {
 	public $SalsaConnect;
 	public $options;
 
-	private $modes = array( 
+	private $modes = array(
 		'signup_page' => array(
 			"print_title" => "Title",
 			'print_description'=>"Header",
@@ -24,7 +24,7 @@ class SalsaForm {
 	function __construct($data) {
 		$this->obj = $data['type'];
 		$key = $data["salsa_key"];
-		
+
 		$this->options = $data;
 
 		$this->SalsaConnect = SalsaConnect::singleton(true);
@@ -221,7 +221,7 @@ class SalsaForm {
 			// If groups are not optional, creating hidden links
 				$group_pull = explode(",",$required_groups);
 				foreach ( $group_pull as  $thing) {
-					if( strlen($thing) > 2 )  { 
+					if( strlen($thing) > 2 )  {
 						$form_return .= '<input type="hidden" name="groups_KEY'.$thing.'" id="link" value="true">';
 						$form_return .= '<input type="hidden" name="groups_KEY'.$thing.'_checkbox" value="on"><br>';
 					}
@@ -234,7 +234,7 @@ class SalsaForm {
 				$tags_pull = explode(",",$this->form->tag_KEYS);
 				foreach ( $tags_pull as  $thing) {
 					$i = 0;
-					if( strlen($thing) > 4 )  { 
+					if( strlen($thing) > 4 )  {
 						$tag = $this->SalsaConnect->post('gets','object=tag&condition=tag_KEY='.$thing.'&include=tag');
 						$form_return .= '<label for="'.$tag['0']->tag.'">'.$tag['0']->tag.'</label>';
 						$form_return .= '<input type="checkbox" name="tag" id="tag" value="'.$tag['0']->tag.'"><br>';
@@ -268,7 +268,7 @@ class SalsaForm {
 		}
 		$form_return .= isset($end) ? $end : '';
 		return $form_return;
-	} 
+	}
 }
 
 

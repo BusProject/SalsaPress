@@ -23,18 +23,18 @@ var count = 0;
 				SalsaAjax : SalsaPressVars.SalsaAjax,
 				object : 'event',
 				doing : 'gets'
-			},function( response ) { 
+			},function( response ) {
 				if( typeof response[0] != 'undefined' && response[0].result == 'error' ) {
 					running = true;
 					$().grabevents();
 					if( count > 2 ) $('#loading').append('<p>This is getting kind of old aint it? Guess something\'s broke, send an email to <a href="mailto:support@busproject.org">support@busproject.org</a> tell us it\'s broken</p>')
-				} else { 
+				} else {
 					events = events.concat(response);
 					var r = new Array();
 					o:for(var i = 0, n = events.length; i < n; i++) {
 						for(var x = 0, y = r.length; x < y; x++) {
 							if(r[x].key==events[i].key) continue o;
-						} 
+						}
 						r[r.length] = events[i];
 					}
 					events = r;
@@ -103,8 +103,8 @@ var count = 0;
 			var left = parseInt(jQuery('#content').css('padding-left').slice(0,-2))+parseInt(jQuery('#content').css('margin-left').slice(0,-2))+jQuery('#content').position().left;
 			var top = parseInt(jQuery('#content').css('padding-top').slice(0,-2))+parseInt(jQuery('#content').css('margin-top').slice(0,-2))+jQuery('#content').position().top;
 			$('#pop').resizer();
-			$('.close').click( function() { 
-				$('#pop').parent().height('').children('#pop').remove(); 
+			$('.close').click( function() {
+				$('#pop').parent().height('').children('#pop').remove();
 				document.location.hash = '';
 				document.title = 'Calendar |'+document.title.split('|')[1];
 			});
@@ -145,7 +145,7 @@ var count = 0;
 		$(this).removeClass('loading');
 		$('#loading').hide();
 	}
-	
+
 	$.fn.drawcalendar = function() {
 
 		//if( $('#pop').length > 0 ) $('#pop').parent().height('').children('#pop').remove();
@@ -178,10 +178,10 @@ var count = 0;
 					var testday = new Date(element.Start.slice(0,-15));
 					if( testday.getFullYear() == the_day.getFullYear() && testday.getMonth() == the_day.getMonth() && testday.getDate() == the_day.getDate() ) return true;
 					else return false;
-			}).sort( function(a,b) { 
+			}).sort( function(a,b) {
 				return new Date(a.Start).getTime() - new Date(b.Start).getTime();
 			} );
-			
+
 			$('td.calendar-day:eq('+x+') div.event:not(div.multiday)').remove();
 			if( x < start_day ) $('td.calendar-day:eq('+x+') div.day-number').addClass('non-month').text( the_day.getDate() );
 			if( x < month_days + start_day && x >= start_day ) $('td.calendar-day:eq('+x+') div.day-number').removeClass('non-month').text(the_day.getDate());
@@ -194,7 +194,7 @@ var count = 0;
 					} else min = '';
 					var time = time.getHours();
 					if( time > 12 ) {
-						var time = time - 12; 
+						var time = time - 12;
 						var m = 'p';
 					} else if( time == 12 ) var m = 'p';
 					else if( time == 0 ) var time = 12;
@@ -243,12 +243,12 @@ var count = 0;
 	}
 
 	$.fn.salsaformed = function() {
-		
+
 		this.submit( function(e) {
 			var error = true;
 			var missing = '';
 			$(this).children('input').prev('label:contains(*)').each( function() {
-				if( $(this).next('input').val().length < 1 ) { 
+				if( $(this).next('input').val().length < 1 ) {
 					error = false;
 					$(this).addClass('oops').prev('label').addClass('oops');
 					$('p.required').addClass('oops');
@@ -269,8 +269,8 @@ var count = 0;
 						object : 'supporter',
 						doing : 'save'
 					},
-	// Function to execute upon response, passing the variable as 'response' 
-					function( response ) { 
+	// Function to execute upon response, passing the variable as 'response'
+					function( response ) {
 						data = response[0];
 						if( data.result == 'success' ) {
 							self.notice(objectL10n.success,'success');

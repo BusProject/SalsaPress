@@ -3,17 +3,17 @@ span.notice { padding: 20px 2px; float: right; }
 span.notice.oops { color: red; }
 span.notice.success { color: green; }
 /* Sals Form */
-form.salsa-form label.oops { color: red;  } 
-form.salsa-form { width: 300px; text-align: right;}
+form.salsa-form label.oops { color: red;  }
+form.salsa-form { width: 340px; text-align: right;}
 form.salsa-form input[type=text] { margin: 4px 0; }
 form.salsa-form label { padding: 0px 12px; }
 form.salsa-form label.text_me {padding: 0;}
 form.salsa-form textarea { height: 80px; }
 /* Signup Widget */
-div.signup_widget { margin: 10px 0 100px; } 
-div.signup_widget h1 { white-space: normal !important; } 
-div.signup_widget form.salsa-form { width: auto; text-align: left; } 
-div.signup_widget form.salsa-form label { display: block; padding: 0; } 
+div.signup_widget { margin: 10px 0 100px; }
+div.signup_widget h1 { white-space: normal !important; }
+div.signup_widget form.salsa-form { width: auto; text-align: left; }
+div.signup_widget form.salsa-form label { display: block; padding: 0; }
 div.signup_widget form.salsa-form label.text_me {display: inline-block;}
 /** Embedded Events **/
 div.event_compact div.description { float: left; width: 250px; }

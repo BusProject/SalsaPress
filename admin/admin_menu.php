@@ -30,12 +30,10 @@ function salsapress_options_menu_init(){
 		add_settings_field('salsapress_salsa_chapter_base', 'Base Chapter KEY', 'salsapress_salsa_chapter_base', __FILE__, 'salsapress_salsa_filters');
 		add_settings_field('salsapress_salsa_org_base', 'Base Organization KEY', 'salsapress_salsa_org_base', __FILE__, 'salsapress_salsa_filters');
 		add_settings_section('salsapress_salsa_filters', 'Salsa Settings', 'salsapress_salsa_filters', __FILE__);
-		
 
 		add_settings_field('salsapress_stop_cache', '<strong>NEVER</strong> Cache SalsaPress', 'salsapress_cache', __FILE__, 'salsapress_cache_section');
 		add_settings_field('salsapress_cache_reset', 'Reset Current Cache', 'salsapress_cache_reset', __FILE__, 'salsapress_cache_section');
 		add_settings_section('salsapress_cache_section', 'SalsaPress Caching', 'salsapress_cache_section', __FILE__);
-		
 	}
 
 
@@ -50,7 +48,7 @@ function salsapress_defaults() {
     if(( empty($tmp['salsapress_salsa_activate']) )||(!is_array($tmp))) {
 		$arr = array(
 			"salsapress_salsa_username" => "",
-			"salsapress_salsa_pass" => "", 
+			"salsapress_salsa_pass" => "",
 			"salsapress_salsa_base_url" => "",
 			'salsapress_salsa_org_base' => '',
 			'salsapress_salsa_chapter_base' => ''
@@ -79,7 +77,7 @@ if( $active ) {
 }
 
 
-//BusPress settings validator / fixer 
+//BusPress settings validator / fixer
 function salsapress_validate_fix($input) {
 	if( isset($input['salsapress_salsa_pass']) ) {
 		$crpt = new SalsaCrypt;
@@ -140,7 +138,7 @@ function  salsapress_salsa_filters() {
 function salsapress_salsa_chapter_filter() {
 	$options = get_option('salsapress_options');
 	$filter =  isset($options['salsapress_salsa_chapter_filter']) ? $options['salsapress_salsa_chapter_filter'] : '';
-	if( isset($options['salsapress_salsa_activate']) ) { 
+	if( isset($options['salsapress_salsa_activate']) ) {
 		$obj = SalsaConnect::singleton();
 		if( $obj->status() == "Successful Login" ):
 			$chapters = $obj->post('gets-nofilter','object=chapter');
@@ -183,13 +181,13 @@ function salsapress_salsa_setup() {
 		$obj = SalsaConnect::singleton();
 		if( $obj->on() && empty($options['salsapress_salsa_org_base']) ) {
 			$connect = $obj->post('gets','object=campaign_manager&include=chapter_KEY&include=organization_KEY&condition=Email='.$options['salsapress_salsa_username'] );
-			$options['salsapress_salsa_chapter_base'] = $connect[0]->chapter_KEY; 
+			$options['salsapress_salsa_chapter_base'] = $connect[0]->chapter_KEY;
 			$options['salsapress_salsa_org_base'] = $connect[0]->organization_KEY;
 			$crypt = new SalsaCrypt( salsapress_salsa_pass  );
 			$options['salsapress_salsa_pass'] = $crypt->pass;
 			update_option('salsapress_options',$options);
 		}
-	} 
+	}
 	?>
 	<div class="wrap">
 		<div class="icon32" style="background: transparent url(<?php echo base.'images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
@@ -204,7 +202,7 @@ function salsapress_salsa_setup() {
 			<input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes'); ?>" />
 		</p>
 		</form>
-		
+
 		<h2>Add-on Calendar Plugin</h2>
 		<p>Want your Salsa events in a calendar? We might be able to help. <a href="mailto:srduncombe@gmail.com">Contact Scott</a> about adding a salsa-powered-calendar.</p>
 		<h3><a target="_blank" href="http://busproject.org/cal/">See it in action here</a></h3>
