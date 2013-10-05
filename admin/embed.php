@@ -123,7 +123,7 @@ function salsapress_salsa_report_render() {
 	exit();
 }
 
-function salsapress_form_button_iframe_Content(){
+function salsapress_form_button_iframe_content(){
 	if (!current_user_can('edit_posts'))  {
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
