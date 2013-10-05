@@ -19,33 +19,33 @@ class salsa_signup_widget extends WP_Widget
 
 		$form_key = isset($instance['form_key']) ? esc_attr($instance['form_key']) : '';
 		$title = isset($instance['title']) ? esc_attr($instance['title']) : '';
-		$description = isset($instance['description']) ? esc_attr($instance['description']) : ''; 
-		$after_save = isset($instance['after_save']) ? esc_attr($instance['after_save']) : ''; 
+		$description = isset($instance['description']) ? esc_attr($instance['description']) : '';
+		$after_save = isset($instance['after_save']) ? esc_attr($instance['after_save']) : '';
 		?>
-		<h3 class="media-title">Embed a Salsa Contact Form</h3>
-		<p>Will create the sign up form based off the one you created in Salsa and will add directly into Salsa<br>
-		<em>Hint: Click to <a target="_blank" href="https://hq-<?php echo salsapress_salsa_base_url;?>/dia/hq/surf/edit.jsp?table=signup_page">Create</a> and <a target="_blank" href="https://hq-<?php echo salsapress_salsa_base_url;?>/salsa/hq/p/salsa/web/staging/list?table=signup_page">edit</a> your Contact Forms in Salsa</em></p>
+		<h3 class="media-title"><?php _e('Embed a Salsa Contact Form','salsapress'); ?></h3>
+		<p><?php _e('Will create the sign up form based off the one you created in Salsa and will add directly into Salsa','salsapress'); ?><br>
+		<br/>
 		<input type="hidden" name="type" value="signup_page" id="type">
-		<label for="salsa_key"><?php _e('Salsa Form:'); ?></label>
 		<select class="salsa_key" style="width: 220px;"  id="<?php echo $this->get_field_id('form_key'); ?>" name="<?php echo $this->get_field_name('form_key'); ?>">
-			<option value="">- Select a Sign Up Form -</option>
+			<option value=""><?php _e('- Select a Sign Up Form -','salsapress');?></option>
 				<?php $obj = SalsaConnect::singleton(); ?>
 				<?php $stuff = $obj->post('gets','object=signup_page&include=title'); ?>
 				<?php foreach ($stuff as $things ) { ?>
 					<option value="<?php echo $things->key; ?>" <?php if( $things->key == $form_key ) { echo 'selected'; }?> ><?php echo $things->title; ?></option>
 				<?php } ?>
 		</select><br>
-		<label id="form-title">Include Sign Up Form Title?</label>   <input <?php if( $title ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>"><br>
-		<label id="form-description">Include Sign Up Form Description?</label>   <input <?php if( $description ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>"><br><br>
-		<label id="form-confirmation">After Saving the form:</label><br>
+		<label id="form-title"><?php _e('Include Title?','salsapress') ?></label>   <input <?php if( $title ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>"><br>
+		<label id="form-description"><?php _e('Include Description?','salsapress'); ?></label>   <input <?php if( $description ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>"><br><br>
+
+		<label id="form-confirmation"><?php _e("After Saving the form:","salsapress"); ?></label>
 		<textarea style="width: 200px;" id="<?php echo $this->get_field_id('after_save'); ?>" name="<?php echo $this->get_field_name('after_save'); ?>"><?php echo rawurldecode($after_save);?></textarea><br>
-		Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form.
-		<br><br><strong>HINT:</strong> This is a great time to ask them for something else, like a facebook Like or tell a friend or something.
+		<?php _e("Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form.","salsapress"); ?>
+
 		<?php
 	} else {
 		?>
 		<h2><a href="<?php echo admin_url('admin.php?page=salsa'); ?>">Activate SalsaPress</a></h2>
-		<?php 
+		<?php
 	}
   }
 

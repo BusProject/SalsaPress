@@ -3,7 +3,7 @@
 add_option('salsapress_caches');
 
 function  salsapress_cache_section() {
-	echo '<p>SalsaPress caches outward-facing Salsa API calls to speed up your site. Each cache lives for about 12 hours.</p>';
+	echo '<p>'.__('SalsaPress caches outward-facing Salsa API calls to speed up your site. Each cache lives for about 12 hours.','salsapress').'</p>';
 }
 
 function salsapress_cache() {
@@ -14,8 +14,8 @@ function salsapress_cache() {
 }
 
 function salsapress_cache_reset() {
-	echo '<h3 class="button reset_caches">Click to Reset</h3><br />'.
-	'<em>Site may slow down while cache is rebuilt</em>';
+	echo '<h3 class="button reset_caches">'.__('Click to Reset','salsapress').'</h3><br />'.
+	'<em>'.__('Site may slow down while cache is rebuilt','salsapress').'</em>';
 }
 
 function salsapress_reset_caches() {

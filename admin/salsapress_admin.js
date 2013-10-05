@@ -45,7 +45,7 @@ jQuery(document).ready( function($) {
 		});
 		if( key.length > 4 ) {
 			$(this).val(key);
-			$(this).notice('Grabbing a preview, holdtightok?');
+			$(this).notice( objectL10n.hold_tight_ok );
 			$('input[type=submit]').hide();
 			$.get(
 				document.location.href.split('?')[0],

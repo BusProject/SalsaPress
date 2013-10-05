@@ -17,27 +17,31 @@ function salsapress_menu() {
 // BusPress options
 function salsapress_options_menu_init(){
 	register_setting('salsapress', 'salsapress_options','salsapress_validate_fix');
-	add_settings_field('salsapress_salsa_activate', 'Connect with Salsa?', 'salsapress_salsa_activate', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_salsa_username', 'Salsa Login (email)', 'salsapress_salsa_username', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_salsa_pass', 'Salsa Password', 'salsapress_salsa_pass', __FILE__, 'salsapress_salsa_credentials');
-	add_settings_field('salsapress_salsa_base_url', 'Salsa Base URL (salsa.democracyinaction.org, org2.democracyinaction.org, salsa.wiredforchange.com, etc) ', 'salsapress_salsa_base_url', __FILE__, 'salsapress_salsa_credentials');\
-	add_settings_section('salsapress_salsa_credentials', 'Salsa Credentials', 'salsapress_salsa_credentials', __FILE__);
+	add_settings_field('salsapress_salsa_activate', __('Connect with Salsa?','salsapress'), 'salsapress_salsa_activate', __FILE__, 'salsapress_salsa_credentials');
+	add_settings_field('salsapress_salsa_username', __('Salsa Login (email)','salsapress'), 'salsapress_salsa_username', __FILE__, 'salsapress_salsa_credentials');
+	add_settings_field('salsapress_salsa_pass', __('Salsa Password','salsapress'), 'salsapress_salsa_pass', __FILE__, 'salsapress_salsa_credentials');
+	add_settings_field('salsapress_salsa_base_url', __('Salsa Base URL (salsa.democracyinaction.org, org2.democracyinaction.org, salsa.wiredforchange.com, etc)','salsapress'), 'salsapress_salsa_base_url', __FILE__, 'salsapress_salsa_credentials');\
+	add_settings_section('salsapress_salsa_credentials', __('Salsa Credentials','salsapress'), 'salsapress_salsa_credentials', __FILE__);
 
 	if( salsapress_active ) {
-		add_settings_field('salsapress_salsa_status', 'Salsa Status ', 'salsapress_salsa_status', __FILE__, 'salsapress_salsa_credentials');
+		add_settings_field('salsapress_salsa_status', __('Salsa Status','salsapress'), 'salsapress_salsa_status', __FILE__, 'salsapress_salsa_credentials');
 
-		add_settings_field('salsapress_salsa_chapter_filter', 'Chapter Filter (Only show data from a single chapter)', 'salsapress_salsa_chapter_filter', __FILE__, 'salsapress_salsa_filters');
-		add_settings_field('salsapress_salsa_chapter_base', 'Base Chapter KEY', 'salsapress_salsa_chapter_base', __FILE__, 'salsapress_salsa_filters');
-		add_settings_field('salsapress_salsa_org_base', 'Base Organization KEY', 'salsapress_salsa_org_base', __FILE__, 'salsapress_salsa_filters');
-		add_settings_section('salsapress_salsa_filters', 'Salsa Settings', 'salsapress_salsa_filters', __FILE__);
+		add_settings_field('salsapress_salsa_chapter_filter', __('Chapter Filter (Only show data from a single chapter)','salsapress'), 'salsapress_salsa_chapter_filter', __FILE__, 'salsapress_salsa_filters');
+		add_settings_field('salsapress_salsa_chapter_base', __('Base Chapter KEY','salsapress'), 'salsapress_salsa_chapter_base', __FILE__, 'salsapress_salsa_filters');
+		add_settings_field('salsapress_salsa_org_base', __('Base Organization KEY','salsapress'), 'salsapress_salsa_org_base', __FILE__, 'salsapress_salsa_filters');
+		add_settings_section('salsapress_salsa_filters', __('Salsa Settings','salsapress'), 'salsapress_salsa_filters', __FILE__);
 
-		add_settings_field('salsapress_stop_cache', '<strong>NEVER</strong> Cache SalsaPress', 'salsapress_cache', __FILE__, 'salsapress_cache_section');
-		add_settings_field('salsapress_cache_reset', 'Reset Current Cache', 'salsapress_cache_reset', __FILE__, 'salsapress_cache_section');
-		add_settings_section('salsapress_cache_section', 'SalsaPress Caching', 'salsapress_cache_section', __FILE__);
+		add_settings_field('salsapress_stop_cache', __('<strong>NEVER</strong> Cache SalsaPress','salsapress'), 'salsapress_cache', __FILE__, 'salsapress_cache_section');
+		add_settings_field('salsapress_cache_reset', __('Reset Current Cache','salsapress'), 'salsapress_cache_reset', __FILE__, 'salsapress_cache_section');
+		add_settings_section('salsapress_cache_section', __('SalsaPress Caching',"salsapress"), 'salsapress_cache_section', __FILE__);
 	}
 
 
 	wp_enqueue_script( 'SalsaPress', base.'admin/salsapress_admin.js',array( 'jquery' ), '0.5', true );
+	wp_localize_script( 'SalsaPress', 'objectL10n', array(
+		'hold_tight_ok' => __('Grabbing a preview, holdtightok?','salsapress'),
+		'success' => __('Success!','salsapress')
+	));
 	wp_enqueue_style( 'SalsaPress', base.'admin/salsapress_admin.css','', '0.5', 'all' );
 	localize_scripts();
 }
@@ -91,7 +95,7 @@ function salsapress_validate_fix($input) {
 
 // Specific functions for each option
 function  salsapress_salsa_credentials() {
-	echo '<p>Enter your Salsa Configuration, Salsa Widgets and Pages will not activate unless this is active</p>';
+	echo '<p>'.__('Enter your Salsa Configuration, Salsa Widgets and Pages will not activate unless this is active','salsapress').'</p>';
 }
 
 function salsapress_salsa_activate() {
@@ -125,13 +129,13 @@ function salsapress_salsa_base_url() {
 function salsapress_salsa_status() {
 	$obj = SalsaConnect::singleton();
 	$color = $obj->status() == "Successful Login" ? $color = 'style="color: green;"' : 'style="color:red;"';
-	echo '<h3 >Login Status: <span '.$color.'>'.$obj->status().'</span></h3>';
+	echo '<h3 >'.__('Login Status','salsapress').': <span '.$color.'>'.__($obj->status(),'salsapress').'</span></h3>';
 }
 
 /** Filters Seciton **/
 
 function  salsapress_salsa_filters() {
-	echo '<p>Extra settings to further help configure Salsa</p>';
+	echo '<p>'.__('Extra settings to further help configure Salsa','salsapress').'</p>';
 }
 
 
@@ -143,7 +147,7 @@ function salsapress_salsa_chapter_filter() {
 		if( $obj->status() == "Successful Login" ):
 			$chapters = $obj->post('gets-nofilter','object=chapter');
 			echo "<select id='salsapress_salsa_chapter_filter' name='salsapress_options[salsapress_salsa_chapter_filter]' />";
-				echo "<option value=''>-- Show All Chapters</option>";
+				echo "<option value=''>".__('-- Show All Chapters','salsapress')."</option>";
 			foreach( $chapters as $chapter):
 				$selected = $filter == $chapter->chapter_KEY ? 'selected="selected"' : '';
 				echo '<option '.$selected.' value="'.$chapter->chapter_KEY.'">'.$chapter->Name.'</option>';
@@ -191,21 +195,21 @@ function salsapress_salsa_setup() {
 	?>
 	<div class="wrap">
 		<div class="icon32" style="background: transparent url(<?php echo base.'images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
-		<h2>Set Up Your Salsa Connection</h2>
-		Connect WordPress to <a href="http://salsalabs.com" target="_blank">Salsa</a> and and add synchronized reports, events, and sign-up forms.
+		<h2><?php _e('Set Up Your Salsa Connection','salsapress'); ?></h2>
+		<?php _e('Connect WordPress to and and add synchronized reports, events, and sign-up forms.','salsapress'); ?>
 		<form autocomplete='off' action="options.php" method="post">
 			<?php settings_fields('salsapress'); ?>
 
 			<?php do_settings_sections(__FILE__); ?>
 
 		<p class="submit">
-			<input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes'); ?>" />
+			<input name="Submit" type="submit" class="button-primary" value="<?php esc_attr_e('Save Changes','salsapress'); ?>" />
 		</p>
 		</form>
 
-		<h2>Add-on Calendar Plugin</h2>
-		<p>Want your Salsa events in a calendar? We might be able to help. <a href="mailto:srduncombe@gmail.com">Contact Scott</a> about adding a salsa-powered-calendar.</p>
-		<h3><a target="_blank" href="http://busproject.org/cal/">See it in action here</a></h3>
+		<h2><?php _e('Add-on Calendar Plugin','salsapress'); ?></h2>
+		<p><?php _e('Want your Salsa events in a calendar? We might be able to help. <a href="mailto:srduncombe@gmail.com">Contact Scott</a> about adding a salsa-powered-calendar.','salsapress') ?></p>
+		<h3><a target="_blank" href="http://busproject.org/cal/"><?php _e('See it in action here','salsapress') ?></a></h3>
 
 		<h2>About SalsaPress / The Bus Federation</h2>
 		<p>SalsaPress is provided - for free - by the <a href="http://busfederation.com/">Bus Federation</a> and built by <a href="http://twitter.com/mojowen">Scott</a>. It is <a href="https://github.com/BusProject/SalsaPress">totally open source</a>.</p>

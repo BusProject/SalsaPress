@@ -550,3 +550,73 @@ msgstr "Baden-Württemberg,Bayern,Berlin,Brandenburg,Bremen,Hamburg,Hessen,Meckl
 # Comma separated state abbreviations
 msgid "AL,AK,AS,AZ,AR,CA,CO,CT,DE,DC,FL,GA,GU,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,MP,OH,OK,OR ,PA,PR,RI,SC,SD,TN,TX,UT,VT,VI,VA,WA,WV,WI,WY,AA,AE,AP,AB,BC,MB,NF,NB,NS,NT,NU,ON,PE,QC,SK,YT,ot"
 mgstr "BW,BY,BE,BB,HB,HH,HE,MV,NI,NW,RP,SL,SN,ST,SH,TH"
+
+
+# Admin messages
+
+# From salsapress_salsa_setup in admin/admin-menu.php line 175
+msgid "Set Up Your Salsa Connection"
+msgid "Connect WordPress to and and add synchronized reports, events, and sign-up forms."
+msgid "Add-on Calendar Plugin"
+msgid "Want your Salsa events in a calendar? We might be able to help. <a href='mailto:srduncombe@gmail.com'>Contact Scott</a> about adding a salsa-powered-calendar."
+msgid "See it in action here"
+
+msgid "Activate SalsaPress"
+
+
+# SalsaPress fields from /admin/admin-menu.php line 19
+msgid "Chapter Filter (Only show data from a single chapter)"
+msgid "Base Chapter KEY"
+msgid "Salsa Settings"
+msgid "Base Organization KEY"
+msgid "<strong>NEVER</strong> Cache SalsaPress"
+msgid "Reset Current Cache"
+msgid "SalsaPress Caching"
+msgid "Salsa Status"
+msgid "Salsa Credentials"
+msgid "Salsa Base URL (salsa.democracyinaction.org, org2.democracyinaction.org, salsa.wiredforchange.com, etc)"
+msgid "Salsa Password"
+msgid "Salsa Login (email)"
+msgid "Connect with Salsa?"
+msgid "Enter your Salsa Configuration, Salsa Widgets and Pages will not activate unless this is active"
+msgid "Login Status"
+msgid "Extra settings to further help configure Salsa"
+msgid "-- Show All Chapters"
+msgid "Save Changes"
+
+# Connect messages
+msgid "FAIL! :I"
+msgid "Successful Login"
+
+# Cache messages - /admin/manage_caching.php
+msgid "Click to Reset"
+msgid "Site may slow down while cache is rebuilt"
+msgid "SalsaPress caches outward-facing Salsa API calls to speed up your site. Each cache lives for about 12 hours."
+
+# Coming events widget - /widgets/coming_events.php
+msgid 'The widget can limit the events pulled from Salsa by their assgined Salsa website template, select the template to screen here:'
+msgid 'The number of events to display'
+msgid "Big stuff, coming soon!"
+msgid "Full Calendar"
+msgid "Sign up and more details"
+msgid "UPCOMING"
+
+# Event Form and Signup Form Widget - /widgets/event_form.php, /widgets/signup_page.php, /admin/embed.php
+msgid "Include Title?"
+msgid "Include Description?"
+
+msgid "Embed a Salsa Event"
+msgid "Will create the sign up form based off of the event\'s form. Only works for non-paying events."
+msgid "- Select an Event -"
+msgid "Show Compact Event View?"
+msgid "Compact view strips out the first Image from the Description and displays it along with the Event Name, Date, Time, Address, and Signup Form. The Full Description is placed in a hidden 'Read More' box"
+msgid "After Saving the form:"
+msgid "Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form."
+
+msgid "Embed a Salsa Contact Form"
+msgid "Will create the sign up form based off the one you created in Salsa and will add directly into Salsa"
+msgid "- Select a Sign Up Form -"
+
+msgid "Add some Salsa to your page!"
+msgid 'Insert Salsa Element'
+msgid 'Insert Into Post'

@@ -19,40 +19,39 @@ class salsa_event_widget extends WP_Widget
 
 		$form_key = isset( $instance['form_key'] ) ? esc_attr($instance['form_key']) : '';
 		$title = isset( $instance['title'] ) ?  esc_attr($instance['title']) : '';
-		$description = isset( $instance['description'] ) ? esc_attr($instance['description']) : ''; 
-		$compact = isset( $instance['compact'] ) ? esc_attr($instance['compact']) : ''; 
-		$after_save = isset( $instance['after_save'] ) ? esc_attr($instance['after_save']) : ''; 
+		$description = isset( $instance['description'] ) ? esc_attr($instance['description']) : '';
+		$compact = isset( $instance['compact'] ) ? esc_attr($instance['compact']) : '';
+		$after_save = isset( $instance['after_save'] ) ? esc_attr($instance['after_save']) : '';
 		?>
-		<h3 class="media-title">Embed a Salsa Event</h3>
-		<p>Will create the sign up form based off of the event's form. Only works for non-paying events.<br>
-			<em>Hint: Click to <a target="_blank" href="https://hq-<?php echo jolokia_salsa_base_url;?>/dia/hq/reports/edit.jsp?table=report">Create</a> and <a target="_blank" href="https://hq-<?php echo jolokia_salsa_base_url;?>/salsa/hq/p/salsa/event/common/hq/edit?object=event">edit</a> your events in Salsa (<a href="#" onclick="document.location.reload('true')">click to refresh this form</a> to see changes)</em></p>
+		<h3 class="media-title"><?php _e('Embed a Salsa Event','salsapress'); ?></h3>
+		<p><?php _e('Will create the sign up form based off of the event\'s form. Only works for non-paying events.','salsapress'); ?><br>
+		<br/ >
 		<input type="hidden" name="type" value="event" id="type">
-		<label for="salsa_key"><?php _e('Salsa Event:'); ?></label>
 
 		<select class="salsa_key" style="width: 220px;"  id="<?php echo $this->get_field_id('form_key'); ?>" name="<?php echo $this->get_field_name('form_key'); ?>">
-			<option value="">- Select an Event -</option>
+			<option value=""><?php _e('- Select an Event -','salsapress'); ?></option>
 				<?php $stuff = $obj->post('gets','object=event&include=Event_Name&orderBy=-Start&limit=50&condition=Start>='.date("Y-m-d")); ?>
 				<?php foreach ($stuff as $things ) { ?>
 					<option value="<?php echo $things->key; ?>" <?php if( $things->key == $form_key ) { echo 'selected'; }?> ><?php echo $things->Event_Name; ?></option>
 				<?php } ?>
 		</select><br>
 
-		<label id="form-title">Include Event Title?</label>   <input <?php if( $title ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>"><br>
-		<label id="form-description">Include Event Description?</label>   <input <?php if( $description ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>"><br><br>
+		<label id="form-title"><?php _e('Include Title?','salsapress') ?></label>   <input <?php if( $title ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>"><br>
+		<label id="form-description"><?php _e('Include Description?','salsapress'); ?></label>   <input <?php if( $description ) echo 'checked="checked"';?> type="checkbox" id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>"><br><br>
 
-		<label id="form-description">Show Compact Event View?</label>   <input type="checkbox"  <?php if( $compact ) echo 'checked="checked"';?>  id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>" ><br>
-		<em>Compact view strips out the first Image from the Description and displays it along with the Event Name, Date, Time, Address, and Signup Form. The Full Description is placed in a hidden 'Read More' box</em><br><br>
+		<label id="form-description"><?php _e('Show Compact Event View?','salsapress'); ?></label>   <input type="checkbox"  <?php if( $compact ) echo 'checked="checked"';?>  id="<?php echo $this->get_field_id('description'); ?>" name="<?php echo $this->get_field_name('description'); ?>" ><br>
+		<em><?php _e("Compact view strips out the first Image from the Description and displays it along with the Event Name, Date, Time, Address, and Signup Form. The Full Description is placed in a hidden 'Read More' box",'salsapress'); ?></em><br><br>
 
-		<label id="form-confirmation">After Saving the form:</label><br>
+		<label id="form-confirmation"><?php _e("After Saving the form:","salsapress"); ?></label><br>
 		<textarea style="width: 200px;" id="<?php echo $this->get_field_id('after_save'); ?>" name="<?php echo $this->get_field_name('after_save'); ?>"><?php echo rawurldecode($after_save);?></textarea><br>
-		Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form.
-		<br><br><strong>HINT:</strong> This is a great time to ask them for something else, like a facebook Like or tell a friend or something.
+		<?php _e("Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form.","salsapress"); ?>
+
 
 		<?php
 	} else {
 		?>
-		<h2><a href="<?php echo admin_url('admin.php?page=salsa'); ?>">Activate SalsaPress</a></h2>
-		<?php 
+		<h2><a href="<?php echo admin_url('admin.php?page=salsa'); ?>"><?php _e('Activate SalsaPress','salsapress'); ?></a></h2>
+		<?php
 	}
   }
 
