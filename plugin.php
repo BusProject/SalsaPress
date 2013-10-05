@@ -41,12 +41,22 @@ function salsapress_options_init(){
     add_action('wp_ajax_salsapress_salsa_report_render', 'salsapress_salsa_report_render');
 	add_action('wp_ajax_salsapress_form_button_iframe', 'salsapress_form_button_iframe');
 	add_action('wp_ajax_salsapress_reset_caches', 'salsapress_reset_caches');
-	
 }
 
 function enque_salsapress() {
 	//Enqueing external scripts and styles
 	wp_enqueue_script( 'SalsaPress', base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
+
+	wp_localize_script( 'SalsaPress', 'objectL10n', array(
+		'seem_to_be_missing' => __( 'Seem to be missing', 'salsapress' ),
+		'click_to_try_again' => __( 'Click to try again', 'salsapress' ),
+		'saving_wait_one_sec' => __('Saving... wait one sec','salsapress'),
+		'click_to_go_again' => __('Click to Go Again','salsapress'),
+		'please_enter_valid_email_address' => __('Please enter a valid email address.','salsapress'),
+		'try_again' => __('Try again, had a missfire there...','salsapress'),
+		'success' => __('Success!','salsapress'),
+	));
+
 	wp_enqueue_style( 'SalsaPress', base.'utils/SalsaPress.css','', '0.5', 'all' );	
 	localize_scripts();
 }

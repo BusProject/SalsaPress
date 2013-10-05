@@ -45,16 +45,31 @@ class SalsaForm {
 		$options = get_option('salsapress_options');
 		$chapter = isset($options['salsapress_salsa_chapter_base']) && strlen($options['salsapress_salsa_chapter_base']) > 1 ? '/c/'.$options['salsapress_salsa_chapter_base'] : '';
 		$fallback_url = $options['salsapress_salsa_base_url'].'/o/'.$options['salsapress_salsa_org_base'].$chapter;
-		
+
 		$inputs = explode(",",$this->form->Request);
 		$required = explode(",",$this->form->Required);
-		$diff_fields = array( 
-			//'Phone' => '<input type="text" name="Phone" id="Phone" fillin="Phone"><br><label class="text_me"><em>A text\'s as good as an email</em></label><input type="checkbox" name="tag" id="tag" value="Can Text" checked>',
+
+		$states =  __( 'Alabama,Alaska,American Samoa,Arizona,Arkansas,California,Colorado,Connecticut,Delaware,D.C.,Florida,Georgia,Guam,Hawaii,Idaho,Illinois,Indiana,Iowa,Kansas,Kentucky,Louisiana,Maine,Maryland,Massachusetts,Michigan,Minnesota,Mississippi,Missouri,Montana,Nebraska,Nevada,New Hampshire,New Jersey,New Mexico,New York,North Carolina,North Dakota,Northern Mariana Islands,Ohio,Oklahoma,<option value="OR" >Oregon,Pennsylvania,Puerto Rico,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Vermont,Virgin Islands,Virginia,Washington,West Virginia,Wisconsin,Wyoming,Armed Forces (the) Americas,Armed Forces Europe,Armed Forces Pacific,Alberta,British Columbia,Manitoba,Newfoundland,New Brunswick,Nova Scotia,Northwest Territories,Nunavut,Ontario,Prince Edward Island,Quebec,Saskatchewan,Yukon Territory,Other', 'salsapress');
+		$state_abvs =  __( 'AL,AK,AS,AZ,AR,CA,CO,CT,DE,DC,FL,GA,GU,HI,ID,IL,IN,IA,KS,KY,LA,ME,MD,MA,MI,MN,MS,MO,MT,NE,NV,NH,NJ,NM,NY,NC,ND,MP,OH,OK,OR ,PA,PR,RI,SC,SD,TN,TX,UT,VT,VI,VA,WA,WV,WI,WY,AA,AE,AP,AB,BC,MB,NF,NB,NS,NT,NU,ON,PE,QC,SK,YT,ot', 'salsapress');
+		$select_state_text =  __( '-- Please select', 'salsapress');
+
+		$state_array = explode(',',$states);
+		$state_abvs_array = explode(',',$state_abvs);
+		$state_select_string = '<select id="state" name="State" ><option value="">'.$select_state_text.'</option>  ';
+
+		foreach ($state_array as $key => $state) {
+			$abv = isset( $state_abvs_array[$key] ) ? $state_abvs_array[$key] : '';
+			$state_select_string .= '<option value="'.$abv.'">'.$state.'</option>';
+		}
+		$state_select_string .= '</select>';
+
+		$diff_fields = array(
 			'Zip' => '<input type="text" name="Zip" id="Zip" fillin="Zip" maxlength="5" size="6">',
-			'State' => '<select id="state" name="State" ><option value="">Select a state</option>  <option value="AL">Alabama</option>  <option value="AK">Alaska</option><option value="AS">American Samoa</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">D.C.</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="GU">Guam</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="MP">Northern Mariana Islands</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR" >Oregon</option><option value="PA">Pennsylvania</option><option value="PR">Puerto Rico</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VI">Virgin Islands</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option><option value="AA">Armed Forces (the) Americas</option><option value="AE">Armed Forces Europe</option><option value="AP">Armed Forces Pacific</option><option value="AB">Alberta</option><option value="BC">British Columbia</option><option value="MB">Manitoba</option><option value="NF">Newfoundland</option><option value="NB">New Brunswick</option><option value="NS">Nova Scotia</option><option value="NT">Northwest Territories</option><option value="NU">Nunavut</option><option value="ON">Ontario</option><option value="PE">Prince Edward Island</option><option value="QC">Quebec</option><option value="SK">Saskatchewan</option><option value="YT">Yukon Territory</option><option value="ot">Other</option></select>'
+			'State' => $state_select_string
 		);
 		$diff_labels = array(
-			'sign_up_page_comments' => 'How can you get involved?'
+			'State' => __( 'State/Province', 'salsapress'),
+			'Zip' => __( 'Zip/Postal Code', 'salsapress')
 		);
 
 		if( $this->obj == 'event' ) {
@@ -107,17 +122,17 @@ class SalsaForm {
 			$gcal = ' (<a href="https://www.google.com/calendar/b/0/render?action=TEMPLATE&text='.$this->form->Event_Name.'&dates='.date('Ymd\THis',strtotime($this->form->Start)).'/'.date('Ymd\THis',strtotime	($this->form->End)).'&details='.better_excerpt($html->plaintext,500).'&trp=true&sprop=website:'.$url.'&sprop=name:'.$this->form->Location_Common_Name.'&location='.$location_url.'&pli=1&sf=true&output=xml" target="_blank" >Add to GCal</a>) ';
 			$below = $social.'<ul class="deets">'.$location.'<li><strong>When:</strong> '.date_smoosh($this->form->Start,$this->form->End).$gcal.'</li></ul>';
 			$form_return .= $title.'<div class="event_compact"><div class="description">'.$ftimage.$description.'</div>';
-			
+
 			$extra = '<h2>Sign Up</h2>';
 			$end = '</div>';
-		} else { 
+		} else {
 			if ( isset($this->options['salsa_title']) && $this->options['salsa_title']) $form_return .= $title;
 			if ( isset($this->options['salsa_description']) && $this->options['salsa_description'] ) $form_return .= $description;
 		}
 		if( $this->form->object != 'event' || $this->form->No_Registration != 'true' && $this->form->This_Event_Costs_Money != 'true'   ) {
-			
+
 			$form_return .= '<form class="salsa-form" ';
-			$form_return .= 'action="http://'.$fallback_url.'" method="GET" target="_blank" ';
+			$form_return .= 'action="'.$fallback_url.'" method="GET" target="_blank" ';
 			if( isset($this->form->redirect_path) ) $form_return .= 'redirect_path="'.$this->form->redirect_path.'"';
 			$form_return .= ' >';
 			$form_return .= $extra;
@@ -130,11 +145,12 @@ class SalsaForm {
 			$form_return .= '<input type="hidden" value="'.$this->form->organization_KEY.'" name="organization_KEY" id="organization_KEY">';
 			$form_return .= '<input type="hidden" value="'.$this->form->chapter_KEY.'" name="chapter_KEY" id="chapter_KEY">';
 			$form_return .= '<input type="hidden" value="'.$this->form->email_trigger_KEYS.'" name="email_trigger_KEYS" id="email_trigger_KEYS">';
+
 			foreach ($inputs as $thing) {
 				if(  $thing != '0' && $thing != '__v2__'  && !empty($thing) ) {
 					if( !isset($diff_labels[$thing]) ) {
 						if( $thing[0] != strtolower($thing[0]) )  { // If a custom field - use Custom Fields to display label
-							$form_return .= '<label for="'.$thing.'">'.str_replace('_',' ',$thing);
+							$form_return .= '<label for="'.$thing.'">'.__( str_replace('_',' ',$thing), 'salsapress');
 							if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
 							$form_return .= "</label>";
 						}
@@ -172,9 +188,11 @@ class SalsaForm {
 					$form_return .= "<br>";
 				}
 			}
-			if( count($required) > 0 ) $form_return .= "<label class='required'><em>* Required</em></label>";
 
-			// Setting up groups 
+			$required_text = __('Required','salsapress');
+			if( count($required) > 0 ) $form_return .= "<label class='required'><em>* $required_text</em></label>";
+
+			// Setting up groups
 			if( isset($this->form->PreGroup_Text) ) $form_return .= '<p>'.$this->form->PreGroup_Text.'</p>';
 
 			if( isset($this->form->optionally_add_to_groups_KEYS) ) $optional_groups = $this->form->optionally_add_to_groups_KEYS;
@@ -185,7 +203,7 @@ class SalsaForm {
 				$group_pull = explode(",",$optional_groups);
 				foreach ( $group_pull as  $thing) {
 					$i = 0;
-					if( strlen($thing) > 2 )  { 
+					if( strlen($thing) > 2 )  {
 						$group = $this->SalsaConnect->post('gets','object=groups&condition=groups_KEY='.$thing.'&include=Group_Name');
 						$form_return .= '<label for="'.$group['0']->Group_Name.'">'.$group['0']->Group_Name.'</label>';
 						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'" id="link" value="true">';
@@ -193,7 +211,7 @@ class SalsaForm {
 						$i++;
 					}
 				}
-			} 
+			}
 
 			if( isset($this->form->{'required$groups_KEYS'}) ) $required_groups = $this->form->{'required$groups_KEYS'};
 			if( isset($this->form->add_to_groups_KEYS) ) $required_groups = $this->form->add_to_groups_KEYS;
@@ -236,7 +254,9 @@ class SalsaForm {
 				$form_return .= '<input type="hidden" name="signup_page_KEY" value="'.$this->form->key.'">';
 			}
 
-			$form_return .= '<input type="submit" id="salsa-submit" value="Sign Up!">';
+			$action = __( 'Sign Up!', 'salsapress');
+
+			$form_return .= '<input type="submit" id="salsa-submit" value="'.$action.'">';
 			$form_return .= '</form>';
 
 			if( isset($this->options['after-save']) ) $form_return .= '<div class="after_save" style="display: none;">'.rawurldecode($this->options['after-save']).'</div>';

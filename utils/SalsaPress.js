@@ -258,7 +258,7 @@ var count = 0;
 
 			if ( error ) {
 				var self = $(this);
-				$(this).find('input[type=submit]').attr('disabled',true).val('Saving...wait one sec');
+				$(this).find('input[type=submit]').attr('disabled',true).val(objectL10n.saving_wait_one_sec);
 	// Variables to fire (nonce, ajaxurl are automatic)
 				$.post(
 					SalsaPressVars.ajaxurl,
@@ -273,7 +273,7 @@ var count = 0;
 					function( response ) { 
 						data = response[0];
 						if( data.result == 'success' ) {
-							self.notice('Success!','success');
+							self.notice(objectL10n.success,'success');
 
 							if( typeof self.attr('redirect_path') != 'undefined' && self.attr('redirect_path').length > 0 ) document.location = self.attr('redirect_path');
 
@@ -287,27 +287,27 @@ var count = 0;
 									var tag = this.tagName.toLowerCase();
 									if (type == 'text' || type == 'password' || tag == 'textarea') this.value = "";
 									else if (type == 'checkbox' || type == 'radio') this.checked = false;
-									else if (tag == 'select') this.selectedIndex = -1;
+									else if (tag == 'select') this.selectedIndex = 0;
 								  });
-								self.find('input[type=submit]').attr('disabled',false).val('Click to go again');
+								self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_go_again);
 							}
 						}
-						else if ( data.messages.toString().split('.  ')[1] == 'Please enter a valid email address.' ) {
+						else if ( data.messages.toString().split('.  ')[1] == objectL10n.please_enter_valid_email_address ) {
 							self.find('label.required').addClass('oops');
 							self.find('label[name=Email]').addClass('oops').next('input').addClass('oops');
-							self.find('input[type=submit]').attr('disabled',false).val('Click to try again');
+							self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_try_again);
 						}
 						else if ( data.messages.length > 0 ) self.notice(response.messages,'bad');
 						else {
-							self.notice('Try again, had a missfire there...','bad');
-							self.find('input[type=submit]').attr('disabled',false).val('Click to try again');
+							self.notice(objectL10n.try_again,'bad');
+							self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_try_again);
 						}
 					});
 	// This could be more or less automatic, don't see why anything else would be needed here
 			} else {
 				$(this).find('label.required').addClass('oops');
 				$(this).next('span.notice').remove();
-				$(this).notice('Seem to be missing '+missing.slice(0,missing.length-2),'bad');
+				$(this).notice(objectL10n.seem_to_be_missing+' '+missing.slice(0,missing.length-2),'bad');
 			}
 			e.preventDefault();
 		});
