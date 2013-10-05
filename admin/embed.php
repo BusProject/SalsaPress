@@ -14,11 +14,10 @@ function salsapress_form_button_iframe(){
 	wp_enqueue_style( 'SalsaPress_Admin', base.'admin/salsapress_admin.css','', '0.5', 'all' );
 	wp_enqueue_script( 'SalsaPress_Admin', base.'admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
 	localize_scripts();
-	wp_iframe('salsapress_form_button_iframe_Content');
+	remove_action( 'admin_enqueue_scripts', 'wp_auth_check_load' );
+	wp_iframe('salsapress_form_button_iframe_content');
 	exit();
 }
-
-
 
 
 function salsapress_salsa_report_render() {
@@ -26,9 +25,9 @@ function salsapress_salsa_report_render() {
 		wp_die( __('You do not have sufficient permissions to access this page.') );
 	}
 	$obj = SalsaConnect::singleton();
-	
+
 	$user_input = $obj->post('gets','object=report_condition&condition=value_type=User%20variable&condition=report_KEY='.$_GET['key'], true);
-	
+
 	if( count($user_input) > 0 && empty($_GET['inputs']) ){
 		?><!--0--><h3>Hmm looks like this report takes user inputs, so why doncha put in some inputs?</h3>
 		<p><em>Confused? Scared? <a target="_blank" href="https://'.salsapress_salsa_base_url.'/dia/hq/reports/edit?table=report&key='<?php echo $_GET['key']; ?>'">Check out your report here</a></em></p>
@@ -77,12 +76,12 @@ function salsapress_salsa_report_render() {
 						<strong>Row <?php echo $i; ?></strong>
 					<?php endwhile;?>
 				</p>
-			</div> 
+			</div>
 		</p>
 			<table>
 			<tbody>
 			<tr>
-			
+
 			<?php $i = 0;?>
 			<?php foreach($titles as $t=>$v): ?>
 				<th><input name="header_<?php echo $i; ?>" value="<?php echo str_replace('_',' ',substr($t, strpos($t,".")+1)); ?>" type="text"  ><br /><span class="hide">(hide)</span></th>
@@ -111,7 +110,7 @@ function salsapress_salsa_report_render() {
 					</ul>
 				<?php endif;?>
 				<button id="resubmit">Refresh report</button> (warning: clears all the style changes like hidden columns, etc)
-				
+
 
 		<?php
 		else: ?>

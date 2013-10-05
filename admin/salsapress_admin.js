@@ -24,7 +24,7 @@ jQuery(document).ready( function($) {
 		}
 	});
 
-	$('.option:not(.picked)').hover( 
+	$('.option:not(.picked)').hover(
 		function() {
 			$(this).fadeTo('slow',1);
 		},
@@ -35,11 +35,11 @@ jQuery(document).ready( function($) {
 	$('#report .salsa_key').change( function() {
 		var key = '';
 		inputs = '';
-		
+
 		$( $(this).val().slice( $(this).val().search(/\?/) + 1 ).split('&') ).each( function() {
 			var line = this.split('=');
 			if( line.length > 1 ) {
-				key = line[0].toLowerCase().search(/key/) > -1 ? line[1] : key; 
+				key = line[0].toLowerCase().search(/key/) > -1 ? line[1] : key;
 				inputs += line[0][0] == 'u' ? 'inputs[]='+line[1] : inputs;
 			} else key = this.length == 5 ? this.toString() : key;
 		});
@@ -53,9 +53,9 @@ jQuery(document).ready( function($) {
 				function(response) {
 					if( response[4] > 0 ) $('input[type=submit]').show();
 					$('.preview').show().html(response).addClass('active');
-					for(i=0; i<$('.preview table th').length ; i=i+1) { 
-						$('input[name=columns]').val( $('input[name=columns]').val()+i+','); 
-					} 
+					for(i=0; i<$('.preview table th').length ; i=i+1) {
+						$('input[name=columns]').val( $('input[name=columns]').val()+i+',');
+					}
 				}
 			);
 		} else {
@@ -63,14 +63,14 @@ jQuery(document).ready( function($) {
 			$('input[type=submit]').hide();
 			$(this).parents('div.option').removeClass('picked');
 		}
-		
+
 	});
 	$('#resubmit').live('click',function(e){
 		$(this).hide().notice('Getting the updated report...');
 		e.preventDefault();
-		var input =''; 
-		$('.preview li.user_variables input').each( function() { 
-			if( jQuery(this).val() != '' ) input += 'inputs[]='+jQuery(this).val()+'&'; 
+		var input ='';
+		$('.preview li.user_variables input').each( function() {
+			if( jQuery(this).val() != '' ) input += 'inputs[]='+jQuery(this).val()+'&';
 		});
 		$.get(
 			document.location.href.split('?')[0],
@@ -78,8 +78,8 @@ jQuery(document).ready( function($) {
 			function(response) {
 				if( response[4] > 0 ) $('input[type=submit]').show();
 				$('div.preview').html(response).addClass('active');
-				for(i=0; i<$('.preview table th').length ; i=i+1) { 
-					$('input[name=columns]').val( $('input[name=columns]').val()+i+','); 
+				for(i=0; i<$('.preview table th').length ; i=i+1) {
+					$('input[name=columns]').val( $('input[name=columns]').val()+i+',');
 				}
 			}
 		);
@@ -119,24 +119,24 @@ jQuery(document).ready( function($) {
 		event.stopPropagation();
 		return false;
 	});
-	$('#header:not(:checked)').live('click',function() { 
-		$('.preview table th:not(.hiding) input').show(); 
+	$('#header:not(:checked)').live('click',function() {
+		$('.preview table th:not(.hiding) input').show();
 	});
-	$('#header:checked').live('click',function() { 
-		$('.preview table th input').hide(); 
+	$('#header:checked').live('click',function() {
+		$('.preview table th input').hide();
 	});
-	$('#list:checked').live('click',function() { 
-		$('#list_options').show(); 
+	$('#list:checked').live('click',function() {
+		$('#list_options').show();
 	});
-	$('#list:not(:checked)').live('click',function() { 
-		$('#list_options').hide(); 
+	$('#list:not(:checked)').live('click',function() {
+		$('#list_options').hide();
 	});
-	$('h3.reset_caches').click( function() { 
+	$('h3.reset_caches').click( function() {
 		$this = $(this);
 		$.getJSON(SalsaPressVars.ajaxurl,{
 			action : 'salsapress_reset_caches'
 		}, function( response ) {
-			if( response.success ) { $this.parent('td').text('Success!'); }
+			if( response.success ) { $this.parent('td').text( objectL10n.success ); }
 		});
 	});
 });

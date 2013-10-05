@@ -14,7 +14,7 @@ class salsapress_coming_events extends WP_Widget
   function form($instance)
   {
 	$obj = SalsaConnect::singleton();
-	
+
 	if( $obj && $obj->on() ) {
 
     	$template = isset($instance['template']) ? esc_attr($instance['template']) : '';
@@ -51,14 +51,14 @@ class salsapress_coming_events extends WP_Widget
 			<label for="<?php echo $this->get_field_id('link_to_cal'); ?>"> <?php echo __('Link events to the built in calendar page, instead of Salsa','salsapress') ?><br>
 				<input id="<?php echo $this->get_field_id('link_to_cal'); ?>" name="<?php echo $this->get_field_name('link_to_cal'); ?>" type="checkbox" <?php if( $link_to_cal ) echo 'checked="checked"';?>>
 			</label>
-		</p> 
+		</p>
 		*/ ?>
-		
+
 	   <?php
 	} else {
 		?>
 		<h2><a href="<?php echo admin_url('admin.php?page=salsa'); ?>">Activate SalsaPress</a></h2>
-		<?php 
+		<?php
 	}
   }
 
@@ -76,7 +76,7 @@ class salsapress_coming_events extends WP_Widget
   {
 	$obj = SalsaConnect::singleton(true);
 	if( $obj && $obj->on() ) {
-	
+
 		extract($args);
 		$template  = ( $instance['template'] != '' ) ? esc_attr($instance['template']) : '';
 		$event_number  = ( $instance['event_number'] != '' ) ? esc_attr($instance['event_number']) : 4;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 Plugin Name: SalsaPress
 Plugin URI: https://github.com/BusProject/SalsaPress
@@ -57,7 +57,7 @@ function enque_salsapress() {
 		'success' => __('Success!','salsapress'),
 	));
 
-	wp_enqueue_style( 'SalsaPress', base.'utils/SalsaPress.css','', '0.5', 'all' );	
+	wp_enqueue_style( 'SalsaPress', base.'utils/SalsaPress.css','', '0.5', 'all' );
 	localize_scripts();
 }
 

@@ -10,7 +10,7 @@ class SalsaConnect {
 	public $cache = false;
 	public $result;
 
-	var $urls = Array ( 
+	var $urls = Array (
 		'auth' => '/api/authenticate.sjs',
 		'gets' => '/api/getObjects.sjs',
 		'gets-nofilter' => '/api/getObjects.sjs',
@@ -24,7 +24,7 @@ class SalsaConnect {
 		'gets' => '&condition=chapter_KEY=',
 		'save' => '&chapter_KEY='
 	);
-		
+
 	protected $ch = NULL;
 	private static $instance = NULL;
 
@@ -42,7 +42,7 @@ class SalsaConnect {
 
 		if( $cache && function_exists('get_transient') && salsapress_cache ) {
 			$this->cache = true;
-		} else { 
+		} else {
 			$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
 			$this->result = isset($auth->message) ? $auth->message : 'FAIL! :I';
 		}
@@ -72,7 +72,7 @@ class SalsaConnect {
 
 		$params = 'report_KEY='.$key;
 		$i = 0;
-		
+
 		$better_values = array();
 		if( !empty($values) ) foreach( $values as $fix):
 			$code = substr($fix, 0, strpos($fix,"("));
@@ -93,15 +93,15 @@ class SalsaConnect {
 			$i += 1;
 		endforeach;
 		return $params;
-		
+
 	}
 
 	function reportsplit($key,$values = array(), $type = '/dia/hq/export.jsp') {
-		
+
 
 		$params = $this->reportgen($key,$values);
 		$save = false;
-		
+
 		// If this call is being cached, check and see if there's cacehed data
 		if( $this->cache ) {
 			$results = get_transient( $params );
@@ -116,10 +116,10 @@ class SalsaConnect {
 			}
 		}
 
-		// If the query isn't cached 
+		// If the query isn't cached
 		if( !$this->cache ) {
 
-			curl_setopt($this->ch, CURLOPT_POST, 1);		
+			curl_setopt($this->ch, CURLOPT_POST, 1);
 			curl_setopt($this->ch, CURLOPT_URL, $this->url.$type);
 			curl_setopt($this->ch, CURLOPT_POSTFIELDS, $params."&type=csv");
 			$go = curl_exec($this->ch);
@@ -173,7 +173,7 @@ class SalsaConnect {
 		$save = false;
 		// Check and make sure will never use a cache for a save
 		$this->cache = $type != 'save' && $this->cache;
-		
+
 		// If this call is being cached, check and see if there's cacehed data
 		if( $this->cache ) {
 			$results = get_transient( $params );
@@ -188,7 +188,7 @@ class SalsaConnect {
 			}
 		}
 
-		// If the query isn't cached 
+		// If the query isn't cached
 		if( !$this->cache ) {
 			$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) && !$no_filter ? $this->chapter_fix[$type].$this->chapter : '';
 			curl_setopt($this->ch, CURLOPT_POST, 1);
@@ -213,7 +213,7 @@ class SalsaConnect {
 		$save = false;
 		// Check and make sure will never use a cache for a save
 		$this->cache = $type != 'save' && $this->cache;
-		
+
 		// If this call is being cached, check and see if there's cacehed data
 		if( $this->cache ) {
 			$results = get_transient( $params );
@@ -228,7 +228,7 @@ class SalsaConnect {
 			}
 		}
 
-		// If the query isn't cached 
+		// If the query isn't cached
 		if( !$this->cache ) {
 			$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) && !$no_filter ? $this->chapter_fix[$type].$this->chapter : '';
 			curl_setopt($this->ch, CURLOPT_POST, 1);
@@ -253,7 +253,7 @@ class SalsaConnect {
 		$save = false;
 		// Check and make sure will never use a cache for a save
 		$this->cache = $type != 'save' && $this->cache;
-		
+
 		// If this call is being cached, check and see if there's cacehed data
 		if( $this->cache ) {
 			$results = get_transient( $params );
@@ -268,7 +268,7 @@ class SalsaConnect {
 			}
 		}
 
-		// If the query isn't cached 
+		// If the query isn't cached
 		if( !$this->cache ) {
 			$chapter = isset($this->chapter_fix[$type]) && !empty($this->chapter) && !$no_filter ? $this->chapter_fix[$type].$this->chapter : '';
 			curl_setopt($this->ch, CURLOPT_POST, 1);
@@ -288,29 +288,29 @@ class SalsaConnect {
 
 		return urldecode($go);
 	}
-	
+
 	function optionprep( $input ) {
 		if( !isset($input[0]) ) die();
 		if( !isset($input[1]) ) $input[1] = 'key';
 		if( !isset($input[2]) ) $input[2] = 'key';
-		
+
 		$results = $this->post('gets',$input[0]);
 		$returning = array();
-		
+
 		foreach($results as $r) {
 			$merged_val = '';
 			if( is_array($input[2]) ) foreach($input[2] as $v):
 				$merged_val .= isset($r->$v) ? $r->$v : $v;
 			endforeach; else if( isset($r->$input[2]) ) $mereged_val = $r->$input[2];
-			
+
 			$merged_name = '';
 			if( is_array($input[1]) ) foreach($input[1] as $n):
 				$merged_name .= isset($r->$n) ? $r->$n : $n;
 			endforeach; else if( isset($r->$input[1]) ) $mereged_name = $r->$input[1];
-			
+
 			$returning[] = array( 'value'=> $mereged_val, 'name' => $merged_name );
 		}
-		
+
 		return $returning;
 	}
 
