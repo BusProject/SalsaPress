@@ -277,7 +277,7 @@ var count = 0;
 
 							if( typeof self.attr('redirect_path') != 'undefined' && self.attr('redirect_path').length > 0 ) document.location = self.attr('redirect_path');
 
-							if( self.nextAll('.after_save').length > 0 ) {
+							if( self.nextAll('.after_save:first').html().length > 0 ) {
 								self.nextAll('.after_save').show();
 								self.remove();
 							} else {
