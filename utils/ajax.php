@@ -19,6 +19,7 @@ function salsapress_salsa_supporter_submit() {
 	$request = $_POST['request'];
 	$obj = SalsaConnect::singleton();
 	$go = $obj->rawjson($doing,$request);
+	// $go = '[{ "result": "success" }]';
 
 
 	// generate the response
