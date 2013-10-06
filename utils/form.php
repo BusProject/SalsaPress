@@ -44,7 +44,7 @@ class SalsaForm {
 
 		$options = get_option('salsapress_options');
 		$chapter = isset($options['salsapress_salsa_chapter_base']) && strlen($options['salsapress_salsa_chapter_base']) > 1 ? '/c/'.$options['salsapress_salsa_chapter_base'] : '';
-		$fallback_url = $options['salsapress_salsa_base_url'].'/o/'.$options['salsapress_salsa_org_base'].$chapter;
+		$fallback_url = salsapress_salsa_base_url.'/o/'.$options['salsapress_salsa_org_base'].$chapter;
 
 		$inputs = explode(",",$this->form->Request);
 		$required = explode(",",$this->form->Required);
@@ -114,7 +114,8 @@ class SalsaForm {
 			}
 			$chapter_link = salsapress_salsa_chapter_base == '' ? '' : '/c/'.$chapter_link;
 
-			$url = 'https://'.salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.'/p/salsa/event/common/public/?event_KEY='.$this->form->event_KEY;
+			$secure = str_replace("http://", "https://", salsapress_salsa_base_url);
+			$url =  $scure.'/o/'.salsapress_salsa_org_base.$chapter_link.'/p/salsa/event/common/public/?event_KEY='.$this->form->event_KEY;
 			$social = '<div class="social"><iframe src="http://www.facebook.com/plugins/like.php?app_id=194627797268503&amp;href='.$url.'&amp;send=false&amp;layout=standard&amp;width=54&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21;" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:54px; height:25px;margin-bottom:-4px;" allowTransparency="true"></iframe>';
 			$social .= '&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://twitter.com/share" class="twitter-share-button" data-url="'.$url.'" data-text="Just signed up for '.$this->form->Event_Name.', you should too..." data-count="none" data-via="busproject" data-related="busproject:Follow us on Twitter, we\'re pretty hilarious\">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>';
 			$social .= '&nbsp;&nbsp;&nbsp;&nbsp;<g:plusone size="medium" count="false" href="'.$url.'"></g:plusone><script type="text/javascript">(function() {var po = document.createElement(\'script\'); po.type = \'text/javascript\'; po.async = true;po.src = \'https://apis.google.com/js/plusone.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(po, s);})();</script>';
@@ -160,7 +161,7 @@ class SalsaForm {
 					if( !isset($diff_fields[$thing]) ) {
 						if( $thing[0] == strtolower($thing[0]) ) { // Detects if is a custom field
 							require_once('simple_html_dom.php');
-							if( !isset($form_html) ) $form_html = file_get_html('http://'.$fallback_url);
+							if( !isset($form_html) ) $form_html = file_get_html($fallback_url);
 							$el = $form_html->find('textarea[name='.$thing.'], input[name='.$thing.'], select[name='.$thing.'],
 								textarea[name='.$thing.strtoupper($thing).'], input[name='.$thing.strtoupper($thing).'], select[name='.$thing.strtoupper($thing).']'); // Added to accomodate weirdness I was seeing with TIME
 							if( isset($el[0]) ) { // Can find

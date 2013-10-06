@@ -105,10 +105,11 @@ class salsapress_coming_events extends WP_Widget
 		<div class="salsapress_coming_events">
 			<h2><?php _e('UPCOMING','salsapress'); ?><a href="
 			<?php
+				$secure = str_replace("http://", "https://", salsapress_salsa_base_url);
 				if( $link_to_cal && $thing->This_Event_Costs_Money == false ) {
 					echo $cal_link;
 				} else {
-					echo 'https://'.salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.$template.'/p/salsa/event/common/public/';
+					echo $secure.'/o/'.salsapress_salsa_org_base.$chapter_link.$template.'/p/salsa/event/common/public/';
 				}
 			?>
 			" style="margin-top: -12px; float: right;"><?php _e('Full Calendar','salsapress'); ?></a></h2>

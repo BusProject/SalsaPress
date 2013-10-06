@@ -30,7 +30,7 @@ function salsapress_salsa_report_render() {
 
 	if( count($user_input) > 0 && empty($_GET['inputs']) ){
 		?><!--0--><h3>Hmm looks like this report takes user inputs, so why doncha put in some inputs?</h3>
-		<p><em>Confused? Scared? <a target="_blank" href="https://'.salsapress_salsa_base_url.'/dia/hq/reports/edit?table=report&key='<?php echo $_GET['key']; ?>'">Check out your report here</a></em></p>
+		<p><em>Confused? Scared? <a target="_blank" href="<?php echo salsapress_salsa_base_url; ?>/dia/hq/reports/edit?table=report&key=<?php echo $_GET['key']; ?>'">Check out your report here</a></em></p>
 		<ul>
 		<?php foreach( $user_input as $i ): ?>
 			<?php $label =  strlen($i->user_variable_label) > 0 ? $i->user_variable_label.' ('.str_replace('_',' ',substr($i->field,strpos($i->field,".")+1)).')' : str_replace('_',' ',substr($i->field,strpos($i->field,".")+1)); ?>
@@ -186,7 +186,7 @@ function salsapress_form_button_iframe_content(){
 		<form id="report" class="option">
 			<h3 class="media-title">Embed a Salsa Report</h3>
 			<input type="hidden" name="type" value="report" id="type">
-			<p>Click <a href="https://hq-<?php echo salsapress_salsa_base_url;?>/dia/hq/reports/list.jsp?table=report" target="_blank">here</a> to see all of your reports.</p>
+			<p>Click <a href="<?php echo salsapress_salsa_base_url;?>/dia/hq/reports/list.jsp?table=report" target="_blank">here</a> to see all of your reports.</p>
 			<p>Paste or enter a Report URL or KEY <input name="key" style="width: 420px;"  type="text" class="salsa_key"></p>
 			<input type="hidden" value="" name="columns">
 			<div class="preview">
