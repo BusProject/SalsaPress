@@ -1,16 +1,4 @@
-# German translation of Salsa Entity (7.x-1.0-beta3)
-# Copyright (c) 2013 by the German translation team
-#
-msgid ""
-"Project-Id-Version: Salsa Entity (7.x-1.0-beta3)\n"
-"POT-Creation-Date: 2013-06-19 11:03+0000\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Language-Team: German\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-
+# SalsaPress translations - including Salsa Entities translations from 
 
 # Javascript messages - used in /utils/SalsaPress.js localization on plugin.php line 50
 msgid "Seem to be missing"
@@ -82,8 +70,8 @@ msgid "Site may slow down while cache is rebuilt"
 msgid "SalsaPress caches outward-facing Salsa API calls to speed up your site. Each cache lives for about 12 hours."
 
 # Coming events widget - /widgets/coming_events.php
-msgid 'The widget can limit the events pulled from Salsa by their assgined Salsa website template, select the template to screen here:'
-msgid 'The number of events to display'
+msgid "The widget can limit the events pulled from Salsa by their assgined Salsa website template, select the template to screen here:"
+msgid "The number of events to display"
 msgid "Big stuff, coming soon!"
 msgid "Full Calendar"
 msgid "Sign up and more details"
@@ -94,10 +82,10 @@ msgid "Include Title?"
 msgid "Include Description?"
 
 msgid "Embed a Salsa Event"
-msgid "Will create the sign up form based off of the event\'s form. Only works for non-paying events."
+msgid "Will create the sign up form based off of the event's form. Only works for non-paying events."
 msgid "- Select an Event -"
 msgid "Show Compact Event View?"
-msgid "Compact view strips out the first Image from the Description and displays it along with the Event Name, Date, Time, Address, and Signup Form. The Full Description is placed in a hidden 'Read More' box"
+msgid "Compact view strips out the first Image from the Description and displays it along with the Event Name, Date, Time, Address, and Signup Form. The Full Description is placed in a hidden 'Read More" box"
 msgid "After Saving the form:"
 msgid "Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form."
 
@@ -106,13 +94,29 @@ msgid "Will create the sign up form based off the one you created in Salsa and w
 msgid "- Select a Sign Up Form -"
 
 msgid "Add some Salsa to your page!"
-msgid 'Insert Salsa Element'
-msgid 'Insert Into Post'
+msgid Insert Salsa Element
+msgid Insert Into Post
 
 # Salsa Fields
 
 msgid "First Name"
 msgid "Last Name"
+
+
+# From https://localize.drupal.org/translate/downloads?project=salsa_entity
+
+# German translation of Salsa Entity (7.x-1.0-beta3)
+# Copyright (c) 2013 by the German translation team
+#
+msgid ""
+"Project-Id-Version: Salsa Entity (7.x-1.0-beta3)\n"
+"POT-Creation-Date: 2013-06-19 11:03+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 # From https://localize.drupal.org/translate/projects/salsa_entity
 msgid "Title"
