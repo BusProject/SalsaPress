@@ -58,13 +58,13 @@ Yes...
 * Some fixes for Calendar
 * By the way - want a calendar? [Demo here](http://busproject.org/cal)
 
-= 2.1 = 
+= 2.1 =
 * Passing source information to Salsa
 * Works with Custom Fields OMG...
 * Works with redirects
 * Inconsistent event and signup_page data models for groups - set up fallback to fix bug introduced in 2.0
 
-= 2.0 = 
+= 2.0 =
 * Fixing group add issues
 
 = 1.9 =
