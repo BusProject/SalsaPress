@@ -7,8 +7,8 @@ class salsa_signup_widget extends WP_Widget
 {
   function salsa_signup_widget()
   {
-    $widget_ops = array('description' => __('Add a sign up form from Salsa'));
-    $this->WP_Widget('salsapress_signup_form_widget', __('Salsa Sign Up Form'), $widget_ops);
+    $widget_ops = array('description' => __('Add a sign up form from Salsa','salsapress'));
+    $this->WP_Widget('salsapress_signup_form_widget', __('Salsa Sign Up Form','salsapress'), $widget_ops);
   }
 
   function form($instance)

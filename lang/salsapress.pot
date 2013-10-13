@@ -1,4 +1,4 @@
-# SalsaPress translations - including Salsa Entities translations from 
+# SalsaPress translations - including Salsa Entities translations from https://localize.drupal.org/translate/projects/salsa_entity
 
 # Javascript messages - used in /utils/SalsaPress.js localization on plugin.php line 50
 msgid "Seem to be missing"
@@ -38,7 +38,7 @@ msgid "Want your Salsa events in a calendar? We might be able to help. <a href='
 msgid "See it in action here"
 
 msgid "Activate SalsaPress"
-
+msgid 'Something must have gotten lost in translation, this embed is no good. Try adding it again from Salsa'
 
 # SalsaPress fields from /admin/admin-menu.php line 19
 msgid "Chapter Filter (Only show data from a single chapter)"
@@ -89,13 +89,23 @@ msgid "Compact view strips out the first Image from the Description and displays
 msgid "After Saving the form:"
 msgid "Accepts text and HTML. After the form saves, will replace the form with this content. If you left it blank it'll thank em for signing up and reset the form."
 
+msgid "Add a sign up form from Salsa"
+msgid 'Salsa Sign Up Form'
 msgid "Embed a Salsa Contact Form"
 msgid "Will create the sign up form based off the one you created in Salsa and will add directly into Salsa"
 msgid "- Select a Sign Up Form -"
 
+msgid "Add a petition from Salsa"
+msgid 'Salsa Petition'
+msid "Embed a Salsa Petition"
+msgid "Will create the sign up form based off of the Salsa Petition"
+msgid "- Select a Petition -"
+msgid "Total Signers"
+msgid "Display in list as Anonymous"
+
 msgid "Add some Salsa to your page!"
-msgid Insert Salsa Element
-msgid Insert Into Post
+msgid "Insert Salsa Element"
+msgid "Insert Into Post"
 
 # Salsa Fields
 

@@ -4,12 +4,12 @@
 
 class SalsaRender {
 	private $type;
-	
+
 	function __construct($type){
-		if( !isset($type) ) die('Something must have gotten lost in translation, this embed is no good. Try adding it again from Salsa');
+		if( !isset($type) ) die( __('Something must have gotten lost in translation, this embed is no good. Try adding it again from Salsa','salsapress'));
 		$this->type = $type;
 	}
-	
+
 	function render($data) {
 		switch ($this->type):
 		    case 'report':
