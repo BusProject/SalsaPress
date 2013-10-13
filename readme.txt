@@ -17,9 +17,11 @@ Full features include:
 * Sign Up Form Widget
 * Coming Events Widget
 * Event Sign Up Form Widget
-* Embeddable Reports, Sign Up Forms, and Events
+* Petitions Widget
+* Embeddable Reports, Sign Up Forms, Events, and Petitions
 * Filtering of Salsa Data by Chapter
 * Filtering of Events by Template
+* Translatable - including strings from Salsa like field names
 
 Coming Soon: Browsable Event Calendar
 
@@ -53,7 +55,13 @@ Yes...
 
 == Changelog ==
 
-= 2.2 = 
+= 3.0 =
+* Supports Translations
+* Supports Petitions
+
+Thanks [Kampaweb](http://www.kampaweb.ch/) for funding additional development!
+
+= 2.2 =
 * More group shenangins that aren't working
 * Some fixes for Calendar
 * By the way - want a calendar? [Demo here](http://busproject.org/cal)
