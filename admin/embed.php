@@ -129,7 +129,6 @@ function salsapress_form_button_iframe_content(){
 	}
 	?>
 	<?php $obj = SalsaConnect::singleton(); ?>
-	<?php $obj->post('gets','object=event&include=Event_Name&orderBy=-Start&limit=50&condition=Start>='.date("Y-m-d")); ?>
 	<div class="embeddable">
 		<h1 style="margin-bottom: 60px; "><?php _e('Add some Salsa to your page!','salsapress'); ?></h1>
 		<form id="form" class="option">
