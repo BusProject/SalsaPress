@@ -29,6 +29,7 @@ require_once('admin/embed.php');
 require_once('widgets/coming_events.php');
 require_once('widgets/signup_page.php');
 require_once('widgets/event_form.php');
+require_once('widgets/petition.php');
 
 // Setting the defaults when activating the plugin
 register_activation_hook(__FILE__, 'salsapress_defaults');

@@ -182,6 +182,26 @@ function salsapress_form_button_iframe_content(){
 			<br><br>
 		</form>
 
+		<form id="petition" class="option">
+			<h3 class="media-title"><?php _e('Embed a Salsa Petition','salsapress'); ?></h3>
+			<p><?php _e('Will create the sign up form based off of the Salsa Petition','salsapress'); ?><br>
+			<br/>
+			<input type="hidden" name="type" value="action" id="type">
+			<label for="salsa_key"><?php _e('Salsa Petition:'); ?></label>
+			<select class="salsa_key"  name="salsa_key">
+				<option value=""><?php _e('- Select a Petition -','salsapress'); ?></option>
+					<?php $stuff = $obj->post('gets','object=action&condition=style=petition&include=Reference_Name&orderBy=-Date_Created'); ?>
+					<?php foreach ($stuff as $things ) { ?>
+						<option value="<?php echo $things->key; ?>"><?php echo $things->Reference_Name; ?></option>
+					<?php } ?>
+			</select><br>
+
+			<label id="form-title"><?php _e('Include Title?','salsapress') ?></label>   <input type="checkbox" name="salsa_title" id="salsa_title" ><br>
+			<label id="form-description"><?php _e('Include Description?','salsapress'); ?></label>    <input type="checkbox" name="salsa_description" id="salsa_description" value="on"><br>
+
+			<br><br>
+		</form>
+
 		<form id="report" class="option">
 			<h3 class="media-title">Embed a Salsa Report</h3>
 			<input type="hidden" name="type" value="report" id="type">

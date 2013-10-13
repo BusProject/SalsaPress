@@ -18,6 +18,10 @@ class SalsaForm {
 			"print_title" => "Event_Name",
 			'print_description'=>'Description',
 		),
+		'action' => array(
+			'print_title' => 'Title',
+			'print_description' => 'Description'
+		)
 	);
 
 
@@ -79,6 +83,8 @@ class SalsaForm {
 				$this->form->email_trigger_KEYS .= $trigger->key.',';
 			 }
 			$fallback_url .= '/p/salsa/event/common/public/?event_KEY='.$this->form->event_KEY;
+		} else if ( $this-> obj == 'action') {
+			$fallback_url .= '/p/dia/action/public/?action_KEY='.$this->form->key;
 		} else {
 			$fallback_url .= '/p/salsa/web/common/public/signup?signup_page_KEY='.$this->form->key;
 		}
@@ -148,6 +154,7 @@ class SalsaForm {
 			$form_return .= '<input type="hidden" value="'.$this->form->email_trigger_KEYS.'" name="email_trigger_KEYS" id="email_trigger_KEYS">';
 
 			foreach ($inputs as $thing) {
+
 				if(  $thing != '0' && $thing != '__v2__'  && !empty($thing) ) {
 					if( !isset($diff_labels[$thing]) ) {
 						if( $thing[0] != strtolower($thing[0]) )  { // If a custom field - use Custom Fields to display label
@@ -251,6 +258,21 @@ class SalsaForm {
 				$form_return .= '<input type="hidden" name="_Status" value="Signed Up">';
 				$form_return .= '<input type="hidden" name="_Type" value="Supporter">';
 				$form_return .= '<input type="hidden" name="event_KEY" value="'.$this->form->event_KEY.'">';
+			} else if( $this->obj == 'action' ) {
+				$form_return .= '<input type="hidden" name="link" value="action">';
+				$form_return .= '<input type="hidden" name="linkKey" value="'.$this->form->key.'">';
+				$form_return .= '<input type="hidden" name="action_KEY" value="'.$this->form->key.'">';
+				if( $this->form->Allow_Comments ) {
+					$form_return .= '<label>'.$this->form->Comment_Question.'</label>';
+					$form_return .= '<textarea name="Comment" id="Comment" ></textarea>';
+				}
+				if( $this->form->Allow_Anonymous ) {
+					$form_return .= '<p><label for="Anonymous">'.__('Display in list as Anonymous','salsapress').'</label><input type="checkbox" class="checkbox" name="Anonymous" id="Anonymous" value="1"></p>';
+				}
+				if( $this->form->Signatures != 'Do not show signatures' ) {
+					$count = $this->SalsaConnect->post('count','object=supporter_action&count_column=supporter_KEY&condition=action_KEY='.$this->form->key);
+					$form_return .= '<p><strong>'.$count.' '.__('Total Signers','salsapress').'</strong></p>';
+				}
 			} else {
 				$form_return .= '<input type="hidden" name="signup_page_KEY" value="'.$this->form->key.'">';
 			}

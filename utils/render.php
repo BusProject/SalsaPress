@@ -30,9 +30,9 @@ class SalsaRender {
 
 				$report = new SalsaReport($data['key'],$inputs);
 				return $report->render($type, $columns, $headers, $gaps );
-				
+
 				break;
-			case 'signup_page' || 'event':
+			case 'signup_page' || 'event' || 'action':
 				$form = new SalsaForm($data);
 				return $form->render();
 				break;

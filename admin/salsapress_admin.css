@@ -94,3 +94,6 @@ h3.button {
 h3.button:hover {
 	color: red;
 }
+.widget-inside select.salsa_key {
+	width: 220px;
+}
