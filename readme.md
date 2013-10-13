@@ -18,7 +18,7 @@ Contribute
 
 HELL YES. Fork away. We're going to be managing the source on github and will move stable versions to the WordPress host.
 
-The code could use some more markup to explain what's going on so if you've got a question, don't hesitate to [email](mailto:scott@busproject.org) or leave a request or a question.
+The code could use some more markup to explain what's going on so if you've got a question, don't hesitate to [email](mailto:srduncombe@gmail.com) or leave a request or a question.
 
 Acknowledgements
 ------------
@@ -27,6 +27,7 @@ Acknowledgements
 * The tool also uses [Simple HTML DOM Library](http://sourceforge.net/projects/simplehtmldom/) by S.C. Chen
 * Also utilizes [jQuery](http://jquery.com/)
 * Developed by the nonpartisan nonprofits the [Bus Federation](http://busfederation.com) & [Bus Project](http://busproject.org).
+* Further development funded by [Kampaweb](http://www.kampaweb.ch/).
 
 Problems?
 ------------
