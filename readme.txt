@@ -125,3 +125,4 @@ Yes...
 * The tool also uses [Simple HTML DOM Library](http://sourceforge.net/projects/simplehtmldom/) by S.C. Chen
 * Also utilizes [jQuery](http://jquery.com/)
 * Developed by the nonpartisan nonprofits the [Bus Federation](http://busfederation.com) & [Bus Project](http://busproject.org).
+* Further development funded by (Kampaweb)[http://www.kampaweb.ch/]
