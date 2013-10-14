@@ -271,7 +271,11 @@ class SalsaForm {
 				}
 				if( $this->form->Signatures != 'Do not show signatures' ) {
 					$count = $this->SalsaConnect->post('count','object=supporter_action&count_column=supporter_KEY&condition=action_KEY='.$this->form->key);
-					$form_return .= '<p><strong>'.$count.' '.__('Total Signers','salsapress').'</strong></p>';
+					if( $count > $this->form->Signature_Minimum_for_Display ) $form_return .= '<p><strong>'.$count.' '.__('Total Signers','salsapress').'</strong></p>';
+				}
+				if( (int)$this->form->Signature_Goal != 0 && is_numeric($this->form->Signature_Goal) ) {
+					$goal = sprintf( _n("This petition has a goal of %d signature","This petition has a goal of %d signatures",(int)$this->form->Signature_Goal,'salsapress'),(int)$this->form->Signature_Goal);
+					$form_return .= '<p>'.$goal.'</p>';
 				}
 			} else {
 				$form_return .= '<input type="hidden" name="signup_page_KEY" value="'.$this->form->key.'">';

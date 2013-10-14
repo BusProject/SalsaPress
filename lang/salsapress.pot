@@ -102,6 +102,8 @@ msgid "Will create the sign up form based off of the Salsa Petition"
 msgid "- Select a Petition -"
 msgid "Total Signers"
 msgid "Display in list as Anonymous"
+msgid "This petition has a goal of %s signatures"
+msgid "This petition has a goal of %s signature"
 
 msgid "Add some Salsa to your page!"
 msgid "Insert Salsa Element"
