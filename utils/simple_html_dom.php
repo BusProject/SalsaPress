@@ -36,8 +36,24 @@ define('HDOM_INFO_ENDSPACE',7);
 function file_get_html() {
     $dom = new simple_html_dom;
     $args = func_get_args();
-    $dom->load(call_user_func_array('file_get_contents', $args), true);
+
+    $dom->load(call_user_func_array('retrieve_html_file_appropriately', $args), true);
+
     return $dom;
+}
+function retrieve_html_file_appropriately($args) {
+    $args = func_get_args();
+    if( ini_get('allow_url_fopen') ) {
+        return call_user_func_array('file_get_contents', $args);
+    } else {
+        var_dump('using curl');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $args[0]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
 }
 
 // get html dom form string
@@ -67,7 +83,7 @@ function dump_html_tree($node, $show_attr=true, $deep=0) {
 function file_get_dom() {
     $dom = new simple_html_dom;
     $args = func_get_args();
-    $dom->load(call_user_func_array('file_get_contents', $args), true);
+    $dom->load(call_user_func_array('retrieve_html_file_appropriately', $args), true);
     return $dom;
 }
 
@@ -552,7 +568,7 @@ class simple_html_dom {
     // load html from file
     function load_file() {
         $args = func_get_args();
-        $this->load(call_user_func_array('file_get_contents', $args), true);
+        $this->load(call_user_func_array('retrieve_html_file_appropriately', $args), true);
     }
 
     // set callback function
@@ -585,7 +601,7 @@ class simple_html_dom {
         unset($this->doc);
         unset($this->noise);
     }
-    
+
     function dump($show_attr=true) {
         $this->root->dump($show_attr);
     }
@@ -970,6 +986,6 @@ class simple_html_dom {
     function getElementsById($id, $idx=null) {return $this->find("#$id", $idx);}
     function getElementByTagName($name) {return $this->find($name, 0);}
     function getElementsByTagName($name, $idx=-1) {return $this->find($name, $idx);}
-    function loadFile() {$args = func_get_args();$this->load(call_user_func_array('file_get_contents', $args), true);}
+    function loadFile() {$args = func_get_args();$this->load(call_user_func_array('retrieve_html_file_appropriately', $args), true);}
 }
 ?>
