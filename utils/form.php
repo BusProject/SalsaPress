@@ -45,6 +45,7 @@ class SalsaForm {
 	public function render() {
 		// Checking and making sure the query was successful
 		if( !isset($this->form->key) ) { return '<!-- Invalid Salsa Query-->'; }
+		if( $this->obj == 'action' && $this->form->Status == 'Inactive' ) return '<!-- Petition #'.$this->form->key.' is inactive -->';
 
 		$options = get_option('salsapress_options');
 		$chapter = isset($options['salsapress_salsa_chapter_base']) && strlen($options['salsapress_salsa_chapter_base']) > 1 ? '/c/'.$options['salsapress_salsa_chapter_base'] : '';
