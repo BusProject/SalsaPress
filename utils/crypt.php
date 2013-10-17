@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Class used to encrypt and decrypt the Salsa Password for storage
 // Uses the WP Salt
@@ -12,7 +12,7 @@ class SalsaCrypt {
 			$pass = '';
 			$salt = str_split(wp_salt());
 			$split = preg_split('/ /', $stored);
-			for ($i=0; $i < count($split); $i++) { 
+			for ($i=0; $i < count($split); $i++) {
 				$pass .= chr($split[$i] / ord($salt[$i]) );
 			}
 			$this->pass = $pass;
