@@ -46,7 +46,6 @@ function retrieve_html_file_appropriately($args) {
     if( ini_get('allow_url_fopen') ) {
         return call_user_func_array('file_get_contents', $args);
     } else {
-        var_dump('using curl');
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $args[0]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
