@@ -157,6 +157,7 @@ class SalsaForm {
 			foreach ($inputs as $thing) {
 
 				if(  $thing != '0' && $thing != '__v2__'  && !empty($thing) ) {
+					$form_return .= '<div class="salsa-input">';
 					if( !isset($diff_labels[$thing]) ) {
 						if( $thing[0] != strtolower($thing[0]) )  { // If a custom field - use Custom Fields to display label
 							$form_return .= '<label for="'.$thing.'">'.__( str_replace('_',' ',$thing), 'salsapress');
@@ -194,7 +195,7 @@ class SalsaForm {
 							}
 						} else $form_return .= '<input type="text" name="'.$thing.'" id="'.$thing.'" fillin="'.strtolower($thing).'">'; // Just a normal field - displaying normally
 					} else $form_return .= $diff_fields[$thing];
-					$form_return .= "<br>";
+					$form_return .= "</div>";
 				}
 			}
 
@@ -214,9 +215,11 @@ class SalsaForm {
 					$i = 0;
 					if( strlen($thing) > 2 )  {
 						$group = $this->SalsaConnect->post('gets','object=groups&condition=groups_KEY='.$thing.'&include=Group_Name');
+						$form_return .= '<div class="salsa-input">';
 						$form_return .= '<label for="'.$group['0']->Group_Name.'">'.$group['0']->Group_Name.'</label>';
 						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'" id="link" value="true">';
-						$form_return .= '<input type="checkbox" name="groups_KEY'.$group['0']->key.'_checkbox" ><br>';
+						$form_return .= '<input type="checkbox" name="groups_KEY'.$group['0']->key.'_checkbox" >';
+						$form_return .= '</div>';
 						$i++;
 					}
 				}
@@ -245,8 +248,10 @@ class SalsaForm {
 					$i = 0;
 					if( strlen($thing) > 4 )  {
 						$tag = $this->SalsaConnect->post('gets','object=tag&condition=tag_KEY='.$thing.'&include=tag');
+						$form_return .= '<div class="salsa-input">';
 						$form_return .= '<label for="'.$tag['0']->tag.'">'.$tag['0']->tag.'</label>';
-						$form_return .= '<input type="checkbox" name="tag" id="tag" value="'.$tag['0']->tag.'"><br>';
+						$form_return .= '<input type="checkbox" name="tag" id="tag" value="'.$tag['0']->tag.'">';
+						$form_return .= '</div>';
 						$i++;
 					}
 				}
@@ -263,6 +268,7 @@ class SalsaForm {
 				$form_return .= '<input type="hidden" name="link" value="action">';
 				$form_return .= '<input type="hidden" name="linkKey" value="'.$this->form->key.'">';
 				$form_return .= '<input type="hidden" name="action_KEY" value="'.$this->form->key.'">';
+				$form_return .= '<div class="salsa-input">';
 				if( $this->form->Allow_Comments ) {
 					$form_return .= '<label>'.$this->form->Comment_Question.'</label>';
 					$form_return .= '<textarea name="Comment" id="Comment" ></textarea>';
@@ -278,13 +284,16 @@ class SalsaForm {
 					$goal = sprintf( _n("This petition has a goal of %d signature","This petition has a goal of %d signatures",(int)$this->form->Signature_Goal,'salsapress'),(int)$this->form->Signature_Goal);
 					$form_return .= '<p>'.$goal.'</p>';
 				}
+				$form_return .= '</div>';
 			} else {
 				$form_return .= '<input type="hidden" name="signup_page_KEY" value="'.$this->form->key.'">';
 			}
 
 			$action = __( 'Sign Up!', 'salsapress');
 
+			$form_return .= '<div class="salsa-input">';
 			$form_return .= '<input type="submit" id="salsa-submit" value="'.$action.'">';
+			$form_return .= '</div>';
 			$form_return .= '</form>';
 
 			if( isset($this->options['after-save']) ) $form_return .= '<div class="after_save" style="display: none;">'.rawurldecode($this->options['after-save']).'</div>';
