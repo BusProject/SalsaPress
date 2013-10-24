@@ -50,8 +50,24 @@ class SalsaForm {
 		$options = get_option('salsapress_options');
 		$chapter = isset($options['salsapress_salsa_chapter_base']) && strlen($options['salsapress_salsa_chapter_base']) > 1 ? '/c/'.$options['salsapress_salsa_chapter_base'] : '';
 		$fallback_url = salsapress_salsa_base_url.'/o/'.$options['salsapress_salsa_org_base'].$chapter;
+		$form_return = '';
+
+		if( $this->obj == 'event' && isset( $this->form->Maximum_Attendees ) && $this->form->Maximum_Attendees > 0 ) {
+			$no_cache = SalsaConnect::singleton(true);
+			$attendee_count = $no_cache->post('count','count_column=supporter_KEY&object=supporter_event&condition=_Status=Signed%20Up&condition=event_KEY='.$this->form->key);
+			$waitlist_count = $this->form->Maximum_Waiting_List_Size > 0 ? $no_cache->post('count','count_column=supporter_KEY&object=supporter_event&condition=_Status=Waiting List&condition=event_KEY='.$this->form->key) : 0;
+
+			if( $attendee_count >= $this->form->Maximum_Attendees && $waitlist_count >= $this->form->Maximum_Waiting_List_Size ) {
+				return '<div >'.__('This event is at capacity and will not accept additional guests.','salsapress').'</div>';
+			} else if( $attendee_count >= $this->form->Maximum_Attendees && $waitlist_count < $this->form->Maximum_Waiting_List_Size ) {
+				$form_return .= '<div >'.__('This event is at capacity. You will be added to the waitlist.','salsapress').'</div>';
+			}
+		}
+
+
 
 		$inputs = explode(",",$this->form->Request);
+		if( $this->obj == 'event' ) $this->form->Required .= 'First_Name,Last_Name,Email';
 		$required = explode(",",$this->form->Required);
 
 		$states =  __( 'Alabama,Alaska,American Samoa,Arizona,Arkansas,California,Colorado,Connecticut,Delaware,D.C.,Florida,Georgia,Guam,Hawaii,Idaho,Illinois,Indiana,Iowa,Kansas,Kentucky,Louisiana,Maine,Maryland,Massachusetts,Michigan,Minnesota,Mississippi,Missouri,Montana,Nebraska,Nevada,New Hampshire,New Jersey,New Mexico,New York,North Carolina,North Dakota,Northern Mariana Islands,Ohio,Oklahoma,<option value="OR" >Oregon,Pennsylvania,Puerto Rico,Rhode Island,South Carolina,South Dakota,Tennessee,Texas,Utah,Vermont,Virgin Islands,Virginia,Washington,West Virginia,Wisconsin,Wyoming,Armed Forces (the) Americas,Armed Forces Europe,Armed Forces Pacific,Alberta,British Columbia,Manitoba,Newfoundland,New Brunswick,Nova Scotia,Northwest Territories,Nunavut,Ontario,Prince Edward Island,Quebec,Saskatchewan,Yukon Territory,Other', 'salsapress');
@@ -96,7 +112,6 @@ class SalsaForm {
 		$description = "<p>".$this->form->$description."</p>";
 		$extra = '';
 		$below = '';
-		$form_return = '';
 
 
 		if ( isset($this->options['event_compact']) ) {
@@ -141,6 +156,7 @@ class SalsaForm {
 
 			$form_return .= '<form class="salsa-form';
 			if( $this->obj == 'action' ) $form_return .= ' action';
+			if( $this->obj == 'event' ) $form_return .= ' event';
 			$form_return .= '" ';
 			$form_return .= 'action="'.$fallback_url.'" method="GET" target="_blank" ';
 			if( isset($this->form->redirect_path) ) $form_return .= 'redirect_path="'.$this->form->redirect_path.'"';
