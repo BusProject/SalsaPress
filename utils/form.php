@@ -139,7 +139,9 @@ class SalsaForm {
 		}
 		if( $this->form->object != 'event' || $this->form->No_Registration != 'true' && $this->form->This_Event_Costs_Money != 'true'   ) {
 
-			$form_return .= '<form class="salsa-form" ';
+			$form_return .= '<form class="salsa-form';
+			if( $this->obj == 'action' ) $form_return .= ' action';
+			$form_return .= '" ';
 			$form_return .= 'action="'.$fallback_url.'" method="GET" target="_blank" ';
 			if( isset($this->form->redirect_path) ) $form_return .= 'redirect_path="'.$this->form->redirect_path.'"';
 			$form_return .= ' >';
@@ -278,7 +280,33 @@ class SalsaForm {
 				}
 				if( $this->form->Signatures != 'Do not show signatures' ) {
 					$count = $this->SalsaConnect->post('count','object=supporter_action&count_column=supporter_KEY&condition=action_KEY='.$this->form->key);
-					if( $count > $this->form->Signature_Minimum_for_Display ) $form_return .= '<p><strong>'.$count.' '.__('Total Signers','salsapress').'</strong></p>';
+					if( $count > $this->form->Signature_Minimum_for_Display ) {
+						if( $this->form->Signatures == 'Show number and most recent signers' ) {
+
+							require_once('simple_html_dom.php');
+							if( ! isset($form_html) || ! isset($_GET['start']) ) $form_html = file_get_html($fallback_url. ( isset( $_GET['start'] ) ? '&start='.$_GET['start'] : '') );
+							$start = isset( $_GET['start'] ) ? (int)$_GET['start'] : 0;
+
+							$box = $form_html->find('div.signatures',0);
+
+							$box->find('b.number',0)->innertext = ($start + 1).'-'.($start+25).sprintf( _n(" of %d signature"," of %d signatures",$count,'salsapress'),$count);
+
+							$box->find('tr',0)->innertext = '<th class="number">'.__('Number','salsapress').'</th><th>Date</th><th>'.__('Date','salsapress').'</th><th class="comment_loc">'.__('Location','salsapress').'</th><th>'.$this->form->Comment_Question.'...</th>';
+
+							$path = preg_replace('/start\=\d+[^&]/', '', $_SERVER['REQUEST_URI']);
+							$connector = strpos($path,'?') == false ? '?' : '&';
+							if( $start == 0 ) {
+								$box->last_child()->href = $path.$connector.'start='.($start + 25);
+							} else {
+								$box->last_child()->href =  $path.$connector.'start='.($start + 25);
+								$box->last_child()->prev_sibling()->href =  $path.$connector.'start='.($start - 25);
+							}
+
+							$form_return .= $box;
+						} else {
+							$form_return .= '<p><strong>'.$count.' '.__('Total Signers','salsapress').'</strong></p>';
+						}
+					}
 				}
 				if( (int)$this->form->Signature_Goal != 0 && is_numeric($this->form->Signature_Goal) ) {
 					$goal = sprintf( _n("This petition has a goal of %d signature","This petition has a goal of %d signatures",(int)$this->form->Signature_Goal,'salsapress'),(int)$this->form->Signature_Goal);

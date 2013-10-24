@@ -104,6 +104,8 @@ msgid "Total Signers"
 msgid "Display in list as Anonymous"
 msgid "This petition has a goal of %s signatures"
 msgid "This petition has a goal of %s signature"
+msgid "%d-%d of %d signature"
+msgid "%d-%d of %d signatures"
 
 msgid "Add some Salsa to your page!"
 msgid "Insert Salsa Element"
