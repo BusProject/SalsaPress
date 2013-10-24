@@ -266,7 +266,7 @@ class SalsaForm {
 			}
 
 
-			if( isset( $this->form->Opt_in_Text ) ) $form_return .= '<div class="salsa-input"><input id="required_checkbox" type="checkbox" class="checkbox" value="1" name="Receive_Email" style="margin-right: 10px"><label for="Receive_Email">'.$this->form->Opt_in_Text.'<span class="required">*</span></label></div>';
+			if( isset( $this->form->Opt_in_Text ) ) $form_return .= '<div class="salsa-input"><input id="Receive_Email" type="checkbox" class="checkbox" value="1" name="Receive_Email" style="margin-right: 10px"><label for="Receive_Email">'.$this->form->Opt_in_Text.'<span class="required">*</span></label></div>';
 
 			$required_text = __('Required','salsapress');
 			if( count($required) > 0 || isset($this->form->Opt_in_Text ) ) $form_return .= "<p><label class='required'><em>* $required_text</em></label></p>";

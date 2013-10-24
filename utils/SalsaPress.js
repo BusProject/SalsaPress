@@ -247,10 +247,16 @@ var count = 0;
 		this.submit( function(e) {
 			var error = true;
 			var missing = '';
-			$(this).children('input').prev('label:contains(*)').each( function() {
-				if( $(this).next('input').val().length < 1 ) {
+			var $form = $(this);
+
+			$form.find('label:contains(*)').removeClass('oops').each( function() {
+				var $this = $(this),
+					$input = $('#'+$this.attr('for'),$form)
+
+				if( $input.length > 0 && ( $input.val().length < 1  || $input.is('[type=checkbox]:not(:checked)') || $input.is('[type=radio]:not(:checked)') ) ) {
 					error = false;
-					$(this).addClass('oops').prev('label').addClass('oops');
+					$this.addClass('oops');
+					$input.addClass('oops');
 					$('p.required').addClass('oops');
 					missing += '<strong>'+$(this).text().split(' *')[0]+'</strong>, ';
 				}
