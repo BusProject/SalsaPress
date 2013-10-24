@@ -209,7 +209,8 @@ class SalsaForm {
 			if( isset($this->form->groups_KEYS) && !$this->form->Automatically_add_to_Groups ) $optional_groups = $this->form->groups_KEYS;
 
 			if( isset($optional_groups) && strlen($optional_groups) > 0  ) {
-			//If groups are optional, grabbing the group names
+				$form_return .= '<p>'.__('Join a group','salsapress').':</p>';
+				//If groups are optional, grabbing the group names
 				$group_pull = explode(",",$optional_groups);
 				foreach ( $group_pull as  $thing) {
 					$i = 0;
