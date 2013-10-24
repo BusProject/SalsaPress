@@ -201,8 +201,6 @@ class SalsaForm {
 				}
 			}
 
-			$required_text = __('Required','salsapress');
-			if( count($required) > 0 ) $form_return .= "<label class='required'><em>* $required_text</em></label>";
 
 			// Setting up groups
 			if( isset($this->form->PreGroup_Text) ) $form_return .= '<p>'.$this->form->PreGroup_Text.'</p>';
@@ -266,6 +264,12 @@ class SalsaForm {
 				}
 			}
 
+
+			if( isset( $this->form->Opt_in_Text ) ) $form_return .= '<div class="salsa-input"><input id="required_checkbox" type="checkbox" class="checkbox" value="1" name="Receive_Email" style="margin-right: 10px"><label for="Receive_Email">'.$this->form->Opt_in_Text.'<span class="required">*</span></label></div>';
+
+			$required_text = __('Required','salsapress');
+			if( count($required) > 0 || isset($this->form->Opt_in_Text ) ) $form_return .= "<p><label class='required'><em>* $required_text</em></label></p>";
+
 			// Loads in event connecting data
 			if( $this->obj == 'event' ) {
 				$form_return .= '<input type="hidden" name="link" value="event">';
@@ -324,11 +328,14 @@ class SalsaForm {
 				$form_return .= '<input type="hidden" name="signup_page_KEY" value="'.$this->form->key.'">';
 			}
 
-			$action = __( 'Sign Up!', 'salsapress');
 
-			$form_return .= '<div class="salsa-input">';
-			$form_return .= '<input type="submit" id="salsa-submit" value="'.$action.'">';
-			$form_return .= '</div>';
+			if( isset($this->form->PreFooter) ) $form_return .= $this->form->PreFooter;
+
+			$action = __( 'Sign Up!', 'salsapress');
+			$form_return .= '<div class="salsa-input"><input type="submit" id="salsa-submit" value="'.$action.'"></div>';
+
+			if( isset($this->form->Footer) ) $form_return .= $this->form->Footer;
+
 			$form_return .= '</form>';
 
 			if( isset($this->options['after-save']) ) $form_return .= '<div class="after_save" style="display: none;">'.rawurldecode($this->options['after-save']).'</div>';
