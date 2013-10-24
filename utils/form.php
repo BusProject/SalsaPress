@@ -97,7 +97,7 @@ class SalsaForm {
 			$triggers = $this->SalsaConnect->post('gets','object=event_email_trigger&include=email_trigger_KEY&condition=event_KEY='.$this->form->key);
 			$this->form->email_trigger_KEYS = '';
 			foreach ( $triggers as $trigger ) {
-				$this->form->email_trigger_KEYS .= $trigger->key.',';
+				$this->form->email_trigger_KEYS .= $trigger->email_trigger_KEY.',';
 			 }
 			$fallback_url .= '/p/salsa/event/common/public/?event_KEY='.$this->form->event_KEY;
 		} else if ( $this-> obj == 'action') {
