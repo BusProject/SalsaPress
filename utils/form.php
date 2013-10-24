@@ -221,8 +221,9 @@ class SalsaForm {
 			// Setting up groups
 			if( isset($this->form->PreGroup_Text) ) $form_return .= '<p>'.$this->form->PreGroup_Text.'</p>';
 
-			if( isset($this->form->optionally_add_to_groups_KEYS) ) $optional_groups = $this->form->optionally_add_to_groups_KEYS;
-			if( isset($this->form->groups_KEYS) && !$this->form->Automatically_add_to_Groups ) $optional_groups = $this->form->groups_KEYS;
+			$optional_groups = '';
+			if( isset($this->form->optionally_add_to_groups_KEYS) ) $optional_groups .= $this->form->optionally_add_to_groups_KEYS;
+			if( isset($this->form->groups_KEYS) && !$this->form->Automatically_add_to_Groups ) $optional_groups .= $this->form->groups_KEYS;
 
 			if( isset($optional_groups) && strlen($optional_groups) > 0  ) {
 				$form_return .= '<p>'.__('Join a group','salsapress').':</p>';
