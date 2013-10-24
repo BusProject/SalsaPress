@@ -243,6 +243,13 @@ class SalsaForm {
 			}
 
 			//Setting up Tags
+			if( $this->obj == 'action' ) {
+				$tags = $this->SalsaConnect->post('get-left','object=tag_data(tag_KEY)tag&include=tag&condition=table_KEY='.$this->form->key);
+				if( ! empty($tags) ) {
+					$tags = array_map( 'getTagName', $tags);
+					$form_return .= '<input name="tag" type="hidden" value="'.implode(',',$tags).'">';
+				}
+			}
 			if( isset($this->form->PreInterest_Text) ) $form_return .= '<p>'.$this->form->PreInterest_Text.'</p>';
 			if( isset($this->form->tag_KEYS) && strlen($this->form->tag_KEYS) > 0 ) {
 				$tags_pull = explode(",",$this->form->tag_KEYS);

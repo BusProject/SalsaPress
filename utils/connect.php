@@ -15,6 +15,7 @@ class SalsaConnect {
 		'gets' => '/api/getObjects.sjs',
 		'gets-nofilter' => '/api/getObjects.sjs',
 		'get' => '/api/getObject.sjs',
+		'get-left' => '/api/getLeftJoin.sjs',
 		'count' => '/api/getCount.sjs',
 		'save' => '/save',
 		'delete' => '/delete',

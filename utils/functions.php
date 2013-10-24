@@ -89,4 +89,6 @@ function date_smoosh($start, $end) {
 
 function fixDate($date) { return substr($date, 0, strpos($date," GMT")); }
 
+function getTagName($a) { return $a->tag; }
+
 ?>
