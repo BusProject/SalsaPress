@@ -3,7 +3,7 @@ Contributors: mojowen
 Donate link: http://busproject.org/donate
 Tags: salsa, democracy in action, wired for change, events, signup
 Requires at least: 3.0
-Tested up to: 3.3.1
+Tested up to: 3.6.1
 Stable tag: trunk
 
 Connects WordPress to Salsa for embedding events, sign up forms, and reports.
@@ -58,6 +58,9 @@ Yes...
 = 3.0 =
 * Supports Translations
 * Supports Petitions
+* Supports Event Attendence Limits and Waitlists
+* Supports "extra" fields for signup pages
+* Supports page tags
 
 Thanks [Kampaweb](http://www.kampaweb.ch/) for funding additional development!
 
