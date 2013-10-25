@@ -219,12 +219,13 @@ class SalsaForm {
 
 
 			// Setting up groups
-			if( isset($this->form->PreGroup_Text) ) $form_return .= '<p>'.$this->form->PreGroup_Text.'</p>';
+			if( isset($this->form->PreGroup_Text) ) $form_return .= '<div class="pre_group_text">'.$this->form->PreGroup_Text.'</div>';
 
 			$optional_groups = '';
 			if( isset($this->form->optionally_add_to_groups_KEYS) ) $optional_groups .= $this->form->optionally_add_to_groups_KEYS;
 			if( isset($this->form->groups_KEYS) && !$this->form->Automatically_add_to_Groups ) $optional_groups .= $this->form->groups_KEYS;
 
+			$optional_groups = preg_replace('/0\,/', '', $optional_groups);
 			if( isset($optional_groups) && strlen($optional_groups) > 0  ) {
 				$form_return .= '<p class="join_group">'.__('Join a group','salsapress').':</p>';
 				//If groups are optional, grabbing the group names
@@ -265,7 +266,7 @@ class SalsaForm {
 				$form_return .= '<input name="tag" type="hidden" value="'.implode(',',$tags).'">';
 			}
 
-			if( isset($this->form->PreInterest_Text) ) $form_return .= '<p>'.$this->form->PreInterest_Text.'</p>';
+			if( isset($this->form->PreInterest_Text) ) $form_return .=  '<div class="pre_interest_text">'.$this->form->PreInterest_Text.'</div>';
 			if( isset($this->form->tag_KEYS) && strlen($this->form->tag_KEYS) > 0 ) {
 				$tags_pull = explode(",",$this->form->tag_KEYS);
 				foreach ( $tags_pull as  $thing) {
@@ -346,12 +347,12 @@ class SalsaForm {
 			}
 
 
-			if( isset($this->form->PreFooter) ) $form_return .= $this->form->PreFooter;
+			if( isset($this->form->PreFooter) ) $form_return .= '<div class="pre_submit_text">'.$this->form->PreFooter.'</div>';
 
 			$action = __( 'Sign Up!', 'salsapress');
 			$form_return .= '<div class="salsa-input"><input type="submit" id="salsa-submit" value="'.$action.'"></div>';
 
-			if( isset($this->form->Footer) ) $form_return .= $this->form->Footer;
+			if( isset($this->form->Footer) ) $form_return .= '<div class="post_submit_text">'.$this->form->Footer.'</div>';
 
 			$form_return .= '</form>';
 
