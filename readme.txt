@@ -23,7 +23,8 @@ Full features include:
 * Filtering of Events by Template
 * Translatable - including strings from Salsa like field names
 
-Coming Soon: Browsable Event Calendar
+
+Funding for the development of this plugin is provided by [Kampaweb](http://www.kampaweb.ch/) and [Bus Federation](http://busfederation.com)
 
 
 == Installation ==
@@ -136,4 +137,4 @@ Thanks [Kampaweb](http://www.kampaweb.ch/) for funding additional development!
 * The tool also uses [Simple HTML DOM Library](http://sourceforge.net/projects/simplehtmldom/) by S.C. Chen
 * Also utilizes [jQuery](http://jquery.com/)
 * Developed by the nonpartisan nonprofits the [Bus Federation](http://busfederation.com) & [Bus Project](http://busproject.org).
-* Further development funded by (Kampaweb)[http://www.kampaweb.ch/]
+* Further development funded by [Kampaweb](http://www.kampaweb.ch/)
