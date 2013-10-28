@@ -298,7 +298,7 @@ var count = 0;
 								self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_go_again);
 							}
 						}
-						else if ( typeof data.messages == 'undefined' ? '' : data.messages).split('.  ')[1] == "Please enter a valid email address." ) {
+						else if ( (typeof data.messages == 'undefined' ? '' : data.messages).split('.  ')[1] == "Please enter a valid email address." ) {
 							self.find('label.required').addClass('oops');
 							self.find('label[name=Email]').addClass('oops').next('input').addClass('oops');
 							self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_try_again);
