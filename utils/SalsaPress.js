@@ -298,15 +298,16 @@ var count = 0;
 								self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_go_again);
 							}
 						}
-						else if ( (typeof data.messages == 'undefined' ? '' : data.messages).split('.  ')[1] == "Please enter a valid email address." ) {
+						else if ( (typeof data.messages == 'undefined' ? '' : data.messages.toString() ).match(/Please enter a valid email address/).length > 0 ) {
 							self.find('label.required').addClass('oops');
-							self.find('label[name=Email]').addClass('oops').next('input').addClass('oops');
+							self.find('input[name=Email]').parent().find('label').addClass('oops');
 							self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_try_again);
+							self.notice( objectL10n.please_enter_valid_email_address )
 						}
 						else if ( data.messages.length > 0 ) self.notice(response.messages,'bad');
 						else {
 							self.notice(objectL10n.try_again,'bad');
-							self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_try_again);
+							self.find('input[type=submit]').attr('disabled',false).val(objectL10n.click_to_try_again,'bad');
 						}
 					});
 	// This could be more or less automatic, don't see why anything else would be needed here
