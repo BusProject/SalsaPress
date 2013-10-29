@@ -221,7 +221,7 @@ function salsapress_salsa_setup() {
 		<p>Initial funding for the development of SalsaPress was provided by the <a href="http://busfederation.com/">Bus Federation</a>.</p>
 
 		<h3>Kampaweb</h3>
-		<p>Additional development has been funded by <a href="http://http://www.kampaweb.ch/">Kampaweb</a>.</p>
+		<p>Additional development has been funded by <a href="http://www.kampaweb.ch/">Kampaweb</a>.</p>
 
 		<h2>Translations</h2>
 		<p>SalsaPress now supports translations! Find the <code>.pot</code> file in the <code>lang</code> subfolder. Send <a href="mailto:srduncombe@gmail.com">me</a> your translated <code>.po</code> and <code>.mo</code> files - or submit a pull request on github - and I'll add them to the project.</p>
