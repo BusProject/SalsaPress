@@ -234,12 +234,14 @@ class SalsaForm {
 					$i = 0;
 					if( strlen($thing) > 2 )  {
 						$group = $this->SalsaConnect->post('gets','object=groups&condition=groups_KEY='.$thing.'&include=Group_Name');
-						$form_return .= '<div class="salsa-input">';
-						$form_return .= '<label for="'.$group['0']->Group_Name.'">'.$group['0']->Group_Name.'</label>';
-						$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'" id="link" value="true">';
-						$form_return .= '<input type="checkbox" name="groups_KEY'.$group['0']->key.'_checkbox" >';
-						$form_return .= '</div>';
-						$i++;
+						if( isset($group['0']->key) && strlen($group['0']->key) > 2) {
+							$form_return .= '<div class="salsa-input">';
+							$form_return .= '<label for="'.$group['0']->Group_Name.'">'.$group['0']->Group_Name.'</label>';
+							$form_return .= '<input type="hidden" name="groups_KEY'.$group['0']->key.'" id="link" value="true">';
+							$form_return .= '<input type="checkbox" name="groups_KEY'.$group['0']->key.'_checkbox" >';
+							$form_return .= '</div>';
+							$i++;
+						}
 					}
 				}
 			}
