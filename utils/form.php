@@ -284,11 +284,14 @@ class SalsaForm {
 				}
 			}
 
-
-			if( isset( $this->form->Opt_in_Text ) ) $form_return .= '<div class="salsa-input"><input id="Receive_Email" type="checkbox" class="checkbox" value="1" name="Receive_Email" style="margin-right: 10px"><label for="Receive_Email">'.$this->form->Opt_in_Text.'<span class="required">*</span></label></div>';
-
+			$email_opt_in = (string)$this->form->Email_Confirmed_Opt_In == 'true';
+			if( $email_opt_in ) {
+				$opt_in_text = isset($this->form->Opt_in_Text) && strlen($this->form->Opt_in_Text) > 0 ? $this->form->Opt_in_Text : __('Confirm Email Signup','salsapress');
+				$form_return .= '<div class="salsa-input"><input id="Receive_Email" checked="checked" type="checkbox" class="checkbox" value="1" name="Receive_Email" style="margin-right: 10px"><label for="Receive_Email">'.$opt_in_text.'<span class="required">*</span></label></div>';
+			}
+			
 			$required_text = __('Required','salsapress');
-			if( count($required) > 0 || isset($this->form->Opt_in_Text ) ) $form_return .= "<p><label class='required'><em>* $required_text</em></label></p>";
+			if( count($required) > 0 || $email_opt_in ) $form_return .= "<p><label class='required'><em>* $required_text</em></label></p>";
 
 			// Loads in event connecting data
 			if( $this->obj == 'event' ) {
