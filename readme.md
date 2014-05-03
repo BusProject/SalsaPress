@@ -3,6 +3,8 @@ Salsa Press
 
 Salsa Press is a plugin for [WordPress](http://wordpress.org) that connects to [Salsa](http://salsalabs.com).
 
+Older Salsa accounts should just work - newer account may need salsa to activate their API credentials or something. They should do this for free if you contact [support@salsalabs.com](mailto:support@salsalabs.com) and request it.
+
 Installation
 -------
 

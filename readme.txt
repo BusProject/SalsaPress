@@ -3,7 +3,7 @@ Contributors: mojowen
 Donate link: http://busproject.org/donate
 Tags: salsa, democracy in action, wired for change, events, signup
 Requires at least: 3.0
-Tested up to: 3.6.1
+Tested up to: 3.9
 Stable tag: trunk
 
 Connects WordPress to Salsa for embedding events, sign up forms, and reports.
@@ -11,6 +11,8 @@ Connects WordPress to Salsa for embedding events, sign up forms, and reports.
 == Description ==
 
 SalsaPress connects your WordPress bllog to [Salsa](http://salsalabs.com), allowing you to embed sign up forms, events, and reports into your WordPress site. Once embedded, Salsa Press keeps theses embeds up-to-date with any changes made in Salsa, meaning you can embed them and continue to manage and tweak the content in Salsa afterwards.
+
+[Please post all issues on Github](https://github.com/BusProject/SalsaPress/issues/) not WordPress.
 
 Full features include:
 
@@ -26,6 +28,8 @@ Full features include:
 
 Funding for the development of this plugin is provided by [Kampaweb](http://www.kampaweb.ch/) and [Bus Federation](http://busfederation.com)
 
+Older Salsa accounts should just work - newer account may need salsa to activate their API credentials or something. They should do this for free if you contact [support@salsalabs.com](mailto:support@salsalabs.com) and request it.
+
 
 == Installation ==
 
@@ -33,6 +37,9 @@ Funding for the development of this plugin is provided by [Kampaweb](http://www.
 1. Visit Administration Panels > Plugins form the Admin Console and activate the plugin
 1. You should see a Salsa Icon appear in your Admin Console. Enter your Salsa Email / Password to connect Salsa to WordPress.
 1. You should be able to add widgets and embed reports, events, and sign up forms. GO CRAZZY!!
+
+Older Salsa accounts should just work - newer account may need salsa to activate their API credentials or something. They should do this for free if you contact [support@salsalabs.com](mailto:support@salsalabs.com) and request it.
+
 
 == Frequently Asked Questions ==
 
@@ -46,6 +53,12 @@ Yes...
 1. Look at your URL
 1. Clear off any of the crap at the beginning (http, hq-, etc) and the anything after the .org or .com. There you have it.
 
+= It's not working but it's telling me I'm authenticated =
+
+Older Salsa accounts should just work - newer account may need salsa to activate their API credentials or something. They should do this for free if you contact [support@salsalabs.com](mailto:support@salsalabs.com) and request it.
+
+When you contact Salsa support you should mention that it's pretty messed up that the /api/authenticate.sjs endpoint returns "success" for customers that aren't allowed to use the rest of the API and that an error message on that endpoint - or heck even just a normal authentication failure - would be so much better.
+
 == Screenshots ==
 
 1. Authenticating Salsa
@@ -55,6 +68,10 @@ Yes...
 5. Embedded Salsa in the WordPress Editor
 
 == Changelog ==
+
+= 3.1 =
+ * Fixing mystery checkbox bug
+ * Fixing TinyMCE problem
 
 = 3.0 =
 * Supports Translations
