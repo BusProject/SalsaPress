@@ -64,7 +64,7 @@
 				title : ed.getLang('wordpress.delgallery')
 			});
 
-			tinymce.dom.Event.add(dellButton, 'mousedown', function(e) {
+			dellButton.onclick = function(e) {
 				var ed = tinyMCE.activeEditor, el = ed.selection.getNode();
 
 				if ( el.nodeName == 'IMG' && ed.dom.hasClass(el, 'salsa') ) {
@@ -73,7 +73,7 @@
 					ed.execCommand('mceRepaint');
 					return false;
 				}
-			});
+			}
 		},
 
 		getInfo : function() {
