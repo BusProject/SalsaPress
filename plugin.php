@@ -9,8 +9,12 @@ Author URI: http://scottduncombe.com/
 */
 
 // Setting a base path. Easy change if the code is going to be incorporated into a theme, use get_bloginfo('theme_directory') instead
-$base = WP_PLUGIN_URL . '/' . str_replace(basename( __FILE__), "" ,plugin_basename(__FILE__));
-define('base', $base);
+if( isset($salsapress_base) ) {
+    define('salspress_base', $salsapress_base);
+} else {
+    $salspress_base = WP_PLUGIN_URL . '/' . str_replace(basename( __FILE__), "" ,plugin_basename(__FILE__));
+    define('salspress_base', $salspress_base);
+}
 
 // Setting up the Admin Page and SalsaPress options
 require_once('utils/crypt.php');
@@ -46,7 +50,7 @@ function salsapress_options_init(){
 
 function enque_salsapress() {
 	//Enqueing external scripts and styles
-	wp_enqueue_script( 'SalsaPress', base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'SalsaPress', salspress_base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
 
 	wp_localize_script( 'SalsaPress', 'objectL10n', array(
 		'seem_to_be_missing' => __( 'Seem to be missing', 'salsapress' ),
@@ -58,7 +62,7 @@ function enque_salsapress() {
 		'success' => __('Success!','salsapress'),
 	));
 
-	wp_enqueue_style( 'SalsaPress', base.'utils/SalsaPress.css','', '0.5', 'all' );
+	wp_enqueue_style( 'SalsaPress', salspress_base.'utils/SalsaPress.css','', '0.5', 'all' );
 	localize_scripts();
 }
 
@@ -66,7 +70,7 @@ function localize_scripts() {
 	wp_localize_script( 'SalsaPress', 'SalsaPressVars', array(
 		'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 		'SalsaAjax' => wp_create_nonce( 'myajax-post-comment-nonce' ),
-		'stylesheet_directory' => base
+		'stylesheet_directory' => salspress_base
 		)
 	);
 }

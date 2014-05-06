@@ -5,14 +5,14 @@
 //Functions for the Buttons
 function salsapress_form_button(){
 	$title = __('Insert Salsa Element','salsapress');
-	$button = '<a href="'.admin_url('admin-ajax.php').'?action=salsapress_form_button_iframe&amp;TB_iframe=true&amp;height=150&amp;respect_dimensions=true" class="thickbox" title="'.$title.'" onclick="return false;"><img src="'.base.'images/salsa.png'.'" alt="'.$title.'" width="11" height="11" /></a>';
+	$button = '<a href="'.admin_url('admin-ajax.php').'?action=salsapress_form_button_iframe&amp;TB_iframe=true&amp;height=150&amp;respect_dimensions=true" class="thickbox" title="'.$title.'" onclick="return false;"><img src="'.salspress_base.'images/salsa.png'.'" alt="'.$title.'" width="11" height="11" /></a>';
 	echo $button;
 }
 
 function salsapress_form_button_iframe(){
-	wp_enqueue_script( 'SalsaPress', base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
-	wp_enqueue_style( 'SalsaPress_Admin', base.'admin/salsapress_admin.css','', '0.5', 'all' );
-	wp_enqueue_script( 'SalsaPress_Admin', base.'admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'SalsaPress', salspress_base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_style( 'SalsaPress_Admin', salspress_base.'admin/salsapress_admin.css','', '0.5', 'all' );
+	wp_enqueue_script( 'SalsaPress_Admin', salspress_base.'admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
 	localize_scripts();
 	remove_action( 'admin_enqueue_scripts', 'wp_auth_check_load' );
 	wp_iframe('salsapress_form_button_iframe_content');

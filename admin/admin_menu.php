@@ -11,7 +11,7 @@ function salsapress_menu() {
 		'manage_options',
 		'salsa',
 		'salsapress_salsa_setup',
-		base.'images/salsa.png');
+		salspress_base.'images/salsa.png');
 }
 
 // BusPress options
@@ -37,12 +37,12 @@ function salsapress_options_menu_init(){
 	}
 
 
-	wp_enqueue_script( 'SalsaPress', base.'admin/salsapress_admin.js',array( 'jquery' ), '0.5', true );
+	wp_enqueue_script( 'SalsaPress', salspress_base.'admin/salsapress_admin.js',array( 'jquery' ), '0.5', true );
 	wp_localize_script( 'SalsaPress', 'objectL10n', array(
 		'hold_tight_ok' => __('Grabbing a preview, holdtightok?','salsapress'),
 		'success' => __('Success!','salsapress')
 	));
-	wp_enqueue_style( 'SalsaPress', base.'admin/salsapress_admin.css','', '0.5', 'all' );
+	wp_enqueue_style( 'SalsaPress', salspress_base.'admin/salsapress_admin.css','', '0.5', 'all' );
 	localize_scripts();
 }
 
@@ -197,7 +197,7 @@ function salsapress_salsa_setup() {
 	}
 	?>
 	<div class="wrap">
-		<div class="icon32" style="background: transparent url(<?php echo base.'images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
+		<div class="icon32" style="background: transparent url(<?php echo salspress_base.'images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
 		<h2><?php _e('Set Up Your Salsa Connection','salsapress'); ?></h2>
 		<?php _e('Connect WordPress to and and add synchronized reports, events, and sign-up forms.','salsapress'); ?>
 		<form autocomplete='off' action="options.php" method="post">
