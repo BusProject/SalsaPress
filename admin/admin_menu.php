@@ -187,6 +187,7 @@ function salsapress_salsa_setup() {
 	if( isset($options['salsapress_salsa_activate']) && $options['salsapress_salsa_activate'] ) {
 		$obj = SalsaConnect::singleton();
 		if( $obj->on() && empty($options['salsapress_salsa_org_base']) ) {
+			salsapress_reset_cache(); # Reset the cache
 			$connect = $obj->post('gets','object=campaign_manager&include=chapter_KEY&include=organization_KEY&condition=Email='.$options['salsapress_salsa_username'] );
 			$options['salsapress_salsa_chapter_base'] = $connect[0]->chapter_KEY;
 			$options['salsapress_salsa_org_base'] = $connect[0]->organization_KEY;
