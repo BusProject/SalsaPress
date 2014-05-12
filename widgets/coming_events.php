@@ -112,7 +112,7 @@ class salsapress_coming_events extends WP_Widget
 					echo $secure.'/o/'.salsapress_salsa_org_base.$chapter_link.$template.'/p/salsa/event/common/public/';
 				}
 			?>
-			" style="margin-top: -12px; float: right;"><?php _e('Full Calendar','salsapress'); ?></a></h2>
+			" style="margin-top: -8px; float: right; font-size: 50%;"><?php _e('Full Calendar','salsapress'); ?></a></h2>
 			<ul style="margin-top: 10px;" class="event_list" >
 			<?php if( count($stuff) > 0 ) { foreach ($stuff as $thing ) {
 			if( $link_to_cal && $thing->This_Event_Costs_Money == false ) $link = $cal_link.'#'.$thing->key;
