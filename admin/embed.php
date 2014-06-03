@@ -5,14 +5,14 @@
 //Functions for the Buttons
 function salsapress_form_button(){
 	$title = __('Insert Salsa Element','salsapress');
-	$button = '<a href="'.admin_url('admin-ajax.php').'?action=salsapress_form_button_iframe&amp;TB_iframe=true&amp;height=150&amp;respect_dimensions=true" class="thickbox" title="'.$title.'" onclick="return false;"><img src="'.salspress_base.'images/salsa.png'.'" alt="'.$title.'" width="11" height="11" /></a>';
+	$button = '<a href="'.admin_url('admin-ajax.php').'?action=salsapress_form_button_iframe&amp;TB_iframe=true&amp;height=150&amp;respect_dimensions=true" class="thickbox" title="'.$title.'" onclick="return false;"><img src="'.SALSAPRESS_BASE.'images/salsa.png'.'" alt="'.$title.'" width="11" height="11" /></a>';
 	echo $button;
 }
 
 function salsapress_form_button_iframe(){
-	wp_enqueue_script( 'SalsaPress', salspress_base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
-	wp_enqueue_style( 'SalsaPress_Admin', salspress_base.'admin/salsapress_admin.css','', '0.5', 'all' );
-	wp_enqueue_script( 'SalsaPress_Admin', salspress_base.'admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'SalsaPress', SALSAPRESS_BASE.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_style( 'SalsaPress_Admin', SALSAPRESS_BASE.'admin/salsapress_admin.css','', '0.5', 'all' );
+	wp_enqueue_script( 'SalsaPress_Admin', SALSAPRESS_BASE.'admin/salsapress_admin.js',array( 'jquery' ), '1.0', true );
 	localize_scripts();
 	remove_action( 'admin_enqueue_scripts', 'wp_auth_check_load' );
 	wp_iframe('salsapress_form_button_iframe_content');
@@ -30,7 +30,7 @@ function salsapress_salsa_report_render() {
 
 	if( count($user_input) > 0 && empty($_GET['inputs']) ){
 		?><!--0--><h3>Hmm looks like this report takes user inputs, so why doncha put in some inputs?</h3>
-		<p><em>Confused? Scared? <a target="_blank" href="<?php echo salsapress_salsa_base_url; ?>/dia/hq/reports/edit?table=report&key=<?php echo $_GET['key']; ?>'">Check out your report here</a></em></p>
+		<p><em>Confused? Scared? <a target="_blank" href="<?php echo SALSAPRESS_SALSA_BASE_URL; ?>/dia/hq/reports/edit?table=report&key=<?php echo $_GET['key']; ?>'">Check out your report here</a></em></p>
 		<ul>
 		<?php foreach( $user_input as $i ): ?>
 			<?php $label =  strlen($i->user_variable_label) > 0 ? $i->user_variable_label.' ('.str_replace('_',' ',substr($i->field,strpos($i->field,".")+1)).')' : str_replace('_',' ',substr($i->field,strpos($i->field,".")+1)); ?>
@@ -205,7 +205,7 @@ function salsapress_form_button_iframe_content(){
 		<form id="report" class="option">
 			<h3 class="media-title">Embed a Salsa Report</h3>
 			<input type="hidden" name="type" value="report" id="type">
-			<p>Click <a href="<?php echo salsapress_salsa_base_url;?>/dia/hq/reports/list.jsp?table=report" target="_blank">here</a> to see all of your reports.</p>
+			<p><a href="<?php echo SALSAPRESS_SALSA_BASE_URL; ?>/dia/hq/reports/list.jsp?table=report" target="_blank">View your reports.</p>
 			<p>Paste or enter a Report URL or KEY <input name="key" style="width: 420px;"  type="text" class="salsa_key"></p>
 			<input type="hidden" value="" name="columns">
 			<div class="preview">

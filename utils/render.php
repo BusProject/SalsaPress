@@ -1,6 +1,6 @@
 <?php
 
-// What's called when rendering a Salas object, either from a shortcode embed or a widget
+// What's called when rendering a Salsa object, either from a shortcode embed or a widget
 
 class SalsaRender {
 	private $type;

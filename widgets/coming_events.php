@@ -95,28 +95,28 @@ class salsapress_coming_events extends WP_Widget
 		$stuff = $obj->post('gets','object=event&condition=Status=Active&condition=Start>='.date("Y-m-d").$screen."&limit=".$event_number."&include=Event_Name&include=Start&include=End&include=This_Event_Costs_Money&include=Description&orderBy=Start");
 
 		if( empty($obj->chapter_filter ) ) {
-			$chapter_link = salsapress_salsa_chapter_base;
+			$chapter_link = SALSAPRESS_SALSA_CHAPTER_BASE;
 		} else {
 			$chapter_link = $obj->chapter_filter;
 		}
-		$chapter_link = salsapress_salsa_chapter_base == '' ? '' : '/c/'.$chapter_link;
+		$chapter_link = SALSAPRESS_SALSA_CHAPTER_BASE == '' ? '' : '/c/'.$chapter_link;
 
 		?>
 		<div class="salsapress_coming_events">
 			<h2><?php _e('UPCOMING','salsapress'); ?><a href="
 			<?php
-				$secure = str_replace("http://", "https://", salsapress_salsa_base_url);
+				$secure = str_replace("http://", "https://", SALSAPRESS_SALSA_BASE_URL);
 				if( $link_to_cal && $thing->This_Event_Costs_Money == false ) {
 					echo $cal_link;
 				} else {
-					echo $secure.'/o/'.salsapress_salsa_org_base.$chapter_link.$template.'/p/salsa/event/common/public/';
+					echo $secure.'/o/'.SALSAPRESS_SALSA_ORG_BASE.$chapter_link.$template.'/p/salsa/event/common/public/';
 				}
 			?>
 			" style="margin-top: -8px; float: right; font-size: 50%;"><?php _e('Full Calendar','salsapress'); ?></a></h2>
 			<ul style="margin-top: 10px;" class="event_list" >
 			<?php if( count($stuff) > 0 ) { foreach ($stuff as $thing ) {
 			if( $link_to_cal && $thing->This_Event_Costs_Money == false ) $link = $cal_link.'#'.$thing->key;
-			else $link = salsapress_salsa_base_url.'/o/'.salsapress_salsa_org_base.$chapter_link.$template."/p/salsa/event/common/public/?event_KEY=".$thing->key;
+			else $link = SALSAPRESS_SALSA_BASE_URL.'/o/'.SALSAPRESS_SALSA_ORG_BASE.$chapter_link.$template."/p/salsa/event/common/public/?event_KEY=".$thing->key;
 			?>
 				<li class="event" ><strong><?php echo date_smoosh($thing->Start,$thing->End).': <em>'.$thing->Event_Name; ?></em></strong><br>
 				<?php if( strlen($thing->Description) > 16 ) echo better_excerpt($thing->Description,200)."<br>";?>

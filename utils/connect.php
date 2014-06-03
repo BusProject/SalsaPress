@@ -3,10 +3,10 @@
 
 
 class SalsaConnect {
-	public $user = salsapress_salsa_username;
-	protected $pass = salsapress_salsa_pass;
-	public $url = salsapress_salsa_base_url;
-	public $chapter = salsapress_salsa_chapter_filter;
+	public $user = SALSAPRESS_SALSA_USERNAME;
+	protected $pass = SALSAPRESS_SALSA_PASS;
+	public $url = SALSAPRESS_SALSA_BASE_URL;
+	public $chapter = SALSAPRESS_SALSA_CHAPTER_FILTER;
 	public $cache = false;
 	public $result;
 
@@ -31,8 +31,8 @@ class SalsaConnect {
 	private static $instance = NULL;
 
 	private function __construct($cache = false) {
-		if( !salsapress_active ) return false;
-		$crypt = new SalsaCrypt( salsapress_salsa_pass  );
+		if( !SALSAPRESS_ACTIVE ) return false;
+		$crypt = new SalsaCrypt( SALSAPRESS_SALSA_PASS  );
 		$this->pass = $crypt->pass;
 		$this->url = "https://".preg_replace(array('/http:\/\//','/https:\/\//'),array('',''),$this->url);;
 		$this->ch = curl_init();
@@ -57,7 +57,7 @@ class SalsaConnect {
 			self::$instance = new $className($cache);
 		}
 
-		self::$instance->cache = $cache && function_exists('get_transient') && salsapress_cache;
+		self::$instance->cache = $cache && function_exists('get_transient') && SALSAPRESS_CACHE;
 
 		return self::$instance;
 	}

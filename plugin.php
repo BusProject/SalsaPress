@@ -10,10 +10,10 @@ Author URI: http://scottduncombe.com/
 
 // Setting a base path. Easy change if the code is going to be incorporated into a theme, use get_bloginfo('theme_directory') instead
 if( isset($salsapress_base) ) {
-    define('salspress_base', $salsapress_base);
+    define('SALSAPRESS_BASE', $salsapress_base);
 } else {
-    $salspress_base = WP_PLUGIN_URL . '/' . str_replace(basename( __FILE__), "" ,plugin_basename(__FILE__));
-    define('salspress_base', $salspress_base);
+    $salsapress_base = WP_PLUGIN_URL . '/' . str_replace(basename( __FILE__), "" ,plugin_basename(__FILE__));
+    define('SALSAPRESS_BASE', $salsapress_base);
 }
 
 // Setting up the Admin Page and SalsaPress options
@@ -37,32 +37,32 @@ require_once('widgets/petition.php');
 
 // Setting the defaults when activating the plugin
 register_activation_hook(__FILE__, 'salsapress_defaults');
-add_action('wp_enqueue_scripts', 'enque_salsapress');
+add_action('wp_enqueue_scripts', 'enqueue_salsapress');
 add_action('admin_init', 'salsapress_options_init' );
 
 
 function salsapress_options_init(){
 	add_action('media_buttons', 'salsapress_form_button', 20);
-    add_action('wp_ajax_salsapress_salsa_report_render', 'salsapress_salsa_report_render');
+  add_action('wp_ajax_salsapress_salsa_report_render', 'salsapress_salsa_report_render');
 	add_action('wp_ajax_salsapress_form_button_iframe', 'salsapress_form_button_iframe');
 	add_action('wp_ajax_salsapress_reset_caches', 'salsapress_reset_caches');
 }
 
-function enque_salsapress() {
+function enqueue_salsapress() {
 	//Enqueing external scripts and styles
-	wp_enqueue_script( 'SalsaPress', salspress_base.'utils/SalsaPress.js',array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'SalsaPress', SALSAPRESS_BASE . 'utils/SalsaPress.js' ,array( 'jquery' ), '1.0', true );
 
 	wp_localize_script( 'SalsaPress', 'objectL10n', array(
 		'seem_to_be_missing' => __( 'Seem to be missing', 'salsapress' ),
 		'click_to_try_again' => __( 'Click to try again', 'salsapress' ),
 		'saving_wait_one_sec' => __('Saving... wait one sec','salsapress'),
-		'click_to_go_again' => __('Click to Go Again','salsapress'),
+		'click_to_go_again' => __('Click to go again','salsapress'),
 		'please_enter_valid_email_address' => __('Please enter a valid email address.','salsapress'),
 		'try_again' => __('Try again, had a missfire there...','salsapress'),
 		'success' => __('Success!','salsapress'),
 	));
 
-	wp_enqueue_style( 'SalsaPress', salspress_base.'utils/SalsaPress.css','', '0.5', 'all' );
+	wp_enqueue_style( 'SalsaPress', SALSAPRESS_BASE . 'utils/SalsaPress.css', '', '0.5', 'all' );
 	localize_scripts();
 }
 
@@ -70,7 +70,7 @@ function localize_scripts() {
 	wp_localize_script( 'SalsaPress', 'SalsaPressVars', array(
 		'ajaxurl'          => admin_url( 'admin-ajax.php' ),
 		'SalsaAjax' => wp_create_nonce( 'myajax-post-comment-nonce' ),
-		'stylesheet_directory' => salspress_base
+		'stylesheet_directory' => SALSAPRESS_BASE
 		)
 	);
 }
@@ -94,6 +94,3 @@ add_action('plugins_loaded', 'load_localization');
     along with this program; if not, write to the Free Software
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
-
-
-?>
