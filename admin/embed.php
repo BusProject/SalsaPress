@@ -5,7 +5,7 @@
 //Functions for the Buttons
 function salsapress_form_button(){
 	$title = __('Insert Salsa Element','salsapress');
-	$button = '<a href="'.admin_url('admin-ajax.php').'?action=salsapress_form_button_iframe&amp;TB_iframe=true&amp;height=150&amp;respect_dimensions=true" class="thickbox" title="'.$title.'" onclick="return false;"><img src="'.SALSAPRESS_BASE.'images/salsa.png'.'" alt="'.$title.'" width="11" height="11" /></a>';
+	$button = '<a href="'.admin_url('admin-ajax.php').'?action=salsapress_form_button_iframe&amp;TB_iframe=true&amp;height=150&amp;respect_dimensions=true" class="button thickbox add-salsapress" title="'.$title.'" onclick="return false;"><img src="'.SALSAPRESS_BASE.'images/salsa.png'.'" alt="'.$title.'" width="18" height="18" /> Add Salsa</a>';
 	echo $button;
 }
 

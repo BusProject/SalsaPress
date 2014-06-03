@@ -7,11 +7,11 @@ add_action('admin_menu','salsapress_options_menu_init');
 function salsapress_menu() {
 	add_menu_page(
 		'SalsaPress',
-		'Connect to Salsa',
+		'SalsaPress',
 		'manage_options',
 		'salsa',
 		'salsapress_salsa_setup',
-		SALSAPRESS_BASE . 'images/salsa.png');
+		SALSAPRESS_BASE . 'images/salsa-mono.png');
 }
 
 // BusPress options
