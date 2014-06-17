@@ -7,11 +7,11 @@ add_action('admin_menu','salsapress_options_menu_init');
 function salsapress_menu() {
 	add_menu_page(
 		'SalsaPress',
-		'Connect to Salsa',
+		'SalsaPress',
 		'manage_options',
 		'salsa',
 		'salsapress_salsa_setup',
-		salspress_base.'images/salsa.png');
+		SALSAPRESS_BASE . 'images/salsa-mono.png');
 }
 
 // BusPress options
@@ -37,12 +37,12 @@ function salsapress_options_menu_init(){
 	}
 
 
-	wp_enqueue_script( 'SalsaPress', salspress_base.'admin/salsapress_admin.js',array( 'jquery' ), '0.5', true );
+	wp_enqueue_script( 'SalsaPress', SALSAPRESS_BASE . 'admin/salsapress_admin.js', array( 'jquery' ), '0.5', true );
 	wp_localize_script( 'SalsaPress', 'objectL10n', array(
 		'hold_tight_ok' => __('Grabbing a preview, holdtightok?','salsapress'),
 		'success' => __('Success!','salsapress')
 	));
-	wp_enqueue_style( 'SalsaPress', salspress_base.'admin/salsapress_admin.css','', '0.5', 'all' );
+	wp_enqueue_style( 'SalsaPress', SALSAPRESS_BASE . 'admin/salsapress_admin.css', '', '0.5', 'all' );
 	localize_scripts();
 }
 
@@ -64,23 +64,23 @@ function salsapress_defaults() {
 // Setting up some constants from the BusPress options
 $salsapress = get_option('salsapress_options');
 $active = isset($salsapress['salsapress_salsa_activate']) && $salsapress['salsapress_salsa_activate'];
-define('salsapress_active', $active);
+define('SALSAPRESS_ACTIVE', $active);
 
 if( $active ) {
-	define( 'salsapress_salsa_username', $salsapress['salsapress_salsa_username'] );
-	define( 'salsapress_salsa_pass', $salsapress['salsapress_salsa_pass']  );
+	define( 'SALSAPRESS_SALSA_USERNAME', $salsapress['salsapress_salsa_username'] );
+	define( 'SALSAPRESS_SALSA_PASS', $salsapress['salsapress_salsa_pass']  );
 
 	if( strpos($salsapress['salsapress_salsa_base_url'], "http") === false ) $salsapress['salsapress_salsa_base_url'] = 'http://'.$salsapress['salsapress_salsa_base_url'];
-	define( 'salsapress_salsa_base_url', $salsapress['salsapress_salsa_base_url']);
+	define( 'SALSAPRESS_SALSA_BASE_URL', $salsapress['salsapress_salsa_base_url']);
 
 	$chapter_filter = isset( $salsapress['salsapress_salsa_chapter_filter']) ? $salsapress['salsapress_salsa_chapter_filter'] : '';
-	define('salsapress_salsa_chapter_filter', $chapter_filter);
+	define('SALSAPRESS_SALSA_CHAPTER_FILTER', $chapter_filter);
 	$chapter_base = isset( $salsapress['salsapress_salsa_chapter_base']) ? $salsapress['salsapress_salsa_chapter_base'] : '';
-	define('salsapress_salsa_chapter_base', $chapter_base);
+	define('SALSAPRESS_SALSA_CHAPTER_BASE', $chapter_base);
 	$org_base = isset( $salsapress['salsapress_salsa_org_base']) ? $salsapress['salsapress_salsa_org_base'] : '';
-	define('salsapress_salsa_org_base', $org_base);
+	define('SALSAPRESS_SALSA_ORG_BASE', $org_base);
 	$cache = isset( $salsapress['salsapress_stop_cache']) ? false : true;
-	define('salsapress_cache', $cache);
+	define('SALSAPRESS_CACHE', $cache);
 }
 
 
@@ -117,7 +117,7 @@ function salsapress_salsa_username() {
 function salsapress_salsa_pass() {
 	$options = get_option('salsapress_options');
 	$readonly = !isset($options['salsapress_salsa_activate']) ? ' readonly="true" ' : '';
-	$pass = !isset($options['salsapress_salsa_activate']) ?  '' : salsapress_salsa_pass;
+	$pass = !isset($options['salsapress_salsa_activate']) ?  '' : SALSAPRESS_SALSA_PASS;
 	$crypt = new SalsaCrypt(  $pass );
 	$pass = $crypt->pass;
 	echo "<input ".$readonly." id='salsapress_salsa_pass' name='salsapress_options[salsapress_salsa_pass]' size='40' type='password' value='{$pass}' />";
@@ -191,14 +191,14 @@ function salsapress_salsa_setup() {
 			$connect = $obj->post('gets','object=campaign_manager&include=chapter_KEY&include=organization_KEY&condition=Email='.$options['salsapress_salsa_username'] );
 			$options['salsapress_salsa_chapter_base'] = $connect[0]->chapter_KEY;
 			$options['salsapress_salsa_org_base'] = $connect[0]->organization_KEY;
-			$crypt = new SalsaCrypt( salsapress_salsa_pass  );
+			$crypt = new SalsaCrypt( SALSAPRESS_SALSA_PASS  );
 			$options['salsapress_salsa_pass'] = $crypt->pass;
 			update_option('salsapress_options',$options);
 		}
 	}
 	?>
 	<div class="wrap">
-		<div class="icon32" style="background: transparent url(<?php echo salspress_base.'images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
+		<div class="icon32" style="background: transparent url(<?php echo SALSAPRESS_BASE . 'images/salsa-big.png'; ?>) no-repeat 0px 0px; height: 38px; " id="icon-options-general"><br></div>
 		<h2><?php _e('Set Up Your Salsa Connection','salsapress'); ?></h2>
 		<?php _e('Connect WordPress to and and add synchronized reports, events, and sign-up forms.','salsapress'); ?>
 		<form autocomplete='off' action="options.php" method="post">

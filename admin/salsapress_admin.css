@@ -7,13 +7,13 @@ div#submit {
 	clear: both;
 }
 
-div.embeddable { 
-	width: 620px; 
+div.embeddable {
+	width: 620px;
 	padding: 0px 16px 10px;
 }
 
-div.widgetized { 
-	width: 248px; 
+div.widgetized {
+	width: 248px;
 	padding: 0px 4px 10px;
 }
 
@@ -46,9 +46,9 @@ span.oops {
 .preview ul { margin-top: 30px; }
 .preview ul li {margin: 10px;}
 
-.preview label { 
-	margin: 0px 8px; 
-	font-weight: bold; 
+.preview label {
+	margin: 0px 8px;
+	font-weight: bold;
 }
 
 span.hide {
@@ -95,4 +95,8 @@ h3.button:hover {
 }
 .widget-inside select.salsa_key {
 	width: 220px;
+}
+.wp-media-buttons .add-salsapress img {
+	padding-left: 0;
+	vertical-align: text-top;
 }
