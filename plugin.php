@@ -62,7 +62,6 @@ function enqueue_salsapress() {
 		'success' => __('Success!','salsapress'),
 	));
 
-	wp_enqueue_style( 'SalsaPress', SALSAPRESS_BASE . 'utils/SalsaPress.css', '', '0.5', 'all' );
 	localize_scripts();
 }
 
