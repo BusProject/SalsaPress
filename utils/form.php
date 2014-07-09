@@ -364,9 +364,7 @@ class SalsaForm {
 			if( isset($this->options['after-save']) ) $form_return .= '<div class="after_save" style="display: none;">'.rawurldecode($this->options['after-save']).'</div>';
 			$form_return .= $below;
 		} else {
-			$url = 'https://'.SALSAPRESS_SALSA_BASE_URL.'/o/'.$this->form->organization_KEY;
-			$url .= isset($this->form->chapter_KEY) && strlen($this->form->chapter_KEY) > 1 ? '/c/'.$this->form->chapter_KEY : '';
-			$form_return .= '<button onclick="location.href = \''.$url.'/p/salsa/event/common/public/?event_KEY='.$this->form->key.'#register\';" >Click here to sign up</button>';
+			$form_return .= '<button onclick="location.href = \''.$fallback_url.'#register\';" >Click here to sign up</button>';
 		}
 		$form_return .= isset($end) ? $end : '';
 		return $form_return;
