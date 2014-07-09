@@ -23,7 +23,7 @@ function salsapress_options_menu_init(){
 	add_settings_field('salsapress_salsa_base_url', __('Salsa Base URL (salsa.democracyinaction.org, org2.democracyinaction.org, salsa.wiredforchange.com, etc)','salsapress'), 'salsapress_salsa_base_url', __FILE__, 'salsapress_salsa_credentials');\
 	add_settings_section('salsapress_salsa_credentials', __('Salsa Credentials','salsapress'), 'salsapress_salsa_credentials', __FILE__);
 
-	if( salsapress_active ) {
+	if( SALSAPRESS_ACTIVE ) {
 		add_settings_field('salsapress_salsa_status', __('Salsa Status','salsapress'), 'salsapress_salsa_status', __FILE__, 'salsapress_salsa_credentials');
 
 		add_settings_field('salsapress_salsa_chapter_filter', __('Chapter Filter (Only show data from a single chapter)','salsapress'), 'salsapress_salsa_chapter_filter', __FILE__, 'salsapress_salsa_filters');

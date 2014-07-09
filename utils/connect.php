@@ -42,7 +42,7 @@ class SalsaConnect {
 		curl_setopt($this->ch, CURLOPT_COOKIEFILE, '/tmp/cookies_file');
 		curl_setopt($this->ch, CURLOPT_COOKIEJAR, '/tmp/cookies_file');
 
-		if( $cache && function_exists('get_transient') && salsapress_cache ) {
+		if( $cache && function_exists('get_transient') && SALSAPRESS_CACHE ) {
 			$this->cache = true;
 		} else {
 			$auth = $this->post('auth', "email=".$this->user."&password=".$this->pass);
