@@ -282,8 +282,10 @@ var count = 0;
 							self.notice(objectL10n.success,'success');
 
 							if( typeof self.attr('redirect_path') != 'undefined' && self.attr('redirect_path').length > 0 ) document.location = self.attr('redirect_path');
+							
+							var after_save_html = self.nextAll('.after_save:first').html() || ''
 
-							if( self.nextAll('.after_save:first').html().length > 0 ) {
+							if( after_save_html.length > 0 ) {
 								self.nextAll('.after_save').show();
 								self.remove();
 							} else {

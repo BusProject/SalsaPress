@@ -28,7 +28,7 @@ Full features include:
 
 Funding for the development of this plugin is provided by [Kampaweb](http://www.kampaweb.ch/) and [Bus Federation](http://busfederation.com)
 
-Older Salsa accounts should just work - newer account may need salsa to activate their API credentials or something. They should do this for free if you contact [support@salsalabs.com](mailto:support@salsalabs.com) and request it.
+All Salsa accounts can use Salsa's API -- no activation is required. First-time users may want to go to [this page](https://salsasupport.zendesk.com/entries/23514381-Definitions-for-common-terms) in Salsa's documentation to learn how to retrieve the API hostname that Salsa Press needs. If you have questions about this document, or Salsa in general, please do contact [Salsa Support](mailto:support@salsalabs.com).
 
 
 == Installation ==

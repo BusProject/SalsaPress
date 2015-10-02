@@ -102,17 +102,24 @@ jQuery(document).ready( function($) {
 		event.preventDefault();
 	});
 	$('#insert').click(function(event){
-		if( $('input[type=submit]:visible').length > 0 ) {
-			if( $('.picked textarea[name=after-save]').length > 0 ) $('.picked textarea[name=after-save]').hide().val(escape($('.picked textarea[name=after-save]').val().replace(/\n/g,'<br>')));
-			var shortcode = '';
-			shortcode += '<img class="salsa mceItem" style="border: 1px dashed #888;" title="salsa data=\' ';
-			var serial = JSON.stringify($('.picked').serializeArray());
-			shortcode += serial.substring(1,serial.length-1).replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");;
-			shortcode += ' \' " src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" alt="" data-mce-src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" data-mce-style="border: 1px dashed #888;">';
-			wind.send_to_editor(shortcode);
-		}
-		event.stopPropagation();
-		return false;
+	    if( $('input[type=submit]:visible').length > 0 ) {
+	        var is_tinymce_active = (typeof window.parent.tinyMCE != "undefined") && window.parent.tinyMCE.activeEditor && ! w
+	        if( $('.picked textarea[name=after-save]').length > 0 ) $('.picked textarea[name=after-save]').hide().val(escape($
+	        var serial = JSON.stringify($('.picked').serializeArray())
+	        serial = serial.substring(1, serial.length-1);
+	        if( is_tinymce_active) {
+	            var shortcode = '<img class="salsa mceItem" style="border: 1px dashed #888;" title="';
+	            shortcode += "salsa data='"
+	            shortcode += serial.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;")
+	            shortcode += "'"
+	            shortcode += '" src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" alt="" data-mce-src="'+Sals
+	        } else {
+	            var shortcode  = ["[salsa data=", serial, "]"].join("'")
+	        }
+	        wind.send_to_editor(shortcode);
+	    }
+	    event.stopPropagation();
+	    return false;
 	});
 	$('#cancel').click(function(event){
 		w.tb_remove();
