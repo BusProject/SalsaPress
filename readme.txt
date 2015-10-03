@@ -69,6 +69,10 @@ When you contact Salsa support you should mention that it's pretty messed up tha
 
 == Changelog ==
 
+= 3.2 =
+ * [Fixing after save bug](https://github.com/BusProject/SalsaPress/commit/ef575a027f99a014f4a1f4197852a520488565de)
+ * [Fixing inserting plugin in text mode bug](https://github.com/BusProject/SalsaPress/commit/2f05b8780822ce60ddfb16f9b5c1c9968e40496f)
+
 = 3.1 =
  * Fixing mystery checkbox bug
  * Fixing TinyMCE problem
