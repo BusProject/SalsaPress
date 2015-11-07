@@ -69,6 +69,9 @@ When you contact Salsa support you should mention that it's pretty messed up tha
 
 == Changelog ==
 
+= 3.3 =
+ * [Fixing JS Errors](https://github.com/BusProject/SalsaPress/commit/001225d474e48772a26a2c634033123c98444f49)
+
 = 3.2 =
  * [Fixing after save bug](https://github.com/BusProject/SalsaPress/commit/ef575a027f99a014f4a1f4197852a520488565de)
  * [Fixing inserting plugin in text mode bug](https://github.com/BusProject/SalsaPress/commit/2f05b8780822ce60ddfb16f9b5c1c9968e40496f)
