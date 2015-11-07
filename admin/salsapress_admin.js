@@ -103,8 +103,8 @@ jQuery(document).ready( function($) {
 	});
 	$('#insert').click(function(event){
 	    if( $('input[type=submit]:visible').length > 0 ) {
-	        var is_tinymce_active = (typeof window.parent.tinyMCE != "undefined") && window.parent.tinyMCE.activeEditor && ! w
-	        if( $('.picked textarea[name=after-save]').length > 0 ) $('.picked textarea[name=after-save]').hide().val(escape($
+	        var is_tinymce_active = (typeof window.parent.tinyMCE != "undefined") && window.parent.tinyMCE.activeEditor
+			if( $('.picked textarea[name=after-save]').length > 0 ) $('.picked textarea[name=after-save]').hide().val(escape($('.picked textarea[name=after-save]').val().replace(/\n/g,'<br>')))
 	        var serial = JSON.stringify($('.picked').serializeArray())
 	        serial = serial.substring(1, serial.length-1);
 	        if( is_tinymce_active) {
