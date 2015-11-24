@@ -205,7 +205,7 @@ function salsapress_form_button_iframe_content(){
 		<form id="report" class="option">
 			<h3 class="media-title">Embed a Salsa Report</h3>
 			<input type="hidden" name="type" value="report" id="type">
-			<p><a href="<?php echo SALSAPRESS_SALSA_BASE_URL; ?>/dia/hq/reports/list.jsp?table=report" target="_blank">View your reports.</p>
+			<p><a href="<?php echo SALSAPRESS_SALSA_BASE_URL; ?>/dia/hq/reports/list.jsp?table=report" target="_blank">View your reports</a>.</p>
 			<p>Paste or enter a Report URL or KEY <input name="key" style="width: 420px;"  type="text" class="salsa_key"></p>
 			<input type="hidden" value="" name="columns">
 			<div class="preview">
