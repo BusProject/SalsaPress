@@ -112,7 +112,7 @@ jQuery(document).ready( function($) {
 	            shortcode += "salsa data='"
 	            shortcode += serial.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;")
 	            shortcode += "'"
-	            shortcode += '" src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" alt="" data-mce-src="'+Sals
+							shortcode += ' \' " src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" alt="" data-mce-src="'+SalsaPressVars.stylesheet_directory+'images/salsaembed.png" data-mce-style="border: 1px dashed #888;">';
 	        } else {
 	            var shortcode  = ["[salsa data=", serial, "]"].join("'")
 	        }
