@@ -183,7 +183,9 @@ class SalsaForm {
 							$form_return .= "</label>";
 						}
 					} else {
-						$form_return .= '<label for="'.$thing.'">'.$diff_labels[$thing]."</label>";
+						$form_return .= '<label for="'.$thing.'">'.$diff_labels[$thing];
+						if( in_array($thing,$required) ) $form_return .= ' <span class="required">*</span> ';
+						$form_return .= "</label>";
 					}
 					if( !isset($diff_fields[$thing]) ) {
 						if( $thing[0] == strtolower($thing[0]) ) { // Detects if is a custom field
