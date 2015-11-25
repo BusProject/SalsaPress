@@ -69,6 +69,11 @@ When you contact Salsa support you should mention that it's pretty messed up tha
 
 == Changelog ==
 
+= 3.4 =
+ * [Fixes zip as required field](https://github.com/BusProject/SalsaPress/issues/46)
+ * [JS Bug I introduced](https://github.com/BusProject/SalsaPress/commit/132be03bbaa15ab11d0eb676f336f208345deda6)
+ * [Unclosed tag](https://github.com/BusProject/SalsaPress/commit/c247516aa34b29ebbc3adb01631d2058fd80b030)
+
 = 3.3 =
  * [Fixing JS Errors](https://github.com/BusProject/SalsaPress/commit/001225d474e48772a26a2c634033123c98444f49)
 
