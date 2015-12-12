@@ -1,15 +1,24 @@
 <?php
 
-add_action('widgets_init', create_function('', 'return register_widget("salsapress_coming_events");'));
+add_action( 'widgets_init', function () {
+	register_widget( 'Salsapress_Coming_Events' );
+} );
 
-// Jolokia Salsa Event Widget
-class salsapress_coming_events extends WP_Widget
-{
-  function salsapress_coming_events()
-  {
-    $widget_ops = array('description' => __('Coming events, pulled out of Salsa.'));
-    $this->WP_Widget('salsapress_coming_events_widget', __('Salsa Events'), $widget_ops);
-  }
+/**
+ * Jolokia Salsa Coming Events Widget
+ */
+class Salsapress_Coming_Events extends WP_Widget {
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		parent::__construct(
+			'salsapress_coming_events_widget',
+			__( 'Salsa Events', 'salsapress' ),
+			array( 'description' => __( 'Coming events, pulled out of Salsa.', 'salsapress' ) )
+		);
+	}
 
   function form($instance)
   {

@@ -1,15 +1,24 @@
 <?php
 
-add_action('widgets_init', create_function('', 'return register_widget("salsa_petition_widget");'));
+add_action( 'widgets_init', function () {
+	register_widget( 'Salsapress_Petition_Widget' );
+} );
 
-// Jolokia Salsa Event Widget
-class salsa_petition_widget extends WP_Widget
-{
-  function salsa_petition_widget()
-  {
-    $widget_ops = array('description' => __('Add a petition from Salsa','salsapress'));
-    $this->WP_Widget('salsapress_salsa_petition_widget', __('Salsa Petition','salsapress'), $widget_ops);
-  }
+/**
+ * Jolokia Salsa Petition Widget
+ */
+class Salsapress_Petition_Widget extends WP_Widget {
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		parent::__construct(
+			'salsapress_salsa_petition_widget',
+			__( 'Salsa Petition', 'salsapress' ),
+			array( 'description' => __( 'Add a petition from Salsa', 'salsapress' ) )
+		);
+	}
 
   function form($instance)
   {

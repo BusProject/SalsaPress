@@ -1,15 +1,24 @@
 <?php
 
-add_action('widgets_init', create_function('', 'return register_widget("salsa_signup_widget");'));
+add_action( 'widgets_init', function () {
+	register_widget( 'Salsa_Signup_Widget' );
+} );
 
-// Jolokia Salsa Event Widget
-class salsa_signup_widget extends WP_Widget
-{
-  function salsa_signup_widget()
-  {
-    $widget_ops = array('description' => __('Add a sign up form from Salsa','salsapress'));
-    $this->WP_Widget('salsapress_signup_form_widget', __('Salsa Sign Up Form','salsapress'), $widget_ops);
-  }
+/**
+ * Jolokia Salsa Signup Widget
+ */
+class Salsa_Signup_Widget extends WP_Widget {
+
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
+		parent::__construct(
+			'salsa_signup_form_widget',
+			__( 'Salsa Sign Up Form', 'salsapress' ),
+			array( 'description' => __( 'Add a sign up form from Salsa', 'salsapress' ) )
+		);
+	}
 
   function form($instance)
   {
