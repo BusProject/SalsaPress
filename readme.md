@@ -30,6 +30,7 @@ Acknowledgements
 * Also utilizes [jQuery](http://jquery.com/)
 * Developed by the nonpartisan nonprofits the [Bus Federation](http://busfederation.com) & [Bus Project](http://busproject.org).
 * Further development funded by [Kampaweb](http://www.kampaweb.ch/).
+* With development by [iCasper](http://caspar.green), [Lukas Zurschmiede](https://github.com/LukyLuke), [Dave Hall](https://d-g-h.co/), and [Ben Byrne](http://cornershopcreative.com/).
 
 Problems?
 ------------

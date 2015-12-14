@@ -3,7 +3,7 @@ Contributors: mojowen
 Donate link: http://busproject.org/donate
 Tags: salsa, democracy in action, wired for change, events, signup
 Requires at least: 3.0
-Tested up to: 3.9
+Tested up to: 4.3
 Stable tag: trunk
 
 Connects WordPress to Salsa for embedding events, sign up forms, and reports.
@@ -26,7 +26,9 @@ Full features include:
 * Translatable - including strings from Salsa like field names
 
 
-Funding for the development of this plugin is provided by [Kampaweb](http://www.kampaweb.ch/) and [Bus Federation](http://busfederation.com)
+Funding for the development of this plugin is provided by [Kampaweb](http://www.kampaweb.ch/) and [Bus Federation](http://busfederation.com).
+
+With open source development by Lukas Zurschmiede](https://github.com/LukyLuke), [Dave Hall](https://d-g-h.co/), [Ben Byrne](http://cornershopcreative.com/), and [iCasper](http://caspar.green).
 
 All Salsa accounts can use Salsa's API -- no activation is required. First-time users may want to go to [this page](https://salsasupport.zendesk.com/entries/23514381-Definitions-for-common-terms) in Salsa's documentation to learn how to retrieve the API hostname that Salsa Press needs. If you have questions about this document, or Salsa in general, please do contact [Salsa Support](mailto:support@salsalabs.com).
 
@@ -68,6 +70,9 @@ When you contact Salsa support you should mention that it's pretty messed up tha
 5. Embedded Salsa in the WordPress Editor
 
 == Changelog ==
+
+= 3.5 =
+ * Replace deprecated widget constructors, work done by [iCasper](https://github.com/BusProject/SalsaPress/pull/50).
 
 = 3.4 =
  * [Fixes zip as required field](https://github.com/BusProject/SalsaPress/issues/46)
