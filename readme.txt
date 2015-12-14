@@ -28,7 +28,7 @@ Full features include:
 
 Funding for the development of this plugin is provided by [Kampaweb](http://www.kampaweb.ch/) and [Bus Federation](http://busfederation.com).
 
-With open source development by Lukas Zurschmiede](https://github.com/LukyLuke), [Dave Hall](https://d-g-h.co/), [Ben Byrne](http://cornershopcreative.com/), and [iCasper](http://caspar.green).
+With open source development by [Lukas Zurschmiede](https://github.com/LukyLuke), [Dave Hall](https://d-g-h.co/), [Ben Byrne](http://cornershopcreative.com/), and [iCasper](http://caspar.green).
 
 All Salsa accounts can use Salsa's API -- no activation is required. First-time users may want to go to [this page](https://salsasupport.zendesk.com/entries/23514381-Definitions-for-common-terms) in Salsa's documentation to learn how to retrieve the API hostname that Salsa Press needs. If you have questions about this document, or Salsa in general, please do contact [Salsa Support](mailto:support@salsalabs.com).
 
