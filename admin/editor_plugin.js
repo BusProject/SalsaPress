@@ -1,6 +1,6 @@
 (function() {
+	if( typeof SalsaPressVars === 'undefined' ) return
 	tinymce.create('tinymce.plugins.salsa', {
-
 		init : function(ed, url) {
 			var t = this;
 
