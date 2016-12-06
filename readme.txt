@@ -71,6 +71,10 @@ When you contact Salsa support you should mention that it's pretty messed up tha
 
 == Changelog ==
 
+= 3.6 =
+ * [Fix the SalsaPressVars bug](https://github.com/BusProject/SalsaPress/issues/58) thanks [Evan](https://github.com/aaemnnosttv)
+ * Fix Oregon
+
 = 3.5 =
  * Replace deprecated widget constructors, work done by [iCasper](https://github.com/BusProject/SalsaPress/pull/50).
 
